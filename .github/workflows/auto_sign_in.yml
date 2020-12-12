@@ -31,4 +31,6 @@ jobs:
             python-version: '3.8' # Version range or exact version of a Python version to use, using SemVer's version range syntax
             
       - name: run script
-        run: python internet-mimikko.py
+        run:|
+            pip install request
+            python internet-mimikko.py
