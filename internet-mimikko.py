@@ -14,6 +14,7 @@ apiPath = 'http://api1.mimikko.cn/client/user/GetUserSignedInformation'
 # apiPath1 = 'http://api1.mimikko.cn/client/user/LoginWithPayload'
 apiPath2 = 'http://api1.mimikko.cn/client/dailysignin/log/30/0'
 post_data = {"password": "d8a598c998d82c1943cd719dff2627a6ce728ce1a8c5b15746f066b07ce00ac9", "id": "320336328@qq.com"}
+sign_path='https://api1.mimikko.cn/client/RewardRuleInfo/SignAndSignInformationV3'
 
 # class Setu:
 #     def __init__(self, user_id):
@@ -21,10 +22,7 @@ post_data = {"password": "d8a598c998d82c1943cd719dff2627a6ce728ce1a8c5b15746f066
 
 
 def GetUserSignedInformation(url, app_id):
-    proxy={'http':"127.0.0.1:8888",
-           'https':"127.0.0.1:8888",
-           }
-    params_get = {
+    headers_get = {
         'Cache-Control': 'Cache-Control:public,no-cache',
         'Accept-Encoding': 'gzip',
         'User-Agent': 'Mozilla/5.0(Linux;Android6.0.1;MuMu Build/V417IR;wv)AppleWebKit/537.36(KHTML,'
@@ -35,7 +33,7 @@ def GetUserSignedInformation(url, app_id):
         'Connection': 'Keep-Alive',
         'Host': 'api1.mimikko.cn'
     }
-    params_post = {
+    headers_post = {
         'Accept': 'application/json',
         'Cache-Control': 'no-cache',
         'AppID': 'wjB7LOP2sYkaMGLC',
@@ -48,7 +46,7 @@ def GetUserSignedInformation(url, app_id):
     }
 
     try:
-        with requests.get(url, headers=params_get, verify=False,timeout=300) as resp:
+        with requests.get(url, headers=headers_get, verify=False,timeout=300) as resp:
             res = resp.json()
             return res
 
@@ -56,6 +54,8 @@ def GetUserSignedInformation(url, app_id):
         print(ex)
 
 
+sign_data=GetUserSignedInformation(sign_path, app_id)
+print(sign_data)
 login_data=GetUserSignedInformation(apiPath, app_id)
 print(login_data)
 login_history=GetUserSignedInformation(apiPath2, app_id)
