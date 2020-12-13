@@ -61,11 +61,16 @@ def apiRequest(url, app_id,params):
 # code=miruku2,ServantName=米露可
 
 
-sign_data=apiRequest(sign_path, app_id,"")
-print("sign_data",sign_data)
-energy_data=apiRequest(energy_path, app_id,{"code":"ruri"})
-print("energy_data",energy_data)
-sign_info=apiRequest(apiPath, app_id,"")
-print("sign_info",sign_info)
-sign_history=apiRequest(apiPath2, app_id,"")
-print("sign_history",sign_history)
+def mimikko():
+    sign_data = apiRequest(sign_path, app_id, "")
+    print("sign_data", sign_data)
+    energy_data = apiRequest(energy_path, app_id, {"code": "ruri"})
+    print("energy_data", energy_data)
+    sign_info = apiRequest(apiPath, app_id, "")
+    print("sign_info", sign_info)
+    sign_history = apiRequest(apiPath2, app_id, "")
+    print("sign_history", sign_history)
+    return sign_data,energy_data,sign_info,sign_history
+
+
+mimikko()
