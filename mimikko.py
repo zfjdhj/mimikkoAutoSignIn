@@ -15,13 +15,15 @@ apiPath = 'http://api1.mimikko.cn/client/user/GetUserSignedInformation'
 apiPath2 = 'http://api1.mimikko.cn/client/dailysignin/log/30/0'
 post_data = {"password": "d8a598c998d82c1943cd719dff2627a6ce728ce1a8c5b15746f066b07ce00ac9", "id": "320336328@qq.com"}
 sign_path='https://api1.mimikko.cn/client/RewardRuleInfo/SignAndSignInformationV3'
+energy_path='https://api1.mimikko.cn/client/love/GetUserServantInstance'
 
 # class Setu:
 #     def __init__(self, user_id):
 #         self.user_id = user_id
 
 
-def GetUserSignedInformation(url, app_id):
+def apiRequest(url, app_id,params):
+    params_get=params
     headers_get = {
         'Cache-Control': 'Cache-Control:public,no-cache',
         'Accept-Encoding': 'gzip',
@@ -46,17 +48,24 @@ def GetUserSignedInformation(url, app_id):
     }
 
     try:
-        with requests.get(url, headers=headers_get, verify=False,timeout=300) as resp:
+        with requests.get(url, headers=headers_get,params=params_get,verify=False,timeout=300) as resp:
             res = resp.json()
             return res
 
     except Exception as ex:
         print(ex)
 
+# code=momona,ServantName=梦梦奈
+# code=ruri,ServantName=琉璃
+# code=nemuri,ServantName=奈姆利
+# code=miruku2,ServantName=米露可
 
-sign_data=GetUserSignedInformation(sign_path, app_id)
-print(sign_data)
-login_data=GetUserSignedInformation(apiPath, app_id)
-print(login_data)
-login_history=GetUserSignedInformation(apiPath2, app_id)
-print(login_history)
+
+sign_data=apiRequest(sign_path, app_id,"")
+print("sign_data",sign_data)
+energy_data=apiRequest(energy_path, app_id,{"code":"ruri"})
+print("energy_data",energy_data)
+login_data=apiRequest(apiPath, app_id,"")
+print("login_data",login_data)
+login_history=apiRequest(apiPath2, app_id,"")
+print("login_history",login_data)
