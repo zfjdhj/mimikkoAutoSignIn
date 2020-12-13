@@ -86,37 +86,37 @@ def timeStamp2time(timeStamp):
 
 
 sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko()
-# sign_data
+# # sign_data
 print('sign_data', sign_data)
-print("code", sign_data["code"])
-# print(sign_data["body"]["date"])
-# print(sign_data["body"]["signTime"])
-print("Name", sign_data["body"]["Name"])
-print('Description', sign_data["body"]['Description'])
-print('PictureUrl', sign_data["body"]['PictureUrl'])
-print('成长值Reward', sign_data["body"]['Reward'])
-print('硬币GetCoin', sign_data["body"]['GetCoin'])
-# Energy info
+# print("code", sign_data["code"])
+# # print(sign_data["body"]["date"])
+# # print(sign_data["body"]["signTime"])
+# print("Name", sign_data["body"]["Name"])
+# print('Description', sign_data["body"]['Description'])
+# print('PictureUrl', sign_data["body"]['PictureUrl'])
+# print('成长值Reward', sign_data["body"]['Reward'])
+# print('硬币GetCoin', sign_data["body"]['GetCoin'])
+# # Energy info
 print('energy_info_data', energy_info_data)
-print('code', energy_info_data['code'])
-print('msg', energy_info_data['msg'])
-# print('Favorability',energy_data['body']['Favorability'])
-# print('MaxFavorability',energy_data['body']['MaxFavorability'])
-print('Favorability/MaxFavorability',
-      str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']))
-print('Energy', energy_info_data['body']['Energy'])
-# Energy reward
+# print('code', energy_info_data['code'])
+# print('msg', energy_info_data['msg'])
+# # print('Favorability',energy_data['body']['Favorability'])
+# # print('MaxFavorability',energy_data['body']['MaxFavorability'])
+# print('Favorability/MaxFavorability',
+#       str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']))
+# print('Energy', energy_info_data['body']['Energy'])
+# # Energy reward
 print(energy_reward_data)
-# sign_info
-print(sign_info)
-print(sign_info['code'])
-print('IsSign', sign_info['body']['IsSign'])
-print('连续登录天数ContinuousSignDays', sign_info['body']['ContinuousSignDays'])
-# sign_history
+# # sign_info
+# print(sign_info)
+# print(sign_info['code'])
+# print('IsSign', sign_info['body']['IsSign'])
+# print('连续登录天数ContinuousSignDays', sign_info['body']['ContinuousSignDays'])
+# # sign_history
 print(sign_history)
-print('code', sign_history['code'])
-print('startTime', timeStamp2time(sign_history["body"]['startTime']))
-print('endTime', timeStamp2time(sign_history["body"]['endTime']))
-print('signLogs', sign_history['body']['signLogs'])
-for item in sign_history['body']['signLogs']:
-    print('signTime', timeStamp2time(item['signDate']))
+# print('code', sign_history['code'])
+# print('startTime', timeStamp2time(sign_history["body"]['startTime']))
+# print('endTime', timeStamp2time(sign_history["body"]['endTime']))
+# print('signLogs', sign_history['body']['signLogs'])
+# for item in sign_history['body']['signLogs']:
+#     print('signTime', timeStamp2time(item['signDate']))
