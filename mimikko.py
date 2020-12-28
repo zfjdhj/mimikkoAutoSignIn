@@ -69,11 +69,14 @@ def apiRequest(url, app_id, params):
 def mimikko():
     sign_data = apiRequest(sign_path, app_id, "")
     energy_info_data = apiRequest(energy_info_path, app_id, {"code": "ruri"})
-    print(energy_info_data['body']['Energy'])
-    if energy_info_data['body']['Energy'] > 0:
-        energy_reward_data = apiRequest(energy_reward_path, app_id, {"code": "ruri"})
+    # print(energy_info_data['body']['Energy'])
+    if energy_info_data:
+        if energy_info_data['body']['Energy'] > 0:
+            energy_reward_data = apiRequest(energy_reward_path, app_id, {"code": "ruri"})
+        else:
+            energy_reward_data = "您的能量值不足，无法兑换"
     else:
-        energy_reward_data = "您的能量值不足，无法兑换"
+        energy_reward_data = "energy_reward_data Error."
     sign_info = apiRequest(apiPath, app_id, "")
     sign_history = apiRequest(apiPath2, app_id, "")
     return sign_data, energy_info_data, energy_reward_data, sign_info, sign_history
