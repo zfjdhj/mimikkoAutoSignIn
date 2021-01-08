@@ -11,11 +11,12 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 try:
-    if len(sys.argv)>1:
+    if len(sys.argv)=3:
         app_id = sys.argv[1]
         Authorization=sys.argv[2]
     else:
         print("缺少必要参数！！！(Bot插件版忽略此错误)")
+        # 也可以在这里设定默认值
         app_id = ""
         Authorization=""
 except Exception as e:
