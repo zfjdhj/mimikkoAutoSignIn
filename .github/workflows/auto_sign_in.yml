@@ -35,4 +35,4 @@ jobs:
         run: |
             /opt/hostedtoolcache/Python/3.8.6/x64/bin/python -m pip install --upgrade pip
             pip install requests
-            python mimikko.py
+            python mimikko.py ${{ secrets.APP_ID }} ${{ secrets.PASSWORD }} ${{ secrets.ID }} ${{ secrets.AUTHORIZATION }}

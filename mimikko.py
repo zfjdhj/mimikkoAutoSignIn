@@ -3,28 +3,24 @@
  * @author  zfj
  * @date  2020/9/26 15:39
 """
+import sys
 import time
-
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-app_id = 'wjB7LOP2sYkaMGLC'
+app_id = sys.argv[1]
+password=sys.argv[2]
+id=sys.argv[3]
+Authorization=sys.argv[4]
 
 apiPath = 'http://api1.mimikko.cn/client/user/GetUserSignedInformation'
-# apiPath1 = 'http://api1.mimikko.cn/client/user/LoginWithPayload'
 apiPath2 = 'http://api1.mimikko.cn/client/dailysignin/log/30/0'
-post_data = {"password": "d8a598c998d82c1943cd719dff2627a6ce728ce1a8c5b15746f066b07ce00ac9", "id": "320336328@qq.com"}
+post_data = {"password": password, "id": id}
 sign_path = 'https://api1.mimikko.cn/client/RewardRuleInfo/SignAndSignInformationV3'
 energy_info_path = 'https://api1.mimikko.cn/client/love/GetUserServantInstance'
 energy_reward_path = 'https://api1.mimikko.cn/client/love/ExchangeReward'
-
-
-# class Setu:
-#     def __init__(self, user_id):
-#         self.user_id = user_id
-
 
 def apiRequest(url, app_id, params):
     params_get = params
@@ -35,14 +31,14 @@ def apiRequest(url, app_id, params):
                       'like Gecko)Version/4.0 Chrome/52.0.2743.100MobileSafari / 537.36',
         'AppID': app_id,
         'Version': '3.1.2',
-        'Authorization': 'c5d8dba1-eaae-4fd9-8112-6759ab8a8c34',
+        'Authorization': Authorization,
         'Connection': 'Keep-Alive',
         'Host': 'api1.mimikko.cn'
     }
     headers_post = {
         'Accept': 'application/json',
         'Cache-Control': 'no-cache',
-        'AppID': 'wjB7LOP2sYkaMGLC',
+        'AppID': app_id,
         'Version': '3.1.2',
         'Content-Type': 'application/json',
         'Host': 'api1.mimikko.cn',
@@ -76,7 +72,7 @@ def mimikko():
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
     else:
-        energy_reward_data = "energy_reward_data Error."
+        energy_reward_data = "您的能量值不足，无法兑换"
     sign_info = apiRequest(apiPath, app_id, "")
     sign_history = apiRequest(apiPath2, app_id, "")
     return sign_data, energy_info_data, energy_reward_data, sign_info, sign_history
