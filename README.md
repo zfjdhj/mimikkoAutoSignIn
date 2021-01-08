@@ -4,7 +4,7 @@
 
 ## 使用
 
-1. 抓包软件获取签到时的app_id,password,id,Authorization
+1. 抓包软件获取签到时的app_id,Authorization
 
 2. 创建action secrets
-`secrets.APP_ID`,`secrets.PASSWORD`,`secrets.ID`,`secrets.AUTHORIZATION`;
+`secrets.APP_ID`,`secrets.AUTHORIZATION`;
