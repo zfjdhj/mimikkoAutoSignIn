@@ -8,3 +8,7 @@
 
 2. 创建action secrets
 `secrets.APP_ID`,`secrets.AUTHORIZATION`;
+
+## Hoshino插件版
+
+项目地址<https://github.com/zfjdhj/zfjbot-mimikko>

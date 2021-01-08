@@ -11,7 +11,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 try:
-    if len(sys.argv)=3:
+    if len(sys.argv)==3:
         app_id = sys.argv[1]
         Authorization=sys.argv[2]
     else:
