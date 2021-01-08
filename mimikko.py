@@ -16,6 +16,8 @@ try:
         Authorization=sys.argv[2]
     else:
         print("缺少必要参数！！！(Bot插件版忽略此错误)")
+        app_id = ""
+        Authorization=""
 except Exception as e:
     print(e)
 
@@ -75,8 +77,11 @@ def mimikko(app_id,Authorization):
     sign_data = apiRequest(sign_path,app_id,Authorization,"")
     energy_info_data = apiRequest(energy_info_path,app_id,Authorization,{"code": "ruri"})
     if energy_info_data:
-        if energy_info_data['body']['Energy'] > 0:
-            energy_reward_data = apiRequest(energy_reward_path, app_id,Authorization,{"code": "ruri"})
+        if energy_info_data.get('body'):
+            if energy_info_data['body']['Energy'] > 0:
+                energy_reward_data = apiRequest(energy_reward_path, app_id,Authorization,{"code": "ruri"})
+            else:
+                energy_reward_data = "您的能量值不足，无法兑换"
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
     else:
@@ -90,39 +95,39 @@ def timeStamp2time(timeStamp):
     otherStyleTime = time.strftime("%m月%d日 %H:%M", timeArray)
     return otherStyleTime
 
-
-sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,Authorization)
-# # sign_data
-print('sign_data', sign_data)
-# print("code", sign_data["code"])
-# # print(sign_data["body"]["date"])
-# # print(sign_data["body"]["signTime"])
-# print("Name", sign_data["body"]["Name"])
-# print('Description', sign_data["body"]['Description'])
-# print('PictureUrl', sign_data["body"]['PictureUrl'])
-# print('成长值Reward', sign_data["body"]['Reward'])
-# print('硬币GetCoin', sign_data["body"]['GetCoin'])
-# # Energy info
-print('energy_info_data', energy_info_data)
-# print('code', energy_info_data['code'])
-# print('msg', energy_info_data['msg'])
-# # print('Favorability',energy_data['body']['Favorability'])
-# # print('MaxFavorability',energy_data['body']['MaxFavorability'])
-# print('Favorability/MaxFavorability',
-#       str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']))
-# print('Energy', energy_info_data['body']['Energy'])
-# # Energy reward
-print(energy_reward_data)
-# # sign_info
-# print(sign_info)
-# print(sign_info['code'])
-# print('IsSign', sign_info['body']['IsSign'])
-# print('连续登录天数ContinuousSignDays', sign_info['body']['ContinuousSignDays'])
-# # sign_history
-print(sign_history)
-# print('code', sign_history['code'])
-# print('startTime', timeStamp2time(sign_history["body"]['startTime']))
-# print('endTime', timeStamp2time(sign_history["body"]['endTime']))
-# print('signLogs', sign_history['body']['signLogs'])
-# for item in sign_history['body']['signLogs']:
-#     print('signTime', timeStamp2time(item['signDate']))
+if app_id and Authorization:
+    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,Authorization)
+    # # sign_data
+    print('sign_data', sign_data)
+    # print("code", sign_data["code"])
+    # # print(sign_data["body"]["date"])
+    # # print(sign_data["body"]["signTime"])
+    # print("Name", sign_data["body"]["Name"])
+    # print('Description', sign_data["body"]['Description'])
+    # print('PictureUrl', sign_data["body"]['PictureUrl'])
+    # print('成长值Reward', sign_data["body"]['Reward'])
+    # print('硬币GetCoin', sign_data["body"]['GetCoin'])
+    # # Energy info
+    print('energy_info_data', energy_info_data)
+    # print('code', energy_info_data['code'])
+    # print('msg', energy_info_data['msg'])
+    # # print('Favorability',energy_data['body']['Favorability'])
+    # # print('MaxFavorability',energy_data['body']['MaxFavorability'])
+    # print('Favorability/MaxFavorability',
+    #       str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']))
+    # print('Energy', energy_info_data['body']['Energy'])
+    # # Energy reward
+    print(energy_reward_data)
+    # # sign_info
+    # print(sign_info)
+    # print(sign_info['code'])
+    # print('IsSign', sign_info['body']['IsSign'])
+    # print('连续登录天数ContinuousSignDays', sign_info['body']['ContinuousSignDays'])
+    # # sign_history
+    print(sign_history)
+    # print('code', sign_history['code'])
+    # print('startTime', timeStamp2time(sign_history["body"]['startTime']))
+    # print('endTime', timeStamp2time(sign_history["body"]['endTime']))
+    # print('signLogs', sign_history['body']['signLogs'])
+    # for item in sign_history['body']['signLogs']:
+    #     print('signTime', timeStamp2time(item['signDate']))
