@@ -101,7 +101,7 @@ def mimikko(app_id,Authorization):
                 vip_roll_data = apiRequest(vip_roll,app_id,Authorization,"")
                 #print(type(vip_roll_data))
                 print(type(vip_roll_data['body']))
-                print(type(vip_roll_data['body']['Value']))
+                print(type(vip_roll_data['body'].json()['Value']))
                 print(type(vip_roll_data['body']['Value']['description']))
                 vip_roll_post = "VIP抽奖成功：" + vip_roll_data.get['body']['Value']['description']
             else:
