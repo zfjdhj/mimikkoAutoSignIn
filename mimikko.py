@@ -93,7 +93,7 @@ def mimikko(app_id,Authorization):
         else:
             sign_result_post = '签到失败'
     else:
-        sign_result_post = '签到失败'
+        sign_result_post = '签到请求失败'
     vip_info_data = apiRequest(vip_info,app_id,Authorization,"")
     if vip_info_data:
         if vip_info_data.get('body'):
@@ -108,7 +108,7 @@ def mimikko(app_id,Authorization):
             vip_roll_post = "VIP抽奖失败"
     else:
         vip_roll_data = "抽奖次数不足"
-        vip_roll_post = "VIP抽奖失败"
+        vip_roll_post = "VIP抽奖请求失败"
     energy_info_data = apiRequest(energy_info_path,app_id,Authorization,{"code": "Energy_code"})
     if energy_info_data:
         if energy_info_data.get('body'):
@@ -123,7 +123,7 @@ def mimikko(app_id,Authorization):
             energy_reward_post = "能量兑换失败"
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
-        energy_reward_post = "能量兑换失败"
+        energy_reward_post = "能量兑换请求失败"
     sign_info = apiRequest(apiPath, app_id,Authorization, "")
     sign_history = apiRequest(apiPath2, app_id,Authorization, "")
     return sign_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, vip_roll_post, energy_reward_post
