@@ -172,6 +172,7 @@ if app_id and Authorization:
     #     print('signTime', timeStamp2time(item['signDate']))
     print('\n' + '\n' +sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)      
 try:
+    logging.debug(len(sys.argv))
     if len(sys.argv)==5:
         SCKEY = sys.argy[4]
         logging.debug("有SCKEY")
