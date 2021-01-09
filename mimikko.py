@@ -97,7 +97,7 @@ def mimikko(app_id,Authorization):
     if vip_info_data:
         if vip_info_data.get('body'):
             if vip_info_data['body']['rollNum'] == 0:
-                vip_roll_data = apiRequest(vip_roll,app_id,Authorization,"").json()
+                vip_roll_data = apiRequest(vip_roll,app_id,Authorization,"").dumps()
                 print(vip_roll_data['body']['Value']['description'])
                 #vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']
             else:
