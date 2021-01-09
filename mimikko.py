@@ -6,6 +6,8 @@
 import sys
 import time
 import requests
+import logging
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -14,25 +16,29 @@ try:
     if len(sys.argv)==3:
         app_id = sys.argv[1]
         Authorization=sys.argv[2]
+        Energy_code = sys.argy[3]
     else:
-        print("缺少必要参数！！！(Bot插件版忽略此错误)")
+        logging.debug("缺少必要参数！！！(Bot插件版忽略此错误)")
         # 也可以在这里设定默认值
         app_id = ""
-        Authorization=""
+        Authorization = ""
+        Energy_code = ""
 except Exception as e:
-    print(e)
+    logging.debug(e)
 
 
 
 # id=sys.argv[3]
 # password=sys.argv[4]
 
-apiPath = 'http://api1.mimikko.cn/client/user/GetUserSignedInformation'
-apiPath2 = 'http://api1.mimikko.cn/client/dailysignin/log/30/0'
+apiPath = 'http://api1.mimikko.cn/client/user/GetUserSignedInformation' # 今天是否签到
+apiPath2 = 'http://api1.mimikko.cn/client/dailysignin/log/30/0' # 签到历史
 # post_data = {"password": password, "id": id}
-sign_path = 'https://api1.mimikko.cn/client/RewardRuleInfo/SignAndSignInformationV3'
-energy_info_path = 'https://api1.mimikko.cn/client/love/GetUserServantInstance'
-energy_reward_path = 'https://api1.mimikko.cn/client/love/ExchangeReward'
+sign_path = 'https://api1.mimikko.cn/client/RewardRuleInfo/SignAndSignInformationV3' # 签到
+energy_info_path = 'https://api1.mimikko.cn/client/love/GetUserServantInstance' # 获取助手状态
+energy_reward_path = 'https://api1.mimikko.cn/client/love/ExchangeReward' # 兑换助手能量
+vip_info = 'https://api1.mimikko.cn/client/user/GetUserVipInfo' # 获取会员状态
+vip_roll = 'https://api1.mimikko.cn/client/roll/RollReward' # 会员抽奖
 
 def apiRequest(url,app_id,Authorization,params):
     params_get = params
@@ -52,6 +58,7 @@ def apiRequest(url,app_id,Authorization,params):
         'Cache-Control': 'no-cache',
         'AppID': app_id,
         'Version': '3.1.2',
+        'Authorization': Authorization,
         'Content-Type': 'application/json',
         'Host': 'api1.mimikko.cn',
         'Connection': 'Keep-Alive',
@@ -65,22 +72,38 @@ def apiRequest(url,app_id,Authorization,params):
             return res
 
     except Exception as ex:
-        print(ex)
+        logging.debug(ex)
 
 
+# code=nonona,ServantName=诺诺纳
 # code=momona,ServantName=梦梦奈
-# code=ruri,ServantName=琉璃
+# code=ariana,ServantName=爱莉安娜
+# code=miruku,ServantName=米璐库
 # code=nemuri,ServantName=奈姆利
+# code=ruri,ServantName=琉璃
+# code=alpha0,ServantName=阿尔法零
 # code=miruku2,ServantName=米露可
+# code=ulrica,ServantName=优莉卡
 
 
-def mimikko(app_id,Authorization):
+def mimikko(app_id,Authorization,Energy_code):
     sign_data = apiRequest(sign_path,app_id,Authorization,"")
-    energy_info_data = apiRequest(energy_info_path,app_id,Authorization,{"code": "ruri"})
+    vip_info_data = apiRequest(vip_info,app_id,Authorization,"")
+    if vip_info_data:
+        if vip_info_data.get('body'):
+            if vip_info_data['body']['rollNum'] > 0:
+                vip_roll_data = apiRequest(vip_roll,app_id,Authorization,"")
+            else:
+                vip_roll_data = "抽奖次数不足"
+        else:
+            vip_roll_data = "抽奖次数不足"
+    else:
+        vip_roll_data = "抽奖次数不足"
+    energy_info_data = apiRequest(energy_info_path,app_id,Authorization,{"code": "Energy_code"})
     if energy_info_data:
         if energy_info_data.get('body'):
             if energy_info_data['body']['Energy'] > 0:
-                energy_reward_data = apiRequest(energy_reward_path, app_id,Authorization,{"code": "ruri"})
+                energy_reward_data = apiRequest(energy_reward_path, app_id,Authorization,{"code": "Energy_code"})
             else:
                 energy_reward_data = "您的能量值不足，无法兑换"
         else:
@@ -99,7 +122,7 @@ def timeStamp2time(timeStamp):
 if app_id and Authorization:
     sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,Authorization)
     # # sign_data
-    print('sign_data', sign_data)
+    logging.debug('sign_data', sign_data)
     # print("code", sign_data["code"])
     # # print(sign_data["body"]["date"])
     # # print(sign_data["body"]["signTime"])
@@ -108,8 +131,10 @@ if app_id and Authorization:
     # print('PictureUrl', sign_data["body"]['PictureUrl'])
     # print('成长值Reward', sign_data["body"]['Reward'])
     # print('硬币GetCoin', sign_data["body"]['GetCoin'])
+    # # roll info
+    logging.debug('vip_roll_data', vip_roll_data)
     # # Energy info
-    print('energy_info_data', energy_info_data)
+    logging.debug('energy_info_data', energy_info_data)
     # print('code', energy_info_data['code'])
     # print('msg', energy_info_data['msg'])
     # # print('Favorability',energy_data['body']['Favorability'])
@@ -118,14 +143,14 @@ if app_id and Authorization:
     #       str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']))
     # print('Energy', energy_info_data['body']['Energy'])
     # # Energy reward
-    print(energy_reward_data)
+    logging.debug(energy_reward_data)
     # # sign_info
     # print(sign_info)
     # print(sign_info['code'])
     # print('IsSign', sign_info['body']['IsSign'])
     # print('连续登录天数ContinuousSignDays', sign_info['body']['ContinuousSignDays'])
     # # sign_history
-    print(sign_history)
+    logging.debug(sign_history)
     # print('code', sign_history['code'])
     # print('startTime', timeStamp2time(sign_history["body"]['startTime']))
     # print('endTime', timeStamp2time(sign_history["body"]['endTime']))
