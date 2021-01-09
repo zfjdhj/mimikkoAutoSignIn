@@ -176,7 +176,7 @@ if app_id and Authorization:
     # for item in sign_history['body']['signLogs']:
     #     print('signTime', timeStamp2time(item['signDate']))
     print('\n' + '\n' +sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)
-    if SCKEY:
+    if 'SCKEY' in locals().keys():
         post_info = re.sub('\\n', '<br>', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0)
         post_data = requests.post(server_api + SCKEY + '.send', data = post_info)
         
