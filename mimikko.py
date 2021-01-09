@@ -119,7 +119,7 @@ def mimikko(app_id,Authorization):
             if energy_info_data['body']['Energy'] > 0:
                 energy_reward_data = apiRequest(energy_reward_path, app_id,Authorization,{"code": "Energy_code"})
                 energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy'] + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_info_data['body']['code']
-            else:
+            else: 
                 energy_reward_data = "您的能量值不足，无法兑换"
                 energy_reward_post = "能量兑换失败"
         else:
