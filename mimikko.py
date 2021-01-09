@@ -17,11 +17,13 @@ try:
         app_id = sys.argv[1]
         Authorization = sys.argv[2]
         Energy_code = sys.argy[3]
+        logging.debug("没有SCKEY")
     elif len(sys.argv)==5:
         app_id = sys.argv[1]
         Authorization = sys.argv[2]
         Energy_code = sys.argy[3]
         SCKEY = sys.argy[4]
+        logging.debug("有SCKEY")
     else:
         logging.debug("缺少必要参数！！！(Bot插件版忽略此错误)")
         # 也可以在这里设定默认值
