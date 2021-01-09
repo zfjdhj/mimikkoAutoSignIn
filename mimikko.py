@@ -93,7 +93,7 @@ def mimikko(app_id,Authorization):
     sign_data = apiRequest(sign_path,app_id,Authorization,"")
     if sign_data:
         if sign_data.get('body'):
-            sign_result_post = '签到成功：\n好感度：' + sign_data['body']['Reward'].tostring() + '\n硬币：' + sign_data['body']['GetCoin'].tostring() + '\n经验值：' + sign_data['body']['GetExp'].tostring() + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+            sign_result_post = '签到成功：\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
         else:
             sign_result_post = '签到失败'
     else:
@@ -118,7 +118,7 @@ def mimikko(app_id,Authorization):
         if energy_info_data.get('body'):
             if energy_info_data['body']['Energy'] > 0:
                 energy_reward_data = apiRequest(energy_reward_path, app_id,Authorization,{"code": "Energy_code"})
-                energy_reward_post = "好感度兑换成功：\n能量值：" + energy_info_data['body']['Energy'].tostring() + "/" +energy_info_data['body']['MaxEnergy'].tostring() + "\n助手：" + energy_info_data['body']['code']
+                energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy'] + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_info_data['body']['code']
             else:
                 energy_reward_data = "您的能量值不足，无法兑换"
                 energy_reward_post = "能量兑换失败"
