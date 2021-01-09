@@ -20,7 +20,7 @@ try:
         Energy_code = sys.argv[3]
     else:
         logging.debug("缺少必要参数！！！(Bot插件版忽略此错误)")
-        # 也可以在这里设定默认值
+        # 也可以在这里设定默认值，但请注意账号泄露风险
         app_id = ""
         Authorization = ""
         Energy_code = ""
@@ -102,7 +102,7 @@ def mimikko(app_id,Authorization):
                 vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']
             else:
                 vip_roll_data = "抽奖次数不足"
-                vip_roll_post = "VIP抽奖失败"
+                vip_roll_post = "VIP抽奖失败：今天已经抽过奖了"
         else:
             vip_roll_data = "抽奖次数不足"
             vip_roll_post = "VIP抽奖失败"
@@ -117,7 +117,7 @@ def mimikko(app_id,Authorization):
                 energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_info_data['body']['code']
             else:
                 energy_reward_data = "您的能量值不足，无法兑换"
-                energy_reward_post = "能量兑换失败"
+                energy_reward_post = "能量兑换失败：能量不足"
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
             energy_reward_post = "能量兑换失败"
@@ -178,7 +178,7 @@ try:
         SCKEY = sys.argv[4]
         logging.debug("有SCKEY")
         print("正在推送到微信")
-        post_info = "?text=兽耳助手签到&desp=<p>" + re.sub('\\n', '  <br /><br />', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0) + "</p>"
+        post_info = "?text=兽耳助手签到&desp=<p>" + re.sub('\\n', '  \n', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0) + "</p>"
         post_data = requests.get(server_api + SCKEY + '.send' + post_info)
         print(post_data)
     else:
