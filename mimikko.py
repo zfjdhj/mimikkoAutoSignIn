@@ -7,7 +7,6 @@ import sys
 import time
 import requests
 import re
-import ast
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -98,13 +97,13 @@ def mimikko(app_id,Authorization):
     vip_info_data = apiRequest(vip_info,app_id,Authorization,"")
     if vip_info_data:
         if vip_info_data.get('body'):
-            if vip_info_data['body']['rollNum'] == 0:
+            if vip_info_data['body']['rollNum'] > 0:
                 vip_roll_data = apiRequest(vip_roll,app_id,Authorization,"")
                 #print(type(vip_roll_data))
                 #print(type(vip_roll_data['body']))
                 #print(type(ast.literal_eval(vip_roll_data['body'])['Value']))
                 #print(type(vip_roll_data['body']['Value']['description']))
-                vip_roll_post = "VIP抽奖成功：" + ast.literal_eval(ast.literal_eval(vip_roll_data['body'])['Value'])['description']
+                vip_roll_post = "VIP抽奖成功："# + vip_roll_data['body']['Value']['description']
             else:
                 vip_roll_data = "抽奖次数不足"
                 vip_roll_post = "VIP抽奖失败：不是VIP或今天已经抽过奖了"
