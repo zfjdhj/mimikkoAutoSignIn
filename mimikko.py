@@ -17,17 +17,16 @@ try:
         app_id = sys.argv[1]
         Authorization = sys.argv[2]
         Energy_code = sys.argy[3]
-        SCKEY = sys.argy[4]
     else:
         logging.debug("缺少必要参数！！！(Bot插件版忽略此错误)")
         # 也可以在这里设定默认值
         app_id = ""
         Authorization = ""
         Energy_code = ""
-        SCKEY = ""
 except Exception as e:
     logging.debug(e)
 
+SCKEY = sys.argy[4]
 
 apiPath = 'http://api1.mimikko.cn/client/user/GetUserSignedInformation' # 今天是否签到
 apiPath2 = 'http://api1.mimikko.cn/client/dailysignin/log/30/0' # 签到历史
