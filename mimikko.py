@@ -41,7 +41,7 @@ energy_info_path = 'https://api1.mimikko.cn/client/love/GetUserServantInstance' 
 energy_reward_path = 'https://api1.mimikko.cn/client/love/ExchangeReward' # 兑换助手能量
 vip_info = 'https://api1.mimikko.cn/client/user/GetUserVipInfo' # 获取会员状态
 vip_roll = 'https://api1.mimikko.cn/client/roll/RollReward' # 会员抽奖
-server_api = 'https://sc.ftqq.com/' + SCKEY + '.send'
+server_api = 'https://sc.ftqq.com/'
 
 def apiRequest(url,app_id,Authorization,params):
     params_get = params
@@ -178,5 +178,5 @@ if app_id and Authorization:
     print('\n' + '\n' +sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)
     if SCKEY:
         post_info = re.sub('\\n', '<br>', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0)
-        post_data = requests.post(server_api, data = post_info)
+        post_data = requests.post(server_api + SCKEY + '.send', data = post_info)
         
