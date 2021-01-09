@@ -29,7 +29,7 @@ except Exception as e:
 
 apiPath = 'http://api1.mimikko.cn/client/user/GetUserSignedInformation' # 今天是否签到
 apiPath2 = 'http://api1.mimikko.cn/client/dailysignin/log/30/0' # 签到历史
-# post_data = {"password": password, "id": id}
+defeat_set = 'https://api1.mimikko.cn/client/Servant/SetDefaultServant' # 默认助手
 sign_path = 'https://api1.mimikko.cn/client/RewardRuleInfo/SignAndSignInformationV3' # 签到
 energy_info_path = 'https://api1.mimikko.cn/client/love/GetUserServantInstance' # 获取助手状态
 energy_reward_path = 'https://api1.mimikko.cn/client/love/ExchangeReward' # 兑换助手能量
@@ -84,7 +84,8 @@ def apiRequest(url,app_id,Authorization,params):
 
 
 def mimikko(app_id,Authorization):
-    sign_data = apiRequest(sign_path + "?code=" + Energy_code,app_id,Authorization,"")
+    defeat_data = apiRequest(defeat_set + "?code=" + Energy_code,app_id,Authorization,"")
+    sign_data = apiRequest(sign_path,app_id,Authorization,"")
     if sign_data:
         if sign_data.get('body'):
             sign_result_post = '签到成功：\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
@@ -95,9 +96,9 @@ def mimikko(app_id,Authorization):
     vip_info_data = apiRequest(vip_info,app_id,Authorization,"")
     if vip_info_data:
         if vip_info_data.get('body'):
-            if vip_info_data['body']['rollNum'] > 0:
+            if vip_info_data['body']['rollNum'] = 0:
                 vip_roll_data = apiRequest(vip_roll,app_id,Authorization,"")
-                vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']
+                vip_roll_post = "VIP抽奖成功：" + json(vip_roll_data['body']['Value'])['description']
             else:
                 vip_roll_data = "抽奖次数不足"
                 vip_roll_post = "VIP抽奖失败：不是VIP或今天已经抽过奖了"
