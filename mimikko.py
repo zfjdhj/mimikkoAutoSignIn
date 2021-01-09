@@ -86,7 +86,7 @@ def apiRequest(url,app_id,Authorization,params):
 def mimikko(app_id,Authorization):
     defeat_data = apiRequest(defeat_set + "?code=" + Energy_code,app_id,Authorization,"")
     sign_data = apiRequest(sign_path,app_id,Authorization,"")
-    print(type(sign_data))
+    #print(type(sign_data))
     if sign_data:
         if sign_data.get('body'):
             sign_result_post = '签到成功：\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
@@ -99,9 +99,9 @@ def mimikko(app_id,Authorization):
         if vip_info_data.get('body'):
             if vip_info_data['body']['rollNum'] == 0:
                 vip_roll_data = apiRequest(vip_roll,app_id,Authorization,"")
-                print(type(vip_roll_data))
+                #print(type(vip_roll_data))
                 #print(vip_roll_data['body']['Value']['description'])
-                vip_roll_post = "VIP抽奖成功：" #+ vip_roll_data['body']['Value']['description']
+                vip_roll_post = "VIP抽奖成功：" + vip_roll_data.get['body']['Value']['description']
             else:
                 vip_roll_data = "抽奖次数不足"
                 vip_roll_post = "VIP抽奖失败：不是VIP或今天已经抽过奖了"
