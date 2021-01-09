@@ -8,7 +8,7 @@
 
 2. 在设置中创建action secrets
 `APP_ID`,`AUTHORIZATION`,`ENERGY`;
- - ENERGY仅取下列code值：
+ - ENERGY用于兑换能量，仅取下列code值：
    - code=`nonona`,ServantName=诺诺纳
    - code=`momona`,ServantName=梦梦奈
    - code=`ariana`,ServantName=爱莉安娜
@@ -21,6 +21,6 @@
 
 3. 在actions中开启
 
-## Hoshino插件版
-
-项目地址<https://github.com/zfjdhj/zfjbot-mimikko>
+4. 使用server酱推送到微信：
+ - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
+ - 在设置中创建action secrets `SCKEY`
