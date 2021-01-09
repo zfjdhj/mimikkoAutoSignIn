@@ -15,7 +15,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 try:
     if len(sys.argv)==4:
         app_id = sys.argv[1]
-        Authorization=sys.argv[2]
+        Authorization = sys.argv[2]
         Energy_code = sys.argy[3]
     else:
         logging.debug("缺少必要参数！！！(Bot插件版忽略此错误)")
@@ -120,7 +120,7 @@ def timeStamp2time(timeStamp):
     return otherStyleTime
 
 if app_id and Authorization:
-    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,Authorization)
+    sign_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,Authorization)
     # # sign_data
     logging.debug('sign_data', sign_data)
     # print("code", sign_data["code"])
