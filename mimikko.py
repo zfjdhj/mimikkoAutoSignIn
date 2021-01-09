@@ -17,6 +17,7 @@ try:
         app_id = sys.argv[1]
         Authorization = sys.argv[2]
         Energy_code = sys.argy[3]
+        SCKEY = ""
         logging.debug("没有SCKEY")
     elif len(sys.argv)==5:
         app_id = sys.argv[1]
@@ -180,6 +181,7 @@ if app_id and Authorization:
     print('\n' + '\n' +sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)
     if 'SCKEY' in locals().keys():
         print("正在推送到微信")
+        print(len(SCKEY))
         post_info = re.sub('\\n', '<br>', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0)
         post_data = requests.post(server_api + SCKEY + '.send', data = post_info)
     else:
