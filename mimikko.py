@@ -112,7 +112,7 @@ def mimikko(app_id,Authorization):
         energy_reward_data = "您的能量值不足，无法兑换"
     sign_info = apiRequest(apiPath, app_id,Authorization, "")
     sign_history = apiRequest(apiPath2, app_id,Authorization, "")
-    return sign_data, energy_info_data, energy_reward_data, sign_info, sign_history
+    return sign_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history
 
 def timeStamp2time(timeStamp):
     timeArray = time.localtime(timeStamp/1000)
