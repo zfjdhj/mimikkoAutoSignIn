@@ -41,7 +41,6 @@ server_api = 'https://sc.ftqq.com/'
 
 def apiRequest(url,app_id,Authorization,params):
     params_get = params
-    Energy_code = Energy_code
     headers_get = {
         'Cache-Control': 'Cache-Control:public,no-cache',
         'Accept-Encoding': 'gzip',
