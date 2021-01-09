@@ -4,6 +4,8 @@
 
 ## 使用
 
+0. 先fork本项目
+
 1. 使用抓包软件获取兽耳助手的的app_id,Authorization
 
 2. 在设置中创建action secrets
@@ -18,9 +20,10 @@
    - code=`alpha0`,ServantName=阿尔法零
    - code=`miruku2`,ServantName=米露可
    - code=`ulrica`,ServantName=优莉卡
-
+![secrets1](/pic/Screenshot_2021_0109_222130.png)
 3. 在actions中开启
 
 4. 使用server酱推送到微信：
  - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
  - 在设置中创建action secrets `SCKEY`
+![secrets2](/pic/Screenshot_2021_0109_222138.png)
