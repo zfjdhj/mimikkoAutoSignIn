@@ -7,6 +7,7 @@ import sys
 import time
 import requests
 import re
+import json
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -101,7 +102,7 @@ def mimikko(app_id,Authorization):
                 vip_roll_data = apiRequest(vip_roll,app_id,Authorization,"")
                 #print(type(vip_roll_data))
                 print(type(vip_roll_data['body']))
-                print(type(eval(vip_roll_data['body'])['Value']))
+                print(type(json.loads(vip_roll_data['body'])['Value']))
                 print(type(vip_roll_data['body']['Value']['description']))
                 vip_roll_post = "VIP抽奖成功：" + vip_roll_data.get['body']['Value']['description']
             else:
