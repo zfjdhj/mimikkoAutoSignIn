@@ -41,6 +41,7 @@ server_api = 'https://sc.ftqq.com/'
 
 def apiRequest(url,app_id,Authorization,params):
     params_get = params
+    Energy_code = Energy_code
     headers_get = {
         'Cache-Control': 'Cache-Control:public,no-cache',
         'Accept-Encoding': 'gzip',
@@ -109,11 +110,11 @@ def mimikko(app_id,Authorization):
     else:
         vip_roll_data = "抽奖次数不足"
         vip_roll_post = "VIP抽奖请求失败"
-    energy_info_data = apiRequest(energy_info_path,app_id,Authorization,{"code": "Energy_code"})
+    energy_info_data = apiRequest(energy_info_path,app_id,Authorization,'{"code": "' + Energy_code +'"}')
     if energy_info_data:
         if energy_info_data.get('body'):
             if energy_info_data['body']['Energy'] > 0:
-                energy_reward_data = apiRequest(energy_reward_path, app_id,Authorization,{"code": "Energy_code"})
+                energy_reward_data = apiRequest(energy_reward_path, app_id,Authorization,'{"code": "' + Energy_code + '"}')
                 energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_info_data['body']['code']
             else:
                 energy_reward_data = "您的能量值不足，无法兑换"
