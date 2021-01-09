@@ -86,7 +86,7 @@ def apiRequest(url,app_id,Authorization,params):
 # code=ulrica,ServantName=优莉卡
 
 
-def mimikko(app_id,Authorization,Energy_code):
+def mimikko(app_id,Authorization):
     sign_data = apiRequest(sign_path,app_id,Authorization,"")
     vip_info_data = apiRequest(vip_info,app_id,Authorization,"")
     if vip_info_data:
@@ -120,7 +120,7 @@ def timeStamp2time(timeStamp):
     return otherStyleTime
 
 if app_id and Authorization:
-    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,Authorization,Energy_code)
+    sign_data, energy_info_data, energy_reward_data, sign_info, sign_history = mimikko(app_id,Authorization)
     # # sign_data
     logging.debug('sign_data', sign_data)
     # print("code", sign_data["code"])
