@@ -16,7 +16,7 @@ try:
     if len(sys.argv)==4 or len(sys.argv)==5:
         app_id = sys.argv[1]
         Authorization = sys.argv[2]
-        Energy_code = sys.argy[3]
+        Energy_code = sys.argv[3]
     else:
         logging.debug("缺少必要参数！！！(Bot插件版忽略此错误)")
         # 也可以在这里设定默认值
@@ -174,7 +174,7 @@ if app_id and Authorization:
 try:
     logging.debug(len(sys.argv))
     if len(sys.argv)==5:
-        SCKEY = sys.argy[4]
+        SCKEY = sys.argv[4]
         logging.debug("有SCKEY")
         print("正在推送到微信")
         post_info = re.sub('\\n', '<br>', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0)
