@@ -13,18 +13,10 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 try:
-    if len(sys.argv)==4:
+    if len(sys.argv)==4 or len(sys.argv)==5:
         app_id = sys.argv[1]
         Authorization = sys.argv[2]
         Energy_code = sys.argy[3]
-        SCKEY = "none"
-        logging.debug("没有SCKEY")
-    elif len(sys.argv)==5:
-        app_id = sys.argv[1]
-        Authorization = sys.argv[2]
-        Energy_code = sys.argy[3]
-        SCKEY = sys.argy[4]
-        logging.debug("有SCKEY")
     else:
         logging.debug("缺少必要参数！！！(Bot插件版忽略此错误)")
         # 也可以在这里设定默认值
@@ -178,11 +170,16 @@ if app_id and Authorization:
     # print('signLogs', sign_history['body']['signLogs'])
     # for item in sign_history['body']['signLogs']:
     #     print('signTime', timeStamp2time(item['signDate']))
-    print('\n' + '\n' +sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)
-    if SCKEY != "none":
+    print('\n' + '\n' +sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)      
+try:
+    if len(sys.argv)==5:
+        SCKEY = sys.argy[4]
+        logging.debug("有SCKEY")
         print("正在推送到微信")
         post_info = re.sub('\\n', '<br>', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0)
         post_data = requests.post(server_api + SCKEY + '.send', data = post_info)
     else:
-        print("无SCKEY，不会推送到微信")      
+        logging.debug("没有SCKEY")
+except Exception as e:
+    logging.debug(e)
 
