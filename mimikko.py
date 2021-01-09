@@ -178,7 +178,7 @@ try:
         SCKEY = sys.argv[4]
         logging.debug("有SCKEY")
         print("正在推送到微信")
-        post_info = "?text=兽耳助手签到&desp=" + re.sub('\\n', '<br/>', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0)
+        post_info = "?text=兽耳助手签到&desp=" + re.sub('\\n', '\r\n', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0)
         post_data = requests.get(server_api + SCKEY + '.send' + post_info)
         print(post_data)
     else:
