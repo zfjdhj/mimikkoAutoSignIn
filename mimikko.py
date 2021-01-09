@@ -100,7 +100,7 @@ def mimikko(app_id,Authorization):
                 vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']
             else:
                 vip_roll_data = "抽奖次数不足"
-                vip_roll_post = "VIP抽奖失败：今天已经抽过奖了"
+                vip_roll_post = "VIP抽奖失败：不是VIP或今天已经抽过奖了"
         else:
             vip_roll_data = "抽奖次数不足"
             vip_roll_post = "VIP抽奖失败"
