@@ -99,7 +99,8 @@ def mimikko(app_id,Authorization):
     #print(type(sign_data))
     if sign_data:
         if sign_data.get('body'):
-            sign_result_post = '签到成功：\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+            sign_info = apiRequest_get(apiPath, app_id,Authorization, "")
+            sign_result_post = '签到成功：' + sign_info['body']['ContinuousSignDays'] + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
         else:
             sign_result_post = '签到失败'
     else:
@@ -141,7 +142,6 @@ def mimikko(app_id,Authorization):
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
         energy_reward_post = "能量兑换请求失败"
-    sign_info = apiRequest_get(apiPath, app_id,Authorization, "")
     sign_history = apiRequest_get(apiPath2, app_id,Authorization, "")
     return sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, vip_roll_post, energy_reward_post
 
