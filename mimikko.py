@@ -107,13 +107,13 @@ def mimikko(app_id,Authorization):
     vip_info_data = apiRequest_get(vip_info,app_id,Authorization,"")
     if vip_info_data:
         if vip_info_data.get('body'):
-            if vip_info_data['body']['rollNum'] == 0:
+            if vip_info_data['body']['rollNum'] > 0:
                 vip_roll_data = apiRequest_post(vip_roll,app_id,Authorization,"")
                 #print(type(vip_roll_data))
                 #print(type(vip_roll_data['body']))
                 #print(type(ast.literal_eval(vip_roll_data['body'])['Value']))
                 #print(type(vip_roll_data['body']['Value']['description']))
-                vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']# + re.sub('^[\S\s]*?"description":"(.*?)"[\S\s]*?$', '$1', str(vip_roll_data), count=0, flags=0)# + "奖品获取失败，等修"
+                vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']
             else:
                 vip_roll_data = "抽奖次数不足"
                 if vip_info_data['body']['isValid']:
