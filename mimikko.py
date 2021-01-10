@@ -100,7 +100,7 @@ def mimikko(app_id,Authorization):
     if sign_data:
         if sign_data.get('body'):
             sign_info = apiRequest_get(apiPath, app_id,Authorization, "")
-            sign_result_post = '签到成功：' + sign_info['body']['ContinuousSignDays'] + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+            sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
         else:
             sign_result_post = '签到失败'
     else:
