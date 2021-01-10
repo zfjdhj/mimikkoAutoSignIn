@@ -106,7 +106,7 @@ def mimikko(app_id,Authorization):
                 vip_roll_post = "VIP抽奖成功：" + "奖品获取失败，等修"# + vip_roll_data['body']['Value']['description']
             else:
                 vip_roll_data = "抽奖次数不足"
-                if vip_info_data['body']['isValid']==true:
+                if vip_info_data['body']['isValid']:
                     vip_roll_post = "VIP抽奖失败：今天已经抽过奖了"
                 else:
                     vip_roll_post = "VIP抽奖失败：您还不是VIP"
