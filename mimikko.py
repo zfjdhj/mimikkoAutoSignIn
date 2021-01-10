@@ -106,7 +106,10 @@ def mimikko(app_id,Authorization):
                 vip_roll_post = "VIP抽奖成功：" + "奖品获取失败，等修"# + vip_roll_data['body']['Value']['description']
             else:
                 vip_roll_data = "抽奖次数不足"
-                vip_roll_post = "VIP抽奖失败：不是VIP或今天已经抽过奖了"
+                if vip_info_data['body']['isValid']==true:
+                    vip_roll_post = "VIP抽奖失败：今天已经抽过奖了"
+                else
+                    vip_roll_post = "VIP抽奖失败：您还不是VIP"
         else:
             vip_roll_data = "抽奖次数不足"
             vip_roll_post = "VIP抽奖失败"
@@ -121,7 +124,7 @@ def mimikko(app_id,Authorization):
                 energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_info_data['body']['code']
             else:
                 energy_reward_data = "您的能量值不足，无法兑换"
-                energy_reward_post = "能量兑换失败：能量不足"
+                energy_reward_post = "能量兑换失败：能量需要＞0"
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
             energy_reward_post = "能量兑换失败"
