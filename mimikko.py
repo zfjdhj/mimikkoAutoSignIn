@@ -115,7 +115,7 @@ def mimikko(app_id,Authorization):
                 #print(type(vip_roll_data['body']))
                 #print(type(ast.literal_eval(vip_roll_data['body'])['Value']))
                 #print(type(vip_roll_data['body']['Value']['description']))
-                vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']
+                vip_roll_post = "VIP抽奖成功：" + str(vip_roll_data['body']['Value']['description'])
             else:
                 vip_roll_data = "抽奖次数不足"
                 if vip_info_data['body']['isValid']:
