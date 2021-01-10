@@ -1,12 +1,13 @@
 # mimikkoAutoSignin
 
-用于兽耳助手自动签到
+用于兽耳助手自动每日签到/兑换能量/VIP每日抽奖，并可选推送到微信
 
 ## 使用
 
 0. 先fork本项目
 
 1. 使用抓包软件获取兽耳助手的的app_id,Authorization
+ - 抓包软件怎么用？请去问百度谷歌
 
 2. 在设置中创建action secrets
 `APP_ID`,`AUTHORIZATION`,`ENERGY`;
@@ -21,13 +22,19 @@
    - code=`miruku2`,ServantName=米露可
    - code=`ulrica`,ServantName=优莉卡
 ![secrets1](/pic/Screenshot_2021_0109_222130.png)
+
 3. 在actions中开启
 
-4. (可选)使用server酱推送到微信：
+4. 修改自动运行时间：
+ - 打开`mimikkoAutoSignIn/.github/workflows/auto_sign_in.yml`
+ - 在`第12行`修改`cron表达式`，默认北京时间每天`3:30`,`17:30`执行
+ - cron表达式怎么改？请去问百度谷歌
+
+5. (可选)使用server酱推送到微信：
  - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
  - 在设置中创建action secrets `SCKEY`
 ![secrets2](/pic/Screenshot_2021_0109_222138.png)
 
-5. 使用效果：
+6. 使用效果：
 ![result](/pic/Screenshot_2021_0110_090228.png)
 
