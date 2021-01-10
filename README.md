@@ -27,3 +27,7 @@
  - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
  - 在设置中创建action secrets `SCKEY`
 ![secrets2](/pic/Screenshot_2021_0109_222138.png)
+
+5. 使用效果：
+![result](/pic/Screenshot_2021_0110_090228.png)
+
