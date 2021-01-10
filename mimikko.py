@@ -37,7 +37,7 @@ vip_info = 'https://api1.mimikko.cn/client/user/GetUserVipInfo' # 获取会员�
 vip_roll = 'https://api1.mimikko.cn/client/roll/RollReward' # 会员抽奖
 server_api = 'https://sc.ftqq.com/'
 
-def apiRequest(method,url,app_id,Authorization,params):
+def apiRequest_get(url,app_id,Authorization,params):
     params_get = params
     headers_get = {
         'Cache-Control': 'Cache-Control:public,no-cache',
@@ -50,6 +50,17 @@ def apiRequest(method,url,app_id,Authorization,params):
         'Connection': 'Keep-Alive',
         'Host': 'api1.mimikko.cn'
     }
+    
+    try:
+        with requests.get(url, headers=headers_get, params=params_get, verify=False, timeout=300) as resp:
+            res = resp.json()
+            return res
+
+    except Exception as ex:
+        print(ex)
+
+def apiRequest_post(url,app_id,Authorization,params):
+    params_get = params
     headers_post = {
         'Accept': 'application/json',
         'Cache-Control': 'no-cache',
@@ -64,13 +75,12 @@ def apiRequest(method,url,app_id,Authorization,params):
     }
 
     try:
-        with requests.method(url, headers=headers_get, params=params_get, verify=False, timeout=300) as resp:
+        with requests.post(url, headers=headers_get, params=params_get, verify=False, timeout=300) as resp:
             res = resp.json()
             return res
 
     except Exception as ex:
         print(ex)
-
 
 # code=nonona,ServantName=诺诺纳
 # code=momona,ServantName=梦梦奈
@@ -84,8 +94,8 @@ def apiRequest(method,url,app_id,Authorization,params):
 
 
 def mimikko(app_id,Authorization):
-    defeat_data = apiRequest(get,defeat_set + "?code=" + Energy_code,app_id,Authorization,"")
-    sign_data = apiRequest(get,sign_path,app_id,Authorization,"")
+    defeat_data = apiRequest_get(defeat_set + "?code=" + Energy_code,app_id,Authorization,"")
+    sign_data = apiRequest_get(sign_path,app_id,Authorization,"")
     #print(type(sign_data))
     if sign_data:
         if sign_data.get('body'):
@@ -94,11 +104,11 @@ def mimikko(app_id,Authorization):
             sign_result_post = '签到失败'
     else:
         sign_result_post = '签到请求失败'
-    vip_info_data = apiRequest(get,vip_info,app_id,Authorization,"")
+    vip_info_data = apiRequest_get(vip_info,app_id,Authorization,"")
     if vip_info_data:
         if vip_info_data.get('body'):
             if vip_info_data['body']['rollNum'] == 0:
-                vip_roll_data = apiRequest(post,vip_roll,app_id,Authorization,"")
+                vip_roll_data = apiRequest_post(vip_roll,app_id,Authorization,"")
                 #print(type(vip_roll_data))
                 #print(type(vip_roll_data['body']))
                 #print(type(ast.literal_eval(vip_roll_data['body'])['Value']))
@@ -116,11 +126,11 @@ def mimikko(app_id,Authorization):
     else:
         vip_roll_data = "抽奖次数不足"
         vip_roll_post = "VIP抽奖请求失败"
-    energy_info_data = apiRequest(get,energy_info_path + "?code=" + Energy_code,app_id,Authorization,"")
+    energy_info_data = apiRequest_get(energy_info_path + "?code=" + Energy_code,app_id,Authorization,"")
     if energy_info_data:
         if energy_info_data.get('body'):
             if energy_info_data['body']['Energy'] > 0:
-                energy_reward_data = apiRequest(get,energy_reward_path + "?code=" + Energy_code, app_id,Authorization,"")
+                energy_reward_data = apiRequest_get(energy_reward_path + "?code=" + Energy_code, app_id,Authorization,"")
                 energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_info_data['body']['code']
             else:
                 energy_reward_data = "您的能量值不足，无法兑换"
@@ -131,8 +141,8 @@ def mimikko(app_id,Authorization):
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
         energy_reward_post = "能量兑换请求失败"
-    sign_info = apiRequest(get,apiPath, app_id,Authorization, "")
-    sign_history = apiRequest(get,apiPath2, app_id,Authorization, "")
+    sign_info = apiRequest_get(apiPath, app_id,Authorization, "")
+    sign_history = apiRequest_get(apiPath2, app_id,Authorization, "")
     return sign_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, vip_roll_post, energy_reward_post
 
 def timeStamp2time(timeStamp):
