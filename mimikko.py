@@ -97,7 +97,7 @@ def mimikko(app_id,Authorization):
     vip_info_data = apiRequest(vip_info,app_id,Authorization,"")
     if vip_info_data:
         if vip_info_data.get('body'):
-            if vip_info_data['body']['rollNum'] > 0:
+            if vip_info_data['body']['rollNum'] == 0:
                 vip_roll_data = apiRequest(vip_roll,app_id,Authorization,"")
                 #print(type(vip_roll_data))
                 #print(type(vip_roll_data['body']))
