@@ -60,7 +60,7 @@ def apiRequest_get(url,app_id,Authorization,params):
         print(ex)
 
 def apiRequest_post(url,app_id,Authorization,params):
-    params_get = params
+    params_post = params
     headers_post = {
         'Accept': 'application/json',
         'Cache-Control': 'no-cache',
@@ -75,7 +75,7 @@ def apiRequest_post(url,app_id,Authorization,params):
     }
 
     try:
-        with requests.post(url, headers=headers_get, params=params_get, verify=False, timeout=300) as resp:
+        with requests.post(url, headers=headers_post, params=params_post, verify=False, timeout=300) as resp:
             res = resp.json()
             return res
 
@@ -115,7 +115,7 @@ def mimikko(app_id,Authorization):
                 #print(type(vip_roll_data['body']))
                 #print(type(ast.literal_eval(vip_roll_data['body'])['Value']))
                 #print(type(vip_roll_data['body']['Value']['description']))
-                vip_roll_post = "VIP抽奖成功：" + str(vip_roll_data['body']['Value']['description'])
+                vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']
             else:
                 vip_roll_data = "抽奖次数不足"
                 if vip_info_data['body']['isValid']:
