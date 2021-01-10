@@ -23,7 +23,7 @@
 ![secrets1](/pic/Screenshot_2021_0109_222130.png)
 3. 在actions中开启
 
-4. 使用server酱推送到微信：
+4. (可选)使用server酱推送到微信：
  - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
  - 在设置中创建action secrets `SCKEY`
 ![secrets2](/pic/Screenshot_2021_0109_222138.png)
