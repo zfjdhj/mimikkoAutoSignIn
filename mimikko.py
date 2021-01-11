@@ -147,7 +147,7 @@ def mimikko(app_id,Authorization):
                 energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + servant_name[energy_reward_data['body']['code']] + " LV" + str(energy_reward_data['body']['Level']) +" (" + original_energy_post + "→" + str(energy_reward_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
             else:
                 energy_reward_data = "您的能量值不足，无法兑换"
-                energy_reward_post = "能量兑换失败：能量需要＞0\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + servant_name[energy_info_data['body']['code']] + " LV" + str(energy_info_data['body']['Level']) + " (" + original_energy_post + "→" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
+                energy_reward_post = "能量兑换好感度：当前没有能量\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + servant_name[energy_info_data['body']['code']] + " LV" + str(energy_info_data['body']['Level']) + " (" + original_energy_post + "→" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
             energy_reward_post = "能量兑换失败"
