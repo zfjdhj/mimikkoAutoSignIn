@@ -1,6 +1,6 @@
 # mimikkoAutoSignin
 
-用于兽耳助手自动每日签到/兑换能量/VIP每日抽奖，并可选推送到微信
+本项目使用GitHub Actions，用于兽耳助手定时`每日签到`/`兑换能量`/`VIP每日抽奖`，并可选`推送到微信`
 
 ## 使用效果：
 > ![result](/pic/result.png)
