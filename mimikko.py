@@ -91,6 +91,7 @@ def apiRequest_post(url,app_id,Authorization,params):
 # code=alpha0,ServantName=阿尔法零
 # code=miruku2,ServantName=米露可
 # code=ulrica,ServantName=优莉卡
+servant_name = {'nonona':诺诺纳,'momona':梦梦奈,'ariana':爱莉安娜,'miruku':米璐库,'nemuri':奈姆利,'ruri':琉璃,'alpha0':阿尔法零,'miruku2':米露可,'ulrica':优莉卡}
 
 
 def mimikko(app_id,Authorization):
@@ -141,10 +142,10 @@ def mimikko(app_id,Authorization):
         if energy_info_data.get('body'):
             if energy_info_data['body']['Energy'] > 0:
                 energy_reward_data = apiRequest_get(energy_reward_path + "?code=" + Energy_code, app_id,Authorization,"")
-                energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_reward_data['body']['code'] + " LV" + str(energy_reward_data['body']['Level']) +" (" + original_energy_post + "→" + str(energy_reward_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
+                energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + servant_name[energy_reward_data['body']['code']] + " LV" + str(energy_reward_data['body']['Level']) +" (" + original_energy_post + "→" + str(energy_reward_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
             else:
                 energy_reward_data = "您的能量值不足，无法兑换"
-                energy_reward_post = "能量兑换失败：能量需要＞0\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_info_data['body']['code'] + " LV" + str(energy_info_data['body']['Level']) + " (" + original_energy_post + "→" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
+                energy_reward_post = "能量兑换失败：能量需要＞0\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + servant_name[energy_info_data['body']['code']] + " LV" + str(energy_info_data['body']['Level']) + " (" + original_energy_post + "→" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
             energy_reward_post = "能量兑换失败"
