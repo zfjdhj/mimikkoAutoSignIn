@@ -109,8 +109,10 @@ def mimikko(app_id,Authorization):
     if sign_data:
         if sign_data.get('body'):
             sign_info = apiRequest_get(apiPath, app_id,Authorization, "")
-            if sign_info:
+            if sign_info['body']['GetExp']:
                 sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+            else:
+                sign_result_post = '今日已签到：' + str(sign_info['body']['ContinuousSignDays']) + '天\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
         else:
             sign_result_post = '签到失败'
     else:
@@ -128,7 +130,7 @@ def mimikko(app_id,Authorization):
             else:
                 vip_roll_data = "抽奖次数不足"
                 if vip_info_data['body']['isValid']:
-                    vip_roll_post = "VIP抽奖失败：今天已经抽过奖了"
+                    vip_roll_post = "今天已经抽过奖了"
                 else:
                     vip_roll_post = "VIP抽奖失败：您还不是VIP"
         else:
