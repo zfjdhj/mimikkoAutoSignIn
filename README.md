@@ -40,6 +40,4 @@
 > ![推送的secrets](/pic/Screenshot_2021_0109_222138.png)
 
 #### 6. 使用效果：
-> ![actions运行结果](/pic/Screenshot_2021_0112_035234.png)
-> ![微信推送result](/pic/Screenshot_2021_0112_034917.png)
-
+> ![actions运行结果1](/pic/result.png)
