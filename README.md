@@ -41,6 +41,6 @@
 ![secrets2](/pic/Screenshot_2021_0109_222138.png)
 
 6. 使用效果：
-![result1](/pic/Screenshot_2021_0111_040459.png)
-![result2](/pic/Screenshot_2021_0111_141226.png)
+![result1](/pic/Screenshot_2021_0112_035234.png)
+![result2](/pic/Screenshot_2021_0112_034917.png)
 
