@@ -11,7 +11,7 @@
 
 2. 在设置中创建action secrets
 `APP_ID`,`AUTHORIZATION`,`ENERGY`;
- - ENERGY用于兑换能量，仅取下列code值：
+ - ENERGY用于签到及兑换能量，仅取下列code值：
    - code=`nonona`,ServantName=诺诺纳
    - code=`momona`,ServantName=梦梦奈
    - code=`ariana`,ServantName=爱莉安娜
