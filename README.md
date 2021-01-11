@@ -2,7 +2,10 @@
 
 用于兽耳助手自动每日签到/兑换能量/VIP每日抽奖，并可选推送到微信
 
-## 使用
+## 使用效果：
+> ![result](/pic/result.png)
+
+## 使用说明
 
 #### 0. 先fork本项目 [![GitHub forks](https://img.shields.io/github/forks/cyb233/mimikkoAutoSignIn?style=social)](https://github.com/cyb233/mimikkoAutoSignIn)
 
@@ -38,6 +41,3 @@
 > - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
 > - 在设置中创建action secrets `SCKEY`
 > ![推送的secrets](/pic/Screenshot_2021_0109_222138.png)
-
-#### 6. 使用效果：
-> ![actions运行结果1](/pic/result.png)
