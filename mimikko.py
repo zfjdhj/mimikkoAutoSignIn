@@ -94,6 +94,14 @@ def apiRequest_post(url,app_id,Authorization,params):
 
 
 def mimikko(app_id,Authorization):
+    original_energy_data = apiRequest_get(energy_info_path + "?code=" + Energy_code,app_id,Authorization,"")
+    if original_energy_data:
+        if original_energy_data.get('body'):
+            original_energy_post = str(original_energy_data['body']['Favorability'])
+        else:
+            energy_reward_post = "*"
+    else:
+        energy_reward_post = "*"
     defeat_data = apiRequest_get(defeat_set + "?code=" + Energy_code,app_id,Authorization,"")
     sign_data = apiRequest_get(sign_path,app_id,Authorization,"")
     #print(type(sign_data))
@@ -133,10 +141,10 @@ def mimikko(app_id,Authorization):
         if energy_info_data.get('body'):
             if energy_info_data['body']['Energy'] > 0:
                 energy_reward_data = apiRequest_get(energy_reward_path + "?code=" + Energy_code, app_id,Authorization,"")
-                energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_reward_data['body']['code'] + " (" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
+                energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_reward_data['body']['code'] + " (" + original_energy_post + "-" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
             else:
                 energy_reward_data = "您的能量值不足，无法兑换"
-                energy_reward_post = "能量兑换失败：能量需要＞0\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_info_data['body']['code'] + " (" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
+                energy_reward_post = "能量兑换失败：能量需要＞0\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + energy_info_data['body']['code'] + " (" + original_energy_post + "-" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
             energy_reward_post = "能量兑换失败"
