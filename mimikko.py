@@ -91,7 +91,7 @@ def apiRequest_post(url,app_id,Authorization,params):
 # code=alpha0,ServantName=阿尔法零
 # code=miruku2,ServantName=米露可
 # code=ulrica,ServantName=优莉卡
-servant_name = {'nonona':诺诺纳,'momona':梦梦奈,'ariana':爱莉安娜,'miruku':米璐库,'nemuri':奈姆利,'ruri':琉璃,'alpha0':阿尔法零,'miruku2':米露可,'ulrica':优莉卡}
+servant_name = {'nonona':'诺诺纳','momona':'梦梦奈','ariana':'爱莉安娜','miruku':'米璐库','nemuri':'奈姆利','ruri':'琉璃','alpha0':'阿尔法零','miruku2':'米露可','ulrica':'优莉卡'}
 
 
 def mimikko(app_id,Authorization):
