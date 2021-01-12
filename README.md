@@ -11,6 +11,7 @@
 
 #### 1. 使用抓包软件获取兽耳助手的app_id,Authorization
 > - 抓包软件怎么用？请去问百度谷歌
+>> - 注意，部分环境下Authorization会失效，如使用同一设备重新进行登录
 
 #### 2. 在设置中创建action secrets `APP_ID`,`AUTHORIZATION`,`ENERGY`;
 > - ENERGY用于签到及兑换能量，仅可设置下列code值：
