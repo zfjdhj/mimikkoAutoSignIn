@@ -34,7 +34,7 @@
 > ![secrets](/pic/secrets.png)
 
 #### 3. 在actions中开启
-> - **请勿滥用GitHub Actions！**
+> - **请勿滥用GitHub Actions！**  
 > 如图所示在actions中选择CI，大约在圆圈打叉的地方可能会有enable按钮
 > ![actions](/pic/actions.png)
 
