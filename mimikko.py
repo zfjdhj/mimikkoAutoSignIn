@@ -111,12 +111,16 @@ def mimikko(app_id,Authorization):
             sign_info = apiRequest_get(apiPath, app_id,Authorization, "")
             if sign_data['body']['GetExp']:
                 sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+                title_post = '兽耳助手签到第' + str(sign_info['body']['ContinuousSignDays']) + '天'
             else:
                 sign_result_post = '今日已签到：' + str(sign_info['body']['ContinuousSignDays']) + '天\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+                title_post = '兽耳助手签到第' + str(sign_info['body']['ContinuousSignDays']) + '天'
         else:
             sign_result_post = '签到失败'
+            title_post = '兽耳助手签到'
     else:
         sign_result_post = '签到请求失败'
+        title_post = '兽耳助手签到'
     vip_info_data = apiRequest_get(vip_info,app_id,Authorization,"")
     if vip_info_data:
         if vip_info_data.get('body'):
@@ -155,7 +159,7 @@ def mimikko(app_id,Authorization):
         energy_reward_data = "您的能量值不足，无法兑换"
         energy_reward_post = "能量兑换请求失败"
     sign_history = apiRequest_get(apiPath2, app_id,Authorization, "")
-    return sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, vip_roll_post, energy_reward_post
+    return sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
 
 def timeStamp2time(timeStamp):
     timeArray = time.localtime(timeStamp/1000)
@@ -163,7 +167,7 @@ def timeStamp2time(timeStamp):
     return otherStyleTime
 
 if app_id and Authorization:
-    sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, vip_roll_post, energy_reward_post = mimikko(app_id,Authorization)
+    sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko(app_id,Authorization)
     # # sign_data
     print('sign_data', sign_data)
     # print("code", sign_data["code"])
@@ -207,7 +211,7 @@ try:
         SCKEY = sys.argv[4]
         # print("有SCKEY")
         print("正在推送到微信")
-        post_info = "?text=兽耳助手签到&desp=<p>" + re.sub('\\n', '  \n', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0) + "  \n  \n" + str(sign_data) + "  \n  \n" + str(vip_roll_data) + "  \n  \n" + str(energy_info_data) + "</p>"
+        post_info = "?text=" + title_post + "&desp=<p>" + re.sub('\\n', '  \n', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0) + "  \n  \n" + str(sign_data) + "  \n  \n" + str(vip_roll_data) + "  \n  \n" + str(energy_info_data) + "</p>"
         post_data = requests.get(server_api + SCKEY + '.send' + post_info)
         print(post_data)
     else:
