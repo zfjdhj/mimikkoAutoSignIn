@@ -7,7 +7,7 @@
 
 ## 使用说明 
 > 熟悉GitHub等的，可以直接看下面，不熟悉的话，可以去看由[@Amcc1860](https://github.com/Amcc1860)编写的[保姆级教程](https://github.com/cyb233/mimikkoAutoSignIn/issues/4)
-
+<details markdown='1'><summary>点击查看使用说明</summary>
 #### 0. 先fork本项目 [![GitHub forks](https://img.shields.io/github/forks/cyb233/mimikkoAutoSignIn?style=social)](https://github.com/cyb233/mimikkoAutoSignIn)
 > 如图标记
 > ![fork](/pic/fork.png)
@@ -48,6 +48,8 @@
 > - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
 > - 在设置中创建action secrets `SCKEY`
 > ![推送的secrets](/pic/Screenshot_2021_0109_222138.png)
-
-## 闲着没事上班摸鱼一小时算出来的
+</details>
+  
+  
+## 闲着没事上班摸鱼一小时算出来的数据
 ![兽耳助手签到所需时长](pic/mimikko_sign.png)
