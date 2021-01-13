@@ -52,4 +52,6 @@
   
   
 ## 闲着没事上班摸鱼一小时算出来的数据
+<details markdown='1'><summary>展开看图</summary>
 ![兽耳助手签到所需时长](pic/mimikko_sign.png)
+</details>
