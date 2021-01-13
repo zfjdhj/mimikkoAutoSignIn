@@ -50,4 +50,4 @@
 > ![推送的secrets](/pic/Screenshot_2021_0109_222138.png)
 
 ## 闲着没事上班摸鱼一小时算出来的
-![兽耳助手签到所需时长](pic/兽耳助手签到.png)
+![兽耳助手签到所需时长](pic/mimikko_sign.png)
