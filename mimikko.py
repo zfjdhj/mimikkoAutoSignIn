@@ -47,6 +47,7 @@ class Logger(object):
         self.logger.addHandler(th)
 if not os.path.exists(base_path+'/log'):
     os.makedirs(f'{base_path}/log',mode=777)
+    os.system(f'chmod 777 {base_path}/log')
 log = Logger(base_path+'/log/all.log',level='debug')
 
 
