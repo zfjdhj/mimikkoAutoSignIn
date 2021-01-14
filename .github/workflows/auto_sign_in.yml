@@ -33,7 +33,7 @@ jobs:
             
       - name: run script
         run: |
-            /opt/hostedtoolcache/Python/3.8.6/x64/bin/python -m pip install --upgrade pip
+            python -m pip install --upgrade pip
             pip install requests
             python mimikko.py ${{ secrets.APP_ID }} ${{ secrets.AUTHORIZATION }}
 
