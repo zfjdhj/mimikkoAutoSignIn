@@ -14,9 +14,10 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 base_path=os.path.dirname(__file__)
-
+if base_path='':
+    base_path="."
 print("base_path:",base_path)
-os.system(f'chmod 777 {base_path}')
+# os.system(f'chmod 777 {base_path}')
 class Logger(object):
     level_relations = {
         'debug':logging.DEBUG,
@@ -45,7 +46,7 @@ class Logger(object):
         self.logger.addHandler(sh) #把对象加到logger里
         self.logger.addHandler(th)
 # if not os.path.exists(base_path+'/log'):
-# os.makedirs(f'{base_path}/log',mode=777)
+os.makedirs(f'{base_path}/log',mode=777)
 log = Logger('all.log',level='debug')
 
 
