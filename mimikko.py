@@ -15,7 +15,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 base_path=os.path.dirname(__file__)
 
-print(base_path)
+print("base_path:",base_path)
 os.system(f'chmod 777 {base_path}')
 class Logger(object):
     level_relations = {
