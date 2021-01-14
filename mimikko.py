@@ -14,7 +14,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 base_path=os.path.dirname(__file__)
-if base_path='':
+if base_path=='':
     base_path="."
 print("base_path:",base_path)
 # os.system(f'chmod 777 {base_path}')
