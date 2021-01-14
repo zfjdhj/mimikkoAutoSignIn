@@ -45,9 +45,9 @@ class Logger(object):
         th.setFormatter(format_str)#设置文件里写入的格式
         self.logger.addHandler(sh) #把对象加到logger里
         self.logger.addHandler(th)
-# if not os.path.exists(base_path+'/log'):
-os.makedirs(f'{base_path}/log',mode=777)
-log = Logger('all.log',level='debug')
+if not os.path.exists(base_path+'/log'):
+    os.makedirs(f'{base_path}/log',mode=777)
+log = Logger(base_path+'/log/all.log',level='debug')
 
 
 # log.logger.debug('debug 信息')
