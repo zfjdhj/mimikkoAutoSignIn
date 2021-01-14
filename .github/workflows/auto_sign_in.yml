@@ -40,7 +40,7 @@ jobs:
       - name: push_log
         uses: seanmiddleditch/gha-publish-to-git@master
         env: 
-          MY_REPOSITORY: ${{ github.repository }}
+          MY_REPOSITORY: $GITHUB_REPOSITORY
         with:
           repository: ${{ MY_REPOSITORY }}
           target_folder: log
