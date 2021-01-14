@@ -36,3 +36,13 @@ jobs:
             /opt/hostedtoolcache/Python/3.8.6/x64/bin/python -m pip install --upgrade pip
             pip install requests
             python mimikko.py ${{ secrets.APP_ID }} ${{ secrets.AUTHORIZATION }}
+
+      - name: push_log
+        if: ${{ secrets.SECRET_TOKEN }} != ""
+        uses: seanmiddleditch/gha-publish-to-git@master
+        with:
+          repository: ${{ github.repository }}
+          target_folder: log
+          branch: master
+          source_folder: log
+          github_token: ${{ secrets.SECRET_TOKEN }}
