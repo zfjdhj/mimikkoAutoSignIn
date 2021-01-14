@@ -14,7 +14,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 base_path=os.path.dirname(__file__)
-
+os.system(f'chomod 777 {base_path}')
 class Logger(object):
     level_relations = {
         'debug':logging.DEBUG,
