@@ -12,10 +12,18 @@
 
 3. 修改config.json
 
-``` json
+    ``` json
 
+    123
+    ```
 
-```
+4. 可选功能：
+
+4.1 日志输出到文件，取消注释`auto_sign_in.yml`中`name:push_log`相关内容
+
+如不需要，请注释掉
+
+4.2 签到图片输出到文件，消息推送等等，没有这些功能，未来也不会做，与现有[插件版](https://github.com/zfjdhj/zfjbot-mimikko)功能重合。
 
 ## Hoshino插件版
 
