@@ -42,7 +42,7 @@ jobs:
         env: 
           MY_REPOSITORY: $GITHUB_REPOSITORY
         with:
-          repository: ${{ MY_REPOSITORY }}
+          repository: $MY_REPOSITORY
           target_folder: log
           branch: master
           source_folder: log
