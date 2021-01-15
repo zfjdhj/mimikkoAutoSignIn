@@ -14,33 +14,24 @@
 3. 修改config.json
 
     ``` json
-    /*
-    兑换能量的code
-    fileName : 魔女日记
-    code : nononabook
-    fileName : 诺诺纳
-    code : nonona
-    fileName : 梦梦奈
-    code : momona
-    fileName : 爱莉安娜
-    code : ariana
-    fileName : 米璐库
-    code : miruku
-    fileName : 奈姆利
-    code : nemuri
-    fileName : 琉璃
-    code : ruri
-    fileName : 阿尔法零
-    code : alpha0
-    fileName : 米露可
-    code : miruku2
-    fileName : 优莉卡
-    code : ulrica
-    */
     {
         "code":"ruri"
     }
     ```
+
+    支持的助手code：
+    | 助手名称 | code |
+    | :-: | :-: |
+    | 魔女日记 | nononabook |
+    | 诺诺纳 | nonona |
+    | 梦梦奈 | momona |
+    | 爱莉安娜 | ariana |
+    | 米璐库 | miruku |
+    | 奈姆利 | nemuri |
+    | 琉璃 | ruri |
+    | 阿尔法零 | alpha0 |
+    | 米露可 | miruku2 |
+    | 优莉卡 | ulrica |
 
 4. 可选功能：
 
