@@ -19,6 +19,8 @@ if base_path=='':
     base_path="/home/runner/work/mimikkoAutoSignIn/mimikkoAutoSignIn"
     os.system(f'chmod 777 {base_path}')
 print("base_path:",base_path)
+
+
 class Logger(object):
     level_relations = {
         'debug':logging.DEBUG,
@@ -28,19 +30,15 @@ class Logger(object):
     }#日志级别关系映射
 
     
-
-
     def beijing(sec, what):
         beijing_time = datetime.datetime.now() + datetime.timedelta(hours=8)
         return beijing_time.timetuple()
 
 
-    
-
     def __init__(self,filename,level='info',when='D',backCount=30,fmt='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'):
         self.logger = logging.getLogger(filename)
         format_str = logging.Formatter(fmt)#设置日志格式
-        logging.Formatter.converter = beijing
+        self.Formatter.converter = self.beijing
         self.logger.setLevel(self.level_relations.get(level))#设置日志级别
         sh = logging.StreamHandler()#往屏幕上输出
         sh.setFormatter(format_str) #设置屏幕上显示的格式
