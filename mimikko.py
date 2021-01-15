@@ -4,6 +4,7 @@
  * @date  2020/9/26 15:39
 """
 import sys
+import datetime
 import time
 import requests
 import json
@@ -26,9 +27,20 @@ class Logger(object):
         'error':logging.ERROR,
     }#日志级别关系映射
 
+    
+
+
+    def beijing(sec, what):
+        beijing_time = datetime.datetime.now() + datetime.timedelta(hours=8)
+        return beijing_time.timetuple()
+
+
+    
+
     def __init__(self,filename,level='info',when='D',backCount=30,fmt='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s'):
         self.logger = logging.getLogger(filename)
         format_str = logging.Formatter(fmt)#设置日志格式
+        logging.Formatter.converter = beijing
         self.logger.setLevel(self.level_relations.get(level))#设置日志级别
         sh = logging.StreamHandler()#往屏幕上输出
         sh.setFormatter(format_str) #设置屏幕上显示的格式
@@ -45,6 +57,8 @@ class Logger(object):
         th.setFormatter(format_str)#设置文件里写入的格式
         self.logger.addHandler(sh) #把对象加到logger里
         self.logger.addHandler(th)
+
+
 if not os.path.exists(base_path+'/log'):
     os.makedirs(f'{base_path}/log',mode=777)
     os.system(f'chmod 777 {base_path}/log')
