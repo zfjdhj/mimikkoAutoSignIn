@@ -8,7 +8,8 @@
 
 2. 创建action secrets
 `secrets.APP_ID`,`secrets.AUTHORIZATION`;
-`可选功能`日志输出到文件，需要设定`secrets.SECRET_TOKEN`
+
+    **可选功能**：日志输出到文件，需要设定`secrets.SECRET_TOKEN`
 
 3. 修改config.json
 
@@ -64,7 +65,8 @@
 ## 更新
 
 1. 新增日志输出到文件，需要设定secrets.SECRET_TOKEN
-**注意：**脚本包含上传功能，已关闭action push触发，如有需要请自行开启（会套娃），测试完毕后尽快关闭
+
+    **注意**: 脚本包含上传功能，已关闭action push触发，如有需要请自行开启（会套娃），待测试完毕后尽快关闭
 
 2. 新增config.json用于设定助手
 
