@@ -48,7 +48,7 @@ class Logger(object):
         self.logger = logging.getLogger(filename)
         format_str = logging.Formatter(fmt)  # 设置日志格式
         logging.Formatter.converter = self.beijing
-        self.logger.setLevel(self.level_relations.get(level))  # 设置日志级别
+        self.logger.setLevel(self.level_relations[level])  # 设置日志级别
         sh = logging.StreamHandler()  # 往屏幕上输出
         sh.setFormatter(format_str)  # 设置屏幕上显示的格式
         fh = handlers.TimedRotatingFileHandler(
