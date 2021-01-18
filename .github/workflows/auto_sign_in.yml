@@ -29,10 +29,10 @@ jobs:
       - name: install python
         uses: actions/setup-python@v2
         with:
-            python-version: '3.8.6' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+            python-version: '3.8' # Version range or exact version of a Python version to use, using SemVer's version range syntax
             
       - name: run script
         run: |
-            /opt/hostedtoolcache/Python/3.8.6/x64/bin/python -m pip install --upgrade pip
+            python -m pip install --upgrade pip
             pip install requests
             python mimikko.py ${{ secrets.APP_ID }} ${{ secrets.AUTHORIZATION }} ${{ secrets.ENERGY }} ${{ secrets.SCKEY }}
