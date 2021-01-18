@@ -12,7 +12,6 @@ import json
 import os
 import logging
 from logging import handlers
-import re
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
