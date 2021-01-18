@@ -21,7 +21,6 @@ base_path = os.path.dirname(__file__)
 if base_path == "":
     base_path = "/home/runner/work/mimikkoAutoSignIn/mimikkoAutoSignIn"
     os.system(f"chmod 777 {base_path}")
-print("base_path:", base_path)
 
 
 class Logger(object):
@@ -38,6 +37,7 @@ class Logger(object):
 
     def __init__(
         self,
+        base_path,
         filename,
         level="info",
         when="MIDNIGHT",
@@ -48,44 +48,30 @@ class Logger(object):
         self.logger = logging.getLogger(filename)
         format_str = logging.Formatter(fmt)  # 设置日志格式
         logging.Formatter.converter = self.beijing
-        self.logger.setLevel(logging.DEBUG)  # 设置日志级别
+        self.logger.setLevel(self.level_relations.get(level))  # 设置日志级别
         sh = logging.StreamHandler()  # 往屏幕上输出
         sh.setFormatter(format_str)  # 设置屏幕上显示的格式
-        fh = logging.handlers.TimedRotatingFileHandler(
+        fh = handlers.TimedRotatingFileHandler(
             filename=filename, when=when, interval=interval, backupCount=backCount, encoding="utf-8"
         )
-        # 往文件里写入#指定间隔时间自动生成文件的处理器
-        # 实例化TimedRotatingFileHandler
-        # interval是时间间隔，backupCount是备份文件的个数，如果超过这个个数，就会自动删除，when是间隔的时间单位，单位有以下几种：
-        # S 秒
-        # M 分
-        # H 小时、
-        # D 天、
-        # W 每星期（interval==0时代表星期一）
-        # midnight 每天凌晨
-        # filename="mylog" suffix设置，会生成文件名为mylog.2020-02-25.log
-        fh.suffix = "%Y-%m-%d.log"
-        # extMatch是编译好正则表达式，用于匹配日志文件名后缀
-        # 需要注意的是suffix和extMatch一定要匹配的上，如果不匹配，过期日志不会被删除。
-        fh.extMatch = re.compile(r"^\d{4}-\d{2}-\d{2}.log$")
+        fh_all = handlers.TimedRotatingFileHandler(
+            filename=base_path + "/log/all.log", when="D", interval=30, backupCount=backCount, encoding="utf-8"
+        )
         fh.setFormatter(format_str)  # 设置文件里写入的格式
+        fh_all.setFormatter(format_str)  # 设置文件里写入的格式
         self.logger.addHandler(sh)  # 把对象加到logger里
         self.logger.addHandler(fh)
+        self.logger.addHandler(fh_all)
 
 
+# log信息
 if not os.path.exists(base_path + "/log"):
     os.makedirs(f"{base_path}/log", mode=777)
     os.system(f"chmod 777 {base_path}/log")
+date = time.strftime("%Y-%m-%d", time.localtime(time.time()))
+log = Logger(base_path, base_path + f"/log/{date}.log", level="debug")
 
-log = Logger(base_path + "/log/all.log", level="debug")
-
-
-# log.logger.debug('debug 信息')
-# log.logger.info('info 信息')
-# log.logger.warning('warning 信息')
-# log.logger.error('error 信息')
-# log.logger.critical('critial 信息')
-
+# 开始脚本
 if len(sys.argv) == 3:
     app_id = sys.argv[1]
     Authorization = sys.argv[2]
@@ -99,9 +85,6 @@ with open(base_path + "/config.json", "r") as f:
 if config["code"] == "":
     config["code"] = "momona"
     log.logger.warning("config-code为空，自动设置签到助手为梦梦奈")
-
-# id=sys.argv[3]
-# password=sys.argv[4]
 
 apiPath = "http://api1.mimikko.cn/client/user/GetUserSignedInformation"
 apiPath2 = "http://api1.mimikko.cn/client/dailysignin/log/30/0"
@@ -118,7 +101,7 @@ def apiRequest(url, app_id, Authorization, params):
         "User-Agent": "Mozilla/5.0(Linux;Android6.0.1;MuMu Build/V417IR;wv)AppleWebKit/537.36(KHTML,"
         "like Gecko)Version/4.0 Chrome/52.0.2743.100MobileSafari / 537.36",
         "AppID": app_id,
-        "Version": "3.1.2",
+        "Version": "3.1.3",
         "Authorization": Authorization,
         "Connection": "Keep-Alive",
         "Host": "api1.mimikko.cn",
@@ -127,7 +110,7 @@ def apiRequest(url, app_id, Authorization, params):
         "Accept": "application/json",
         "Cache-Control": "no-cache",
         "AppID": app_id,
-        "Version": "3.1.2",
+        "Version": "3.1.3",
         "Content-Type": "application/json",
         "Host": "api1.mimikko.cn",
         "Connection": "Keep-Alive",
@@ -142,12 +125,6 @@ def apiRequest(url, app_id, Authorization, params):
 
     except Exception as ex:
         log.logger.error(ex)
-
-
-# code=momona,ServantName=梦梦奈
-# code=ruri,ServantName=琉璃
-# code=nemuri,ServantName=奈姆利
-# code=miruku2,ServantName=米露可
 
 
 def mimikko(app_id, Authorization):
