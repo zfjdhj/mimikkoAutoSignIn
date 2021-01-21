@@ -1,7 +1,7 @@
 # mimikkoAutoSignin
 
-本项目使用GitHub Actions，用于[兽耳助手](https://www.mimikko.cn/)定时`每日签到`/`兑换能量`/`VIP每日抽奖`，并可选`推送到微信`
-
+本项目使用GitHub Actions，用于[兽耳助手](https://www.mimikko.cn/)定时`每日签到`/`兑换能量`/`VIP每日抽奖`，并可选`推送到微信`  
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cyb233/mimikkoAutoSignIn/CI)
 >[keylol帖子](https://keylol.com/t675496-1-1)
 ## 使用效果：
 ![result](/pic/result.png)
@@ -38,7 +38,7 @@
 
 #### 3. 在actions中开启
 > - **请勿滥用GitHub Actions！**  
-> 如图所示在actions中选择CI，大约在圆圈打叉的地方可能会有enable按钮
+> 如图所示在actions中选择中间这个长长的按钮，并手动执行一次
 > ![actions](/pic/actions.png)
 
 #### 4. 修改自动运行时间：
