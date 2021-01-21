@@ -38,7 +38,7 @@
 
 #### 3. 在actions中开启
 > - **请勿滥用GitHub Actions！**  
-> 如图所示在actions中选择中间这个长长的按钮，并手动执行一次
+> - 如图所示在actions中选择中间这个长长的按钮，并手动执行一次
 > ![actions](/pic/actions.jpg)
 
 #### 4. 修改自动运行时间：
