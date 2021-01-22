@@ -136,6 +136,7 @@ def timeStamp2time(timeStamp):
     return firstStyleTime, secondStyleTime
 
 def mimikko():
+    global Authorization
     #登录
     if login and user_id and user_password:
         login_data = loginRequest_post(login_path,app_id,app_Version,'{"password":"' + user_password + '","id":"' + user_id + '"}')
