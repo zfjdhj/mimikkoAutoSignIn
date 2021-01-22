@@ -45,7 +45,7 @@ try:
     else:
         SCKEY = False
 except Exception as e:
-    print(e)
+    print('传递参数错误：' + e)
 
 login_path = 'https://api1.mimikko.cn/client/user/LoginWithPayload' # 登录(post)
 is_sign = 'http://api1.mimikko.cn/client/user/GetUserSignedInformation' # 今天是否签到
