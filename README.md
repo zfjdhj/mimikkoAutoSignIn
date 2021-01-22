@@ -28,7 +28,7 @@
 > |`AUTHORIZATION`|必要(当LOGIN值非True时)|验证账号用，由抓包获取|
 > |`ID`|必要(当LOGIN值为True时)|登录用，由抓包获取|
 > |`PASSWORD`|必要(当LOGIN值为True时)|登录用，由抓包获取|
-> |`RESIGN`|x|如需补签最近，取值1~7|
+> |`RESIGN`|x|如需每天尝试补签最近x天，取值1~7|
 > |`SCKEY`|x|微信推送，详见步骤5|
 
 > - ENERGY用于签到及兑换能量，仅可设置下列code值：
