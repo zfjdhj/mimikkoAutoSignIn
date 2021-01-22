@@ -175,14 +175,14 @@ def mimikko():
         resign_time = time.time()/1000-86400
         r_date, r_time = timeStamp2time(resign_time)
         first_resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
-        for i in ['1','2','3','4','5','6','7']:
-            global first_resign_data
-            i+=1
-            if not i>resign:
-                if first_resign_data['body']['rows'][7-i]['reward']=='0':
-                    resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + first_resign_data['body']['rows'][7-i]['signDate'] + '"]')
-            else:
-                break
+        if first_resign_data and first_resign_data.get('body'):
+            for i in ['1','2','3','4','5','6','7']:
+                i+=1
+                if not i>resign:
+                    if first_resign_data['body']['rows'][7-i]['reward']=='0':
+                        resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + first_resign_data['body']['rows'][7-i]['signDate'] + '"]')
+                else:
+                    break
     #签到
     sign_data = apiRequest_get(sign_path,app_id,app_Version,Authorization, "")
     if sign_data and sign_data.get('body'):
