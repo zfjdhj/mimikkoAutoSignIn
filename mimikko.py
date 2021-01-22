@@ -142,7 +142,6 @@ def timeStamp2time(timeStamp):
 
 def mimikko():
     global Authorization
-    global first_resign_data
     #登录
     if login and user_id and user_password:
         login_data = loginRequest_post(login_path,app_id,app_Version,'{"password":"' + user_password + '","id":"' + user_id + '"}')
@@ -176,6 +175,7 @@ def mimikko():
         resign_time = time.time()/1000-86400
         r_date, r_time = timeStamp2time(resign_time)
         first_resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
+        global first_resign_data
         for i in ['1','2','3','4','5','6','7']:
             i+=1
             if not i>resign:
