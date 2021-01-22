@@ -148,9 +148,9 @@ def mimikko():
             Authorization = login_data['body']['Token']
         else:
             if Authorization:
-                sys.exit('登录失败！！！')
-            else:
                 print("登录失败，尝试使用保存的Authorization")
+            else:
+                sys.exit('登录失败！！！')
     else:
         if login and Authorization:
             print("未找到登录ID或密码，尝试使用保存的Authorization")
