@@ -35,6 +35,7 @@
 
 > |code|ServantName|
 > |-----|-----|
+> ||缺省值：梦梦奈|
 > |`nonona`|诺诺纳|
 > |`momona`|梦梦奈|
 > |`ariana`|爱莉安娜|
