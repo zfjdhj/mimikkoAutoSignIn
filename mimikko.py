@@ -12,31 +12,32 @@ import getopt
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 optlist, args = getopt.getopt(sys.argv[1:], 'i:e:l:a:u:p:s:r:')
+print(optlist)
 try:
     for o,a in optlist:
         if o == '-i' and a.strip() != '':
             app_id = a.strip()
-        else:
+        elif o == '-i' :
             sys.exit('读取参数错误！！！')
         if o == '-e' and a.strip() != '':
             Energy_code = a.strip()
-        else:
+        elif o == '-e':
             Energy_code = 'momona'
         if o == '-a' and a.strip() != '':
             Authorization = a.strip()
-        else:
+        elif o == '-a':
             Authorization = False
         if o == '-u' and a.strip() != '':
             user_id = a.strip()
-        else:
+        elif o == '-u':
             user_id = False
         if o == '-p' and a.strip() != '':
             user_password = a.strip()
-        else:
+        elif o == '-p':
             user_password = False
         if o == '-s' and a.strip() != '':
             SCKEY = a.strip()
-        else:
+        elif o == '-s':
             SCKEY = False
         if o == '-r':
             if a.strip() in ['1','2','3','4','5','6','7']:
