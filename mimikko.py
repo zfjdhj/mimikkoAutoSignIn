@@ -14,36 +14,36 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 optlist, args = getopt.getopt(sys.argv[1:], 'i:e:l:a:u:p:s:r:')
 try:
     for o,a in optlist:
-        if o in '-i' and a.strip() != '':
+        if o == '-i' and a.strip() != '':
             app_id = a.strip()
         else:
             sys.exit('读取参数错误！！！')
-        if o in '-e' and a.strip() != '':
+        if o == '-e' and a.strip() != '':
             Energy_code = a.strip()
         else:
             Energy_code = 'momona'
-        if o in '-a' and a.strip() != '':
+        if o == '-a' and a.strip() != '':
             Authorization = a.strip()
         else:
             Authorization = False
-        if o in '-u' and a.strip() != '':
+        if o == '-u' and a.strip() != '':
             user_id = a.strip()
         else:
             user_id = False
-        if o in '-p' and a.strip() != '':
+        if o == '-p' and a.strip() != '':
             user_password = a.strip()
         else:
             user_password = False
-        if o in '-s' and a.strip() != '':
+        if o == '-s' and a.strip() != '':
             SCKEY = a.strip()
         else:
             SCKEY = False
-        if o in '-r':
+        if o == '-r':
             if a.strip() in ['1','2','3','4','5','6','7']:
                 resign = a.strip()
             else:
                 resign = False
-        if o in '-l':
+        if o == '-l':
             if a.strip().upper() == 'TRUE':
                 login = True
             else:
