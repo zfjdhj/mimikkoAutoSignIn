@@ -1,24 +1,36 @@
 # mimikkoAutoSignin
 
-本项目使用GitHub Actions，用于[兽耳助手](https://www.mimikko.cn/)定时`每日签到`/`兑换能量`/`VIP每日抽奖`，并可选`推送到微信`  
+本项目使用GitHub Actions，用于[兽耳助手](https://www.mimikko.cn/)定时`每日签到/补签`/`兑换能量`/`VIP每日抽奖`，并可选`推送到微信`  
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cyb233/mimikkoAutoSignIn/CI)
 >[keylol帖子](https://keylol.com/t675496-1-1)
 ## 使用效果：
 ![result](/pic/result.png)
 
 ## 使用说明 
-> 熟悉GitHub等的，可以直接看下面，不熟悉的话，可以去看由[@Amcc1860](https://github.com/Amcc1860)编写的[保姆级教程](https://github.com/cyb233/mimikkoAutoSignIn/issues/4)
+> 熟悉GitHub相关操作的，可以直接看下面，不熟悉的话，可以去看由[@Amcc1860](https://github.com/Amcc1860)编写的[保姆级教程](https://github.com/cyb233/mimikkoAutoSignIn/issues/4)
 <details markdown='1'><summary>点击查看使用说明</summary>
 
 #### 0. 先fork本项目 [![GitHub forks](https://img.shields.io/github/forks/cyb233/mimikkoAutoSignIn?style=social)](https://github.com/cyb233/mimikkoAutoSignIn)
 > 如图标记
 > ![fork](/pic/fork.png)
 
-#### 1. 使用抓包软件获取兽耳助手的app_id,Authorization
+#### 1. 使用抓包软件获取兽耳助手的app_id,Authorization等数据
 > - 抓包软件怎么用？请去问百度谷歌 [(只有手机怎么办？→常见的抓包软件)](https://github.com/cyb233/mimikkoAutoSignIn/wiki/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8A%93%E5%8C%85%E8%BD%AF%E4%BB%B6)
 >> - 注意，部分环境下Authorization会失效，如使用同一设备重新进行登录
+>>> 如果想避免这种情况可以抓取登录id和password
 
-#### 2. 在设置中创建action secrets `APP_ID`,`AUTHORIZATION`,`ENERGY`;
+#### 2. 在设置中创建action secrets：
+> |secret名称|是否必要|说明|
+> |-----|-----|-----|
+> |`APP_ID`|必要|APP_ID，由抓包获取|
+> |`ENERGY`|x|详见下个表格|
+> |`LOGIN`|x|值为True时使用ID和密码进行登录，否则使用AUTHORIZATION进行验证|
+> |`AUTHORIZATION`|必要(当LOGIN值非True时)|验证账号用，由抓包获取|
+> |`ID`|必要(当LOGIN值为True时)|登录用，由抓包获取|
+> |`PASSWORD`|必要(当LOGIN值为True时)|登录用，由抓包获取|
+> |`RESIGN`|x|如需补签最近，取值1~7|
+> |`SCKEY`|x|微信推送，详见步骤5|
+
 > - ENERGY用于签到及兑换能量，仅可设置下列code值：
 
 > |code|ServantName|

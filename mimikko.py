@@ -1,45 +1,97 @@
 # -*- coding: UTF-8 -*-
 """
- * @author  zfj
- * @date  2020/9/26 15:39
- * @editor  cyb233
+ * @author  cyb233
  * @date  2021/1/9
 """
 import sys
 import time
 import requests
 import re
+import json
+import getopt
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
+optlist, args = getopt.getopt(sys.argv[1:], 'i:e:l:a:u:p:s:r:')
+
 try:
-    if len(sys.argv)==4 or len(sys.argv)==5:
-        app_id = sys.argv[1]
-        Authorization = sys.argv[2]
-        Energy_code = sys.argv[3]
-    else:
-        print("缺少必要参数！！！(Bot插件版忽略此错误)")
-        # 也可以在这里设定默认值，但请注意账号泄露风险
-        app_id = ""
-        Authorization = ""
-        Energy_code = ""
-        SCKEY = ""
+    for o,a in optlist:
+        if o in '-i' and a.strip() != '':
+            app_id = a.strip()
+        else:
+            sys.exit('读取参数错误！！！')
+        if o in '-e' and a.strip() != '':
+            Energy_code = a.strip()
+        else:
+            Energy_code = 'momona'
+        if o in '-a' and a.strip() != '':
+            Authorization = a.strip()
+        else:
+            Authorization = False
+        if o in '-u' and a.strip() != '':
+            user_id = a.strip()
+        else:
+            user_id = False
+        if o in '-p' and a.strip() != '':
+            user_password = a.strip()
+        else:
+            user_password = False
+        if o in '-s' and a.strip() != '':
+            SCKEY = a.strip()
+        else:
+            SCKEY = False
+        if o in '-r':
+            if a.strip() in ['1','2','3','4','5','6','7']:
+                resign = a.strip()
+            else:
+                resign = False
+        if o in '-l':
+            if a.strip().upper() == 'TRUE':
+                login = True
+            else:
+                login = False
 except Exception as e:
     print(e)
 
-
-apiPath = 'http://api1.mimikko.cn/client/user/GetUserSignedInformation' # 今天是否签到
-apiPath2 = 'http://api1.mimikko.cn/client/dailysignin/log/30/0' # 签到历史
-defeat_set = 'https://api1.mimikko.cn/client/Servant/SetDefaultServant' # 默认助手
+login_path = 'https://api1.mimikko.cn/client/user/LoginWithPayload' # 登录(post)
+is_sign = 'http://api1.mimikko.cn/client/user/GetUserSignedInformation' # 今天是否签到
+history_path = 'http://api1.mimikko.cn/client/dailysignin/log/30/0' # 签到历史
+can_resign = 'https://api1.mimikko.cn/client/love/getcanresigntimes' # 补签卡数量
+defeat_set = 'https://api1.mimikko.cn/client/Servant/SetDefaultServant' # 设置默认助手
+resign_path = 'https://api1.mimikko.cn/client/love/resign?servantId=' # 补签(post)
 sign_path = 'https://api1.mimikko.cn/client/RewardRuleInfo/SignAndSignInformationV3' # 签到
 energy_info_path = 'https://api1.mimikko.cn/client/love/GetUserServantInstance' # 获取助手状态
 energy_reward_path = 'https://api1.mimikko.cn/client/love/ExchangeReward' # 兑换助手能量
 vip_info = 'https://api1.mimikko.cn/client/user/GetUserVipInfo' # 获取会员状态
-vip_roll = 'https://api1.mimikko.cn/client/roll/RollReward' # 会员抽奖
-server_api = 'https://sc.ftqq.com/'
+vip_roll = 'https://api1.mimikko.cn/client/roll/RollReward' # 会员抽奖(post)
+server_api = 'https://sc.ftqq.com/' # 微信推送
+app_Version = '3.1.3'
+servant_name = {'nonona':'诺诺纳','momona':'梦梦奈','ariana':'爱莉安娜','miruku':'米璐库','nemuri':'奈姆利','ruri':'琉璃','alpha0':'阿尔法零','miruku2':'米露可','ulrica':'优莉卡'}
 
-def apiRequest_get(url,app_id,Authorization,params):
+def loginRequest_post(url,app_id,app_Version,params):
+    params_post = params
+    headers_post = {
+        'Accept': 'application/json',
+        'Cache-Control': 'no-cache',
+        'AppID': app_id,
+        'Version': app_Version,
+        'Content-Type': 'application/json',
+        'Host': 'api1.mimikko.cn',
+        'Connection': 'Keep-Alive',
+        'Accept-Encoding': 'gzip',
+        'User-Agent': 'okhttp/3.12.1',
+    }
+
+    try:
+        with requests.post(url, headers=headers_post, params=params_post, verify=False, timeout=300) as resp:
+            res = resp.json()
+            return res
+
+    except Exception as ex:
+        print(ex)
+
+def apiRequest_get(url,app_id,app_Version,Authorization,params):
     params_get = params
     headers_get = {
         'Cache-Control': 'Cache-Control:public,no-cache',
@@ -47,7 +99,7 @@ def apiRequest_get(url,app_id,Authorization,params):
         'User-Agent': 'Mozilla/5.0(Linux;Android6.0.1;MuMu Build/V417IR;wv)AppleWebKit/537.36(KHTML,'
                       'like Gecko)Version/4.0 Chrome/52.0.2743.100MobileSafari / 537.36',
         'AppID': app_id,
-        'Version': '3.1.3',
+        'Version': app_Version,
         'Authorization': Authorization,
         'Connection': 'Keep-Alive',
         'Host': 'api1.mimikko.cn'
@@ -61,13 +113,13 @@ def apiRequest_get(url,app_id,Authorization,params):
     except Exception as ex:
         print(ex)
 
-def apiRequest_post(url,app_id,Authorization,params):
+def apiRequest_post(url,app_id,app_Version,Authorization,params):
     params_post = params
     headers_post = {
         'Accept': 'application/json',
         'Cache-Control': 'no-cache',
         'AppID': app_id,
-        'Version': '3.1.3',
+        'Version': app_Version,
         'Authorization': Authorization,
         'Content-Type': 'application/json',
         'Host': 'api1.mimikko.cn',
@@ -84,140 +136,125 @@ def apiRequest_post(url,app_id,Authorization,params):
     except Exception as ex:
         print(ex)
 
-# code=nonona,ServantName=诺诺纳
-# code=momona,ServantName=梦梦奈
-# code=ariana,ServantName=爱莉安娜
-# code=miruku,ServantName=米璐库
-# code=nemuri,ServantName=奈姆利
-# code=ruri,ServantName=琉璃
-# code=alpha0,ServantName=阿尔法零
-# code=miruku2,ServantName=米露可
-# code=ulrica,ServantName=优莉卡
-servant_name = {'nonona':'诺诺纳','momona':'梦梦奈','ariana':'爱莉安娜','miruku':'米璐库','nemuri':'奈姆利','ruri':'琉璃','alpha0':'阿尔法零','miruku2':'米露可','ulrica':'优莉卡'}
+def timeStamp2time(timeStamp):
+    timeArray = time.localtime(timeStamp)
+    firstStyleTime = time.strftime('%Y-%m-%d', timeArray)
+    secondStyleTime = time.strftime('%Y年%m月%d日 %H:%M:%S', timeArray)
+    return firstStyleTime, secondStyleTime
 
-
-def mimikko(app_id,Authorization):
-    original_energy_data = apiRequest_get(energy_info_path + "?code=" + Energy_code,app_id,Authorization,"")
-    if original_energy_data:
-        if original_energy_data.get('body'):
-            original_energy_post = str(original_energy_data['body']['Favorability'])
+def mimikko():
+    #登录
+    if login and user_id and user_password:
+        login_data = loginRequest_post(login_path,app_id,app_Version,'{"password":"' + user_password + '","id":"' + user_id + '"}')
+        if login_data and login_data.get('body'):
+            Authorization = login_data['body']['Token']
         else:
-            energy_reward_post = "*"
+            if Authorization:
+                sys.exit('登录失败！！！')
+            else:
+                print("登录失败，尝试使用保存的Authorization")
+    else:
+        if login and Authorization:
+            print("未找到登录ID或密码，尝试使用保存的Authorization")
+        elif login and not Authorization:
+            sys.exit('请在Secret中保存登录ID和密码！！！')
+        elif not Authorization:
+            sys.exit('请在Secret中保存Authorization！！！')
+    #设置默认助手
+    defeat_data = apiRequest_get(defeat_set + "?code=" + Energy_code,app_id,app_Version,Authorization,"")
+    #执行前的好感度
+    original_energy_data = apiRequest_get(energy_info_path + "?code=" + Energy_code,app_id,app_Version,Authorization,"")
+    if original_energy_data and original_energy_data.get('body'):
+        original_energy_post = str(original_energy_data['body']['Favorability'])
     else:
         energy_reward_post = "*"
-    defeat_data = apiRequest_get(defeat_set + "?code=" + Energy_code,app_id,Authorization,"")
-    sign_data = apiRequest_get(sign_path,app_id,Authorization,"")
-    #print(type(sign_data))
-    if sign_data:
-        if sign_data.get('body'):
-            sign_info = apiRequest_get(apiPath, app_id,Authorization, "")
-            if sign_data['body']['GetExp']:
-                sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
-                title_post = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
+    #签到历史
+    sign_history = apiRequest_get(history_path, app_id,app_Version,Authorization, "")
+    #补签
+    if resign:
+        i=1
+        resign_time = time.time()/1000-86400
+        r_date, r_time = timeStamp2time(resign_time)
+        first_resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
+        for i in ['1','2','3','4','5','6','7']:
+            i+=1
+            if not i>resign:
+                if first_resign_data['body']['rows'][7-i]['reward']=='0':
+                    resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + first_resign_data['body']['rows'][7-i]['signDate'] + '"]')
             else:
-                sign_result_post = '今日已签到：' + str(sign_info['body']['ContinuousSignDays']) + '天\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
-                title_post = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
+                break
+    #签到
+    sign_data = apiRequest_get(sign_path,app_id,app_Version,Authorization,"")
+    if sign_data and sign_data.get('body'):
+        sign_info = apiRequest_get(is_sign, app_id,app_Version,Authorization, "")
+        if sign_data['body']['GetExp']:
+            sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+            title_post = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
         else:
-            sign_result_post = '签到失败'
-            title_post = '兽耳助手签到'
+            sign_result_post = '今日已签到：' + str(sign_info['body']['ContinuousSignDays']) + '天\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+            title_post = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
     else:
-        sign_result_post = '签到请求失败'
+        sign_result_post = '签到失败'
         title_post = '兽耳助手签到'
-    vip_info_data = apiRequest_get(vip_info,app_id,Authorization,"")
-    if vip_info_data:
-        if vip_info_data.get('body'):
-            if vip_info_data['body']['rollNum'] > 0:
-                vip_roll_data = apiRequest_post(vip_roll,app_id,Authorization,"")
-                #print(type(vip_roll_data))
-                #print(type(vip_roll_data['body']))
-                #print(type(ast.literal_eval(vip_roll_data['body'])['Value']))
-                #print(type(vip_roll_data['body']['Value']['description']))
-                vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']
-            else:
-                vip_roll_data = "抽奖次数不足"
-                if vip_info_data['body']['isValid']:
-                    vip_roll_post = "今天已经抽过奖了"
-                else:
-                    vip_roll_post = "VIP抽奖失败：您还不是VIP"
+    #VIP抽奖
+    vip_info_data = apiRequest_get(vip_info,app_id,app_Version,Authorization,"")
+    if vip_info_data and vip_info_data.get('body'):
+        if vip_info_data['body']['rollNum'] > 0:
+            vip_roll_data = apiRequest_post(vip_roll,app_id,app_Version,Authorization,"")
+            #print(type(vip_roll_data))
+            #print(type(vip_roll_data['body']))
+            #print(type(ast.literal_eval(vip_roll_data['body'])['Value']))
+            #print(type(vip_roll_data['body']['Value']['description']))
+            vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']
         else:
             vip_roll_data = "抽奖次数不足"
-            vip_roll_post = "VIP抽奖失败"
+            if vip_info_data['body']['isValid']:
+                vip_roll_post = "今天已经抽过奖了"
+            else:
+                vip_roll_post = "VIP抽奖失败：您还不是VIP"
     else:
         vip_roll_data = "抽奖次数不足"
-        vip_roll_post = "VIP抽奖请求失败"
-    energy_info_data = apiRequest_get(energy_info_path + "?code=" + Energy_code,app_id,Authorization,"")
-    if energy_info_data:
-        if energy_info_data.get('body'):
-            if energy_info_data['body']['Energy'] > 0:
-                energy_reward_data = apiRequest_get(energy_reward_path + "?code=" + Energy_code, app_id,Authorization,"")
-                energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + servant_name[energy_reward_data['body']['code']] + " LV" + str(energy_reward_data['body']['Level']) +" (" + original_energy_post + "→" + str(energy_reward_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
-            else:
-                energy_reward_data = "您的能量值不足，无法兑换"
-                energy_reward_post = "能量兑换好感度：当前没有能量\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + servant_name[energy_info_data['body']['code']] + " LV" + str(energy_info_data['body']['Level']) + " (" + original_energy_post + "→" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
+        vip_roll_post = "VIP抽奖失败"
+    #能量兑换好感度
+    energy_info_data = apiRequest_get(energy_info_path + "?code=" + Energy_code,app_id,app_Version,Authorization,"")
+    if energy_info_data and energy_info_data.get('body'):
+        if energy_info_data['body']['Energy'] > 0:
+            energy_reward_data = apiRequest_get(energy_reward_path + "?code=" + Energy_code, app_id,app_Version,Authorization,"")
+            energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + servant_name[energy_reward_data['body']['code']] + " LV" + str(energy_reward_data['body']['Level']) +" (" + original_energy_post + "→" + str(energy_reward_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
-            energy_reward_post = "能量兑换失败"
+            energy_reward_post = "能量兑换好感度：当前没有能量\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + servant_name[energy_info_data['body']['code']] + " LV" + str(energy_info_data['body']['Level']) + " (" + original_energy_post + "→" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
-        energy_reward_post = "能量兑换请求失败"
-    sign_history = apiRequest_get(apiPath2, app_id,Authorization, "")
-    return sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
+        energy_reward_post = "能量兑换失败"
+    return first_resign_data, sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
 
-def timeStamp2time(timeStamp):
-    timeArray = time.localtime(timeStamp/1000)
-    otherStyleTime = time.strftime("%m月%d日 %H:%M", timeArray)
-    return otherStyleTime
-
-if app_id and Authorization:
-    sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko(app_id,Authorization)
+try:
+    first_resign_data, sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
+    now_date, now_time = timeStamp2time(time.time()/1000)
     # # sign_data
     print('sign_data', sign_data)
-    # print("code", sign_data["code"])
-    # # print(sign_data["body"]["date"])
-    # # print(sign_data["body"]["signTime"])
-    # print("Name", sign_data["body"]["Name"])
-    # print('Description', sign_data["body"]['Description'])
-    # print('PictureUrl', sign_data["body"]['PictureUrl'])
-    # print('成长值Reward', sign_data["body"]['Reward'])
-    # print('硬币GetCoin', sign_data["body"]['GetCoin'])
     # # roll info
     print('vip_roll_data', vip_roll_data)
     # # Energy info
     print('energy_info_data', energy_info_data)
-    # print('code', energy_info_data['code'])
-    # print('msg', energy_info_data['msg'])
-    # # print('Favorability',energy_data['body']['Favorability'])
-    # # print('MaxFavorability',energy_data['body']['MaxFavorability'])
-    # print('Favorability/MaxFavorability',
-    #       str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']))
-    # print('Energy', energy_info_data['body']['Energy'])
     # # Energy reward
     print(energy_reward_data)
     # # sign_info
-    # print(sign_info)
-    # print(sign_info['code'])
-    # print('IsSign', sign_info['body']['IsSign'])
-    # print('连续登录天数ContinuousSignDays', sign_info['body']['ContinuousSignDays'])
     # # sign_history
     print(sign_history)
-    # print('code', sign_history['code'])
-    # print('startTime', timeStamp2time(sign_history["body"]['startTime']))
-    # print('endTime', timeStamp2time(sign_history["body"]['endTime']))
-    # print('signLogs', sign_history['body']['signLogs'])
-    # for item in sign_history['body']['signLogs']:
-    #     print('signTime', timeStamp2time(item['signDate']))
-    print('\n' + '\n' +sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)      
+    print('\n' + '\n' + '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)  
+except Exception as e:
+    print(e)
 try:
     # print(len(sys.argv))
-    if len(sys.argv)==5:
-        SCKEY = sys.argv[4]
+    if SCKEY:
         # print("有SCKEY")
         print("正在推送到微信")
-        post_info = "?text=" + title_post + "&desp=<p>" + re.sub('\\n', '  \n', sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post, count=0, flags=0) + "  \n  \n" + str(sign_data) + "  \n  \n" + str(vip_roll_data) + "  \n  \n" + str(energy_info_data) + "</p>"
+        post_info = "?text=" + title_post + "&desp=<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) + "</p>"
         post_data = requests.get(server_api + SCKEY + '.send' + post_info)
         print(post_data)
     else:
         print("没有SCKEY")
 except Exception as e:
     print(e)
-
