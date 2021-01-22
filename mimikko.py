@@ -174,7 +174,7 @@ def mimikko():
         i=1
         resign_time = time.time()/1000-86400
         r_date, r_time = timeStamp2time(resign_time)
-        global first_resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
+        first_resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
         for i in ['1','2','3','4','5','6','7']:
             i+=1
             if not i>resign:
