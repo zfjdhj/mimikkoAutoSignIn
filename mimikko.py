@@ -94,8 +94,7 @@ def apiRequest_get(url,app_id,app_Version,Authorization,params):
     headers_get = {
         'Cache-Control': 'Cache-Control:public,no-cache',
         'Accept-Encoding': 'gzip',
-        'User-Agent': 'Mozilla/5.0(Linux;Android6.0.1;MuMu Build/V417IR;wv)AppleWebKit/537.36(KHTML,'
-                      'like Gecko)Version/4.0 Chrome/52.0.2743.100MobileSafari / 537.36',
+        'User-Agent': 'Mozilla/5.0(Linux;Android6.0.1;MuMu Build/V417IR;wv)AppleWebKit/537.36(KHTML,like Gecko)Version/4.0 Chrome/52.0.2743.100MobileSafari / 537.36',
         'AppID': app_id,
         'Version': app_Version,
         'Authorization': Authorization,
@@ -203,10 +202,6 @@ def mimikko():
     if vip_info_data and vip_info_data.get('body'):
         if vip_info_data['body']['rollNum'] > 0:
             vip_roll_data = apiRequest_post(vip_roll,app_id,app_Version,Authorization,"")
-            #print(type(vip_roll_data))
-            #print(type(vip_roll_data['body']))
-            #print(type(ast.literal_eval(vip_roll_data['body'])['Value']))
-            #print(type(vip_roll_data['body']['Value']['description']))
             vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']
         else:
             vip_roll_data = "抽奖次数不足"
@@ -222,10 +217,10 @@ def mimikko():
     if energy_info_data and energy_info_data.get('body'):
         if energy_info_data['body']['Energy'] > 0:
             energy_reward_data = apiRequest_get(energy_reward_path + "?code=" + Energy_code, app_id,app_Version,Authorization,"")
-            energy_reward_post = "好感度兑换成功：\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + servant_name[energy_reward_data['body']['code']] + " LV" + str(energy_reward_data['body']['Level']) +" (" + original_energy_post + "→" + str(energy_reward_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
+            energy_reward_post = "能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n好感度兑换成功。\n助手：" + servant_name[energy_reward_data['body']['code']] + " LV" + str(energy_reward_data['body']['Level']) +" (" + original_energy_post + "→" + str(energy_reward_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
-            energy_reward_post = "能量兑换好感度：当前没有能量\n能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n助手：" + servant_name[energy_info_data['body']['code']] + " LV" + str(energy_info_data['body']['Level']) + " (" + original_energy_post + "→" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
+            energy_reward_post = "能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n好感度兑换失败：当前没有能量。\n助手：" + servant_name[energy_info_data['body']['code']] + " LV" + str(energy_info_data['body']['Level']) + " (" + original_energy_post + "→" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
         energy_reward_post = "能量兑换失败"
