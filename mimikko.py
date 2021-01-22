@@ -140,6 +140,7 @@ def timeStamp2time(timeStamp):
     return firstStyleTime, secondStyleTime
 
 def mimikko():
+    """
     global Authorization
     #登录
     if login and user_id and user_password:
@@ -159,6 +160,7 @@ def mimikko():
             sys.exit('请在Secret中保存登录ID和密码！！！')
         elif not Authorization:
             sys.exit('请在Secret中保存Authorization！！！')
+    """
     #设置默认助手
     defeat_data = apiRequest_get(defeat_set + "?code=" + Energy_code,app_id,app_Version,Authorization,"")
     #执行前的好感度

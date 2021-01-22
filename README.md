@@ -24,10 +24,7 @@
 > |-----|-----|-----|
 > |`APP_ID`|必要|APP_ID，由抓包获取|
 > |`ENERGY`|x|详见下个表格|
-> |`LOGIN`|x|值为True时使用ID和密码进行登录，否则使用AUTHORIZATION进行验证|
-> |`AUTHORIZATION`|必要(当LOGIN值非True时)|验证账号用，由抓包获取|
-> |`ID`|必要(当LOGIN值为True时)|登录用，由抓包获取|
-> |`PASSWORD`|必要(当LOGIN值为True时)|登录用，由抓包获取|
+> |`AUTHORIZATION`|必要|验证账号用，由抓包获取|
 > |`RESIGN`|x|如需每天尝试补签最近x天，取值1~7|
 > |`SCKEY`|x|微信推送，详见步骤5|
 
