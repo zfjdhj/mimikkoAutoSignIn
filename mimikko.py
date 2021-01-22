@@ -146,6 +146,7 @@ def mimikko():
         login_data = loginRequest_post(login_path,app_id,app_Version,'{"password":"' + user_password + '","id":"' + user_id + '"}')
         if login_data and login_data.get('body'):
             Authorization = login_data['body']['Token']
+            print("登录成功！")
         else:
             if Authorization:
                 print("登录失败，尝试使用保存的Authorization")
@@ -170,6 +171,7 @@ def mimikko():
     sign_history = apiRequest_get(history_path, app_id,app_Version,Authorization, "")
     #补签
     if resign:
+        print("正在尝试补签")
         i=1
         resign_time = time.time()-86400
         r_date, r_time = timeStamp2time(resign_time)
