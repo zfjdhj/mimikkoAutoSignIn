@@ -172,7 +172,7 @@ def mimikko():
     #补签
     if resign:
         i=1
-        resign_time = time.time()/1000-86400
+        resign_time = time.time()-86400
         r_date, r_time = timeStamp2time(resign_time)
         first_resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
         if first_resign_data and first_resign_data.get('body'):
@@ -231,8 +231,8 @@ def mimikko():
 
 try:
     sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
-    now_date, now_time = timeStamp2time(time.time())
-    print(time.time())
+    now_date, now_time = timeStamp2time(time.time()+28800)
+    #print(time.time())
     # # sign_data
     print('sign_data', sign_data)
     # # roll info
