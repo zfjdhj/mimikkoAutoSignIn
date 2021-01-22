@@ -231,7 +231,8 @@ def mimikko():
 
 try:
     sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
-    now_date, now_time = timeStamp2time(time.time()/1000)
+    now_date, now_time = timeStamp2time(time.time())
+    print(time.time())
     # # sign_data
     print('sign_data', sign_data)
     # # roll info
