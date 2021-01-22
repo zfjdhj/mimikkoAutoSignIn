@@ -183,6 +183,8 @@ def mimikko():
                         resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + first_resign_data['body']['rows'][7-i]['signDate'] + '"]')
                 else:
                     break
+    else:
+        first_resign_data = "补签：关闭"
     #签到
     sign_data = apiRequest_get(sign_path,app_id,app_Version,Authorization, "")
     if sign_data and sign_data.get('body'):
@@ -227,13 +229,14 @@ def mimikko():
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
         energy_reward_post = "能量兑换失败"
-    return sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
+    return first_resign_data, sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
 
 try:
-    sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
+    first_resign_data, sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
     now_date, now_time = timeStamp2time(time.time()+28800)
     #print(time.time())
     # # sign_data
+    print('resign_data', first_resign_data)
     print('sign_data', sign_data)
     # # roll info
     print('vip_roll_data', vip_roll_data)
