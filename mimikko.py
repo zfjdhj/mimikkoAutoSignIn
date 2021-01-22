@@ -8,11 +8,12 @@ import time
 import requests
 import re
 import json
+import getopt
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-
+optlist, args = getopt.getopt(sys.argv[1:], 'i:e:l:a:u:p:s:r:')
 try:
-for o,a in optlist:
+    for o,a in optlist:
         if o in '-i' and a.strip() != '':
             app_id = a.strip()
         else:
