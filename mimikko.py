@@ -170,7 +170,7 @@ def mimikko():
     #签到历史
     sign_history = apiRequest_get(history_path, app_id,app_Version,Authorization, "")
     #补签
-"""
+    """
     if resign:
         i=1
         resign_time = time.time()/1000-86400
@@ -183,9 +183,9 @@ def mimikko():
                     resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + first_resign_data['body']['rows'][7-i]['signDate'] + '"]')
             else:
                 break
-"""
+    """
     #签到
-    sign_data = apiRequest_get(sign_path,app_id,app_Version,Authorization,"")
+    sign_data = apiRequest_get(sign_path,app_id,app_Version,Authorization, "")
     if sign_data and sign_data.get('body'):
         sign_info = apiRequest_get(is_sign, app_id,app_Version,Authorization, "")
         if sign_data['body']['GetExp']:
