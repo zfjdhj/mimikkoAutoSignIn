@@ -12,38 +12,41 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 try:
-    if sys.argv[1].strip() != '':
-        app_id = sys.argv[1].strip()
-    else:
-        sys.exit('读取参数错误！！！')
-    if sys.argv[2].strip() != '':
-        Energy_code = sys.argv[2].strip()
-    else:
-        Energy_code = 'momona'
-    if sys.argv[3].strip().upper() == 'TRUE':
-        login = True
-    else:
-        login = False
-    if sys.argv[4].strip() != '':
-        Authorization = sys.argv[4].strip()
-    else:
-        Authorization = False
-    if sys.argv[5].strip() != '':
-        user_id = sys.argv[5].strip()
-    else:
-        user_id = False
-    if sys.argv[6].strip() != '':
-        user_password = sys.argv[6].strip()
-    else:
-        user_password = False
-    if sys.argv[7].strip() in ['1','2','3','4','5','6','7']:
-        resign = sys.argv[7].strip()
-    else:
-        resign = False
-    if sys.argv[8].strip() != '':
-        SCKEY = sys.argv[8].strip()
-    else:
-        SCKEY = False
+for o,a in optlist:
+        if o in '-i' and a.strip() != '':
+            app_id = a.strip()
+        else:
+            sys.exit('读取参数错误！！！')
+        if o in '-e' and a.strip() != '':
+            Energy_code = a.strip()
+        else:
+            Energy_code = 'momona'
+        if o in '-a' and a.strip() != '':
+            Authorization = a.strip()
+        else:
+            Authorization = False
+        if o in '-u' and a.strip() != '':
+            user_id = a.strip()
+        else:
+            user_id = False
+        if o in '-p' and a.strip() != '':
+            user_password = a.strip()
+        else:
+            user_password = False
+        if o in '-s' and a.strip() != '':
+            SCKEY = a.strip()
+        else:
+            SCKEY = False
+        if o in '-r':
+            if a.strip() in ['1','2','3','4','5','6','7']:
+                resign = a.strip()
+            else:
+                resign = False
+        if o in '-l':
+            if a.strip().upper() == 'TRUE':
+                login = True
+            else:
+                login = False
 except Exception as e:
     print('传递参数错误：' + e)
 
