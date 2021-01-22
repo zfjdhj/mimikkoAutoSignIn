@@ -12,7 +12,7 @@ import getopt
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 optlist, args = getopt.getopt(sys.argv[1:], 'i:e:l:a:u:p:s:r:')
-print(optlist)
+
 try:
     for o,a in optlist:
         if o == '-i' and a.strip() != '':
@@ -142,6 +142,7 @@ def timeStamp2time(timeStamp):
 
 def mimikko():
     global Authorization
+    global first_resign_data
     #登录
     if login and user_id and user_password:
         login_data = loginRequest_post(login_path,app_id,app_Version,'{"password":"' + user_password + '","id":"' + user_id + '"}')
