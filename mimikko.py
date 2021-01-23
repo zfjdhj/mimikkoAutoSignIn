@@ -184,7 +184,7 @@ def mimikko():
         for i in ['1','2','3','4','5','6','7']:
             if not i>resign:
                 print('round ' + str(i))
-                resign_time = time.time()-86400*i
+                resign_time = int(time.time())-86400*i
                 r_date, r_time = timeStamp2time(resign_time)
                 resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
                 print(resign_data)
