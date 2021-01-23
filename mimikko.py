@@ -177,7 +177,7 @@ def mimikko():
         #补签前的补签卡
         cansign_before = apiRequest_get(can_resign, app_id,app_Version,Authorization, "")
         if cansign_before and cansign_before.get('body'):
-            cansign_before_time = cansign_before['body']['Value']
+            cansign_before_time = int(cansign_before['body']['Value'])
         else:
             cansign_before_time = False
         i=1
@@ -185,24 +185,24 @@ def mimikko():
         r_date, r_time = timeStamp2time(resign_time)
         first_resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
         print(first_resign_data)
-        print('round ' + i)
+        print('round ' + str(i))
         if first_resign_data and first_resign_data.get('body'):
             for i in ['1','2','3','4','5','6','7']:
                 i+=1
                 if not i>resign:
                     if first_resign_data['body']['rows'][7-i]['reward']=='0':
                         resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + first_resign_data['body']['rows'][7-i]['signDate'] + '"]')
-                        print('round ' + i)
+                        print('round ' + str(i))
                 else:
                     break
         #补签后的补签卡
         cansign_after = apiRequest_get(can_resign, app_id,app_Version,Authorization, "")
         if cansign_after and cansign_after.get('body'):
-            cansign_after_time = cansign_after['body']['Value']
+            cansign_after_time = int(cansign_after['body']['Value'])
         else:
             cansign_after_time = False
         if cansign_before_time and cansign_after_time:
-            times_resigned = cansign_after_time - cansign_before_time
+            times_resigned = cansign_after_time-cansign_before_time
         else:
             times_resigned = 0
     else:
