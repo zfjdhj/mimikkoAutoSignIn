@@ -180,19 +180,16 @@ def mimikko():
             cansign_before_time = int(cansign_before['body']['Value'])
         else:
             cansign_before_time = False
-        i=1
-        resign_time = time.time()-86400
-        r_date, r_time = timeStamp2time(resign_time)
-        first_resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
-        print(first_resign_data)
-        print('round ' + str(i))
+        i=0
         if first_resign_data and first_resign_data.get('body'):
             for i in ['1','2','3','4','5','6','7']:
                 i+=1
                 if not i>resign:
-                    if first_resign_data['body']['rows'][7-i]['reward']=='0':
-                        resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + first_resign_data['body']['rows'][7-i]['signDate'] + '"]')
-                        print('round ' + str(i))
+                    resign_time = time.time()-86400*i
+                    r_date, r_time = timeStamp2time(resign_time)
+                    resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
+                    print(resign_data)
+                    print('round ' + str(i))
                 else:
                     break
         #补签后的补签卡
@@ -250,14 +247,13 @@ def mimikko():
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
         energy_reward_post = "能量兑换失败"
-    return first_resign_data, sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
+    return sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
 
 try:
-    first_resign_data, sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
+    sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
     now_date, now_time = timeStamp2time(time.time()+28800)
     #print(time.time())
     # # sign_data
-    print('resign_data', first_resign_data)
     print('sign_data', sign_data)
     # # roll info
     print('vip_roll_data', vip_roll_data)
