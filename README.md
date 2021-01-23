@@ -15,7 +15,7 @@
 > ![fork](/pic/fork.png)
 
 #### 1. 使用抓包软件获取兽耳助手的app_id,Authorization等数据
-> - 抓包软件怎么用？请去问百度谷歌 [(只有手机怎么办？→常见的抓包软件)](https://github.com/cyb233/mimikkoAutoSignIn/wiki/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8A%93%E5%8C%85%E8%BD%AF%E4%BB%B6)
+> - 抓包软件怎么用？请去问[百度](https://www.baidu.com)或[谷歌](https://www.google.com) [(只有手机怎么办？→常见的抓包软件)](https://github.com/cyb233/mimikkoAutoSignIn/wiki/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8A%93%E5%8C%85%E8%BD%AF%E4%BB%B6)
 >> - 注意，部分环境下Authorization会失效，如使用同一设备重新进行登录
 >>> ~~如果想避免这种情况可以抓取登录id和password~~ 账号登录功能没搞定，暂时放弃
 
@@ -54,8 +54,8 @@
 
 #### 4. 修改自动运行时间：
 > - 打开`mimikkoAutoSignIn/.github/workflows/auto_sign_in.yml`
-> - 在`第12行`修改`cron表达式`，默认北京时间每天`3:30`,`17:30`执行
-> - cron表达式怎么改？请去问百度谷歌
+> - 在`第12行`修改`cron表达式`，默认北京时间每天`3:30`,`17:30`执行(我这里实际总是慢了40分钟我也不知道为啥)
+> - cron表达式怎么改？请去看[GitHub官方文档](https://docs.github.com/cn/actions/reference/workflow-syntax-for-github-actions#onschedule)
 
 #### 5. (可选)使用server酱推送到微信：
 > - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
@@ -69,7 +69,7 @@
 - 本项目完全开源，使用时如有任何不放心请自行检阅代码（或提issues也行）
 - 本项目使用的Secrets均保存于GitHub服务器中，且一旦保存，即使是用户自己也无法再次查看
 - 本项目均使用GitHub Actions定时运行，理论上可以下载并本地定时运行，但我没试过
-- 使用本项目请遵循兽耳助手《用户服务协议》，请勿使用本项目进行任何违法行为
+- 使用本项目请遵守兽耳助手《用户服务协议》，请勿使用本项目进行任何违法行为以及任何有害行为
 - 本项目不对任何不可抗力负责，包括但不限于 罢工，自然和人为灾害，战争，网络攻击，拿服务器CPU烧烤，第三次世界大战，G胖数3，圣杯战争导致的煤气爆炸，没交网费，二哈拆房，生化危机，总是单身，异形入侵，考试挂科，三体来袭 等各种软件服务协议会写的东西
   
   
