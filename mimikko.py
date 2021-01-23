@@ -181,9 +181,7 @@ def mimikko():
         else:
             cansign_before_time = False
         print(cansign_before_time)
-        i=0
-        for i in ['0','1','2','3','4','5','6']:
-            i+=1
+        for i in ['1','2','3','4','5','6','7']:
             if not i>resign:
                 print('round ' + str(i))
                 resign_time = time.time()-86400*i
