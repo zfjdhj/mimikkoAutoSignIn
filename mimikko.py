@@ -140,19 +140,17 @@ def timeStamp2time(timeStamp):
     return firstStyleTime, secondStyleTime
 
 def mimikko():
-    """
     global Authorization
     #登录
     if login and user_id and user_password:
         login_data = loginRequest_post(login_path,app_id,app_Version,'{"password":"' + user_password + '","id":"' + user_id + '"}')
         if login_data and login_data.get('body'):
             Authorization = login_data['body']['Token']
-            print("登录成功！")
         else:
             if Authorization:
-                print("登录失败，尝试使用保存的Authorization")
-            else:
                 sys.exit('登录失败！！！')
+            else:
+                print("登录失败，尝试使用保存的Authorization")
     else:
         if login and Authorization:
             print("未找到登录ID或密码，尝试使用保存的Authorization")
@@ -160,7 +158,6 @@ def mimikko():
             sys.exit('请在Secret中保存登录ID和密码！！！')
         elif not Authorization:
             sys.exit('请在Secret中保存Authorization！！！')
-    """
     #设置默认助手
     defeat_data = apiRequest_get(defeat_set + "?code=" + Energy_code,app_id,app_Version,Authorization,"")
     #执行前的好感度
@@ -173,46 +170,26 @@ def mimikko():
     sign_history = apiRequest_get(history_path, app_id,app_Version,Authorization, "")
     #补签
     if resign:
-        print("正在尝试补签")
-        #补签前的补签卡
-        cansign_before = apiRequest_get(can_resign, app_id,app_Version,Authorization, "")
-        if cansign_before and cansign_before.get('body'):
-            cansign_before_time = cansign_before['body']['Value']
-        else:
-            cansign_before_time = False
-        print(cansign_before_time)
-        for i in ['1','2','3','4','5','6','7']:
-            if not i>resign:
-                print('round ' + str(i))
-                resign_time = int(time.time())-86400*int(i)
-                r_date, r_time = timeStamp2time(resign_time)
-                resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
-                print(resign_data)
-            else:
-                break
-        #补签后的补签卡
-        cansign_after = apiRequest_get(can_resign, app_id,app_Version,Authorization, "")
-        if cansign_after and cansign_after.get('body'):
-            cansign_after_time = cansign_after['body']['Value']
-        else:
-            cansign_after_time = False
-        print(cansign_after_time)
-        #使用的补签卡
-        if cansign_before_time and cansign_after_time:
-            times_resigned = cansign_after_time-cansign_before_time
-        else:
-            times_resigned = 0
+        i=1
+        resign_time = time.time()-86400
+        r_date, r_time = timeStamp2time(resign_time)
+        first_resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
+        if first_resign_data and first_resign_data.get('body'):
+            for i in ['1','2','3','4','5','6','7']:
+                i+=1
+                if not i>resign:
+                    if first_resign_data['body']['rows'][7-i]['reward']=='0':
+                        resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + first_resign_data['body']['rows'][7-i]['signDate'] + '"]')
+                else:
+                    break
     else:
-        times_resigned = False
+        first_resign_data = "补签：关闭"
     #签到
     sign_data = apiRequest_get(sign_path,app_id,app_Version,Authorization, "")
     if sign_data and sign_data.get('body'):
         sign_info = apiRequest_get(is_sign, app_id,app_Version,Authorization, "")
         if sign_data['body']['GetExp']:
-            if times_resigned:
-                sign_result_post ='补签成功' + str(times_resigned) + '/' + str(resign) +  '天\n签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
-            else:
-                sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+            sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
             title_post = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
         else:
             sign_result_post = '今日已签到：' + str(sign_info['body']['ContinuousSignDays']) + '天\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
@@ -247,13 +224,14 @@ def mimikko():
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
         energy_reward_post = "能量兑换失败"
-    return sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
+    return first_resign_data, sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
 
 try:
-    sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
+    first_resign_data, sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
     now_date, now_time = timeStamp2time(time.time()+28800)
     #print(time.time())
     # # sign_data
+    print('resign_data', first_resign_data)
     print('sign_data', sign_data)
     # # roll info
     print('vip_roll_data', vip_roll_data)
@@ -271,10 +249,16 @@ try:
     # print(len(sys.argv))
     if SCKEY:
         # print("有SCKEY")
-        print("正在推送到微信")
-        post_info = "?text=" + title_post + "&desp=<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) + "</p>"
-        post_data = requests.get(server_api + SCKEY + '.send' + post_info)
-        print(post_data)
+        if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
+            print("运行成功，正在推送到微信")
+            post_info = "?text=" + title_post + "&desp=<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) + "</p>"
+            post_data = requests.get(server_api + SCKEY + '.send' + post_info)
+            print(post_data)
+        else:
+            print("数据异常，正在推送到微信")
+            post_info = "?text=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
+            post_data = requests.get(server_api + SCKEY + '.send' + post_info)
+            print(post_data)
     else:
         print("没有SCKEY")
 except Exception as e:
