@@ -176,11 +176,10 @@ def mimikko():
         print("正在尝试补签")
         #补签前的补签卡
         cansign_before = apiRequest_get(can_resign, app_id,app_Version,Authorization, "")
-        if cansign_before and cansign_before.get['body']:
-            cansign_before_time = int(cansign_before['body']['Value'])
+        if cansign_before and cansign_before.get('body'):
+            cansign_before_time = cansign_before['body']['Value']
         else:
             cansign_before_time = False
-        print("补签前的补签卡：" + str(cansign_before_time))
         i=1
         resign_time = time.time()-86400
         r_date, r_time = timeStamp2time(resign_time)
@@ -198,11 +197,10 @@ def mimikko():
                     break
         #补签后的补签卡
         cansign_after = apiRequest_get(can_resign, app_id,app_Version,Authorization, "")
-        if cansign_after and cansign_after.get['body']:
-            cansign_after_time = int(cansign_after['body']['Value'])
+        if cansign_after and cansign_after.get('body'):
+            cansign_after_time = cansign_after['body']['Value']
         else:
             cansign_after_time = False
-        print("补签后的补签卡：" + str(cansign_after_time))
         if cansign_before_time and cansign_after_time:
             times_resigned = cansign_after_time - cansign_before_time
         else:
