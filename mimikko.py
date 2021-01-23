@@ -180,15 +180,16 @@ def mimikko():
             cansign_before_time = cansign_before['body']['Value']
         else:
             cansign_before_time = False
+        print(cansign_before_time)
         i=0
         for i in ['0','1','2','3','4','5','6']:
             i+=1
             if not i>resign:
+                print('round ' + str(i))
                 resign_time = time.time()-86400*i
                 r_date, r_time = timeStamp2time(resign_time)
                 resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
                 print(resign_data)
-                print('round ' + str(i))
             else:
                 break
         #补签后的补签卡
@@ -197,6 +198,7 @@ def mimikko():
             cansign_after_time = cansign_after['body']['Value']
         else:
             cansign_after_time = False
+        print(cansign_after_time)
         #使用的补签卡
         if cansign_before_time and cansign_after_time:
             times_resigned = cansign_after_time-cansign_before_time
