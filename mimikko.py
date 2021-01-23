@@ -181,36 +181,36 @@ def mimikko():
         else:
             cansign_before_time = False
         i=0
-        if first_resign_data and first_resign_data.get('body'):
-            for i in ['1','2','3','4','5','6','7']:
-                i+=1
-                if not i>resign:
-                    resign_time = time.time()-86400*i
-                    r_date, r_time = timeStamp2time(resign_time)
-                    resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
-                    print(resign_data)
-                    print('round ' + str(i))
-                else:
-                    break
+        for i in ['1','2','3','4','5','6','7']:
+            i+=1
+            if not i>resign:
+                resign_time = time.time()-86400*i
+                r_date, r_time = timeStamp2time(resign_time)
+                resign_data = apiRequest_post(resign_path,app_id,app_Version,Authorization,'["' + r_date + 'T15:59:59+0800"]')
+                print(resign_data)
+                print('round ' + str(i))
+            else:
+                break
         #补签后的补签卡
         cansign_after = apiRequest_get(can_resign, app_id,app_Version,Authorization, "")
         if cansign_after and cansign_after.get('body'):
             cansign_after_time = int(cansign_after['body']['Value'])
         else:
             cansign_after_time = False
+        #使用的补签卡
         if cansign_before_time and cansign_after_time:
             times_resigned = cansign_after_time-cansign_before_time
         else:
             times_resigned = 0
     else:
-        first_resign_data = "补签：关闭"
+        times_resigned = False
     #签到
     sign_data = apiRequest_get(sign_path,app_id,app_Version,Authorization, "")
     if sign_data and sign_data.get('body'):
         sign_info = apiRequest_get(is_sign, app_id,app_Version,Authorization, "")
         if sign_data['body']['GetExp']:
             if times_resigned:
-                sign_result_post ='补签成功' + str(times_resigned) +  '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+                sign_result_post ='补签成功' + str(times_resigned)/str(resign) +  '天\n签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
             else:
                 sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
             title_post = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
