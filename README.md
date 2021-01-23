@@ -42,6 +42,7 @@
 > |`alpha0`|阿尔法零|
 > |`miruku2`|米露可|
 > |`ulrica`|优莉卡|
+
 > 如图`setting`→`secrets→new repository secret`
 > ![secrets](/pic/secrets.png)
 

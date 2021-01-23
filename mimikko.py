@@ -18,7 +18,7 @@ try:
         if o == '-i' and a.strip() != '':
             app_id = a.strip()
         elif o == '-i' :
-            sys.exit('读取参数错误！！！')
+            sys.exit('读取app_id参数错误！！！')
         if o == '-e' and a.strip() != '':
             Energy_code = a.strip()
         elif o == '-e':
@@ -26,7 +26,8 @@ try:
         if o == '-a' and a.strip() != '':
             Authorization = a.strip()
         elif o == '-a':
-            Authorization = False
+            sys.exit('读取Authorization参数错误！！！')
+            #Authorization = False
         if o == '-u' and a.strip() != '':
             user_id = a.strip()
         elif o == '-u':
