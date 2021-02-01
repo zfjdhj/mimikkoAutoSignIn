@@ -9,16 +9,13 @@ import requests
 import re
 import json
 import getopt
+import hashlib
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-optlist, args = getopt.getopt(sys.argv[1:], 'i:e:l:a:u:p:s:r:')
+optlist, args = getopt.getopt(sys.argv[1:], 'e:l:a:u:p:s:r:')
 
 try:
     for o,a in optlist:
-        if o == '-i' and a.strip() != '':
-            app_id = a.strip()
-        elif o == '-i' :
-            sys.exit('读取app_id参数错误！！！')
         if o == '-e' and a.strip() != '':
             Energy_code = a.strip()
         elif o == '-e':
@@ -26,8 +23,7 @@ try:
         if o == '-a' and a.strip() != '':
             Authorization = a.strip()
         elif o == '-a':
-            sys.exit('读取Authorization参数错误！！！')
-            #Authorization = False
+            Authorization = False
         if o == '-u' and a.strip() != '':
             user_id = a.strip()
         elif o == '-u':
@@ -46,10 +42,10 @@ try:
             else:
                 resign = False
         if o == '-l':
-            if a.strip().upper() == 'TRUE':
-                login = True
-            else:
+            if a.strip().upper() == 'FALSE':
                 login = False
+            else:
+                login = True
 except Exception as e:
     print('传递参数错误：' + e)
 
@@ -66,6 +62,7 @@ vip_info = 'https://api1.mimikko.cn/client/user/GetUserVipInfo' # 获取会员�
 vip_roll = 'https://api1.mimikko.cn/client/roll/RollReward' # 会员抽奖(post)
 server_api = 'https://sc.ftqq.com/' # 微信推送
 app_Version = '3.1.3'
+app_id = 'wjB7LOP2sYkaMGLC'
 servant_name = {'nonona':'诺诺纳','momona':'梦梦奈','ariana':'爱莉安娜','miruku':'米璐库','nemuri':'奈姆利','ruri':'琉璃','alpha0':'阿尔法零','miruku2':'米露可','ulrica':'优莉卡'}
 
 def loginRequest_post(url,app_id,app_Version,params):
@@ -141,11 +138,11 @@ def timeStamp2time(timeStamp):
     return firstStyleTime, secondStyleTime
 
 def mimikko():
-    """
     global Authorization
     #登录
     if login and user_id and user_password:
-        login_data = loginRequest_post(login_path,app_id,app_Version,'{"password":"' + user_password + '","id":"' + user_id + '"}')
+        user_password_sha = hashlib.sha256(user_password.encode('utf-8')).hexdigest()
+        login_data = loginRequest_post(login_path,app_id,app_Version,'{"password":"' + user_password_sha + '","id":"' + user_id + '"}')
         if login_data and login_data.get('body'):
             Authorization = login_data['body']['Token']
             print("登录成功！")
@@ -161,7 +158,6 @@ def mimikko():
             sys.exit('请在Secret中保存登录ID和密码！！！')
         elif not Authorization:
             sys.exit('请在Secret中保存Authorization！！！')
-    """
     #设置默认助手
     defeat_data = apiRequest_get(defeat_set + "?code=" + Energy_code,app_id,app_Version,Authorization,"")
     #执行前的好感度
