@@ -50,8 +50,8 @@ except Exception as e:
     print('传递参数错误：' + e)
 
 login_path = 'https://api1.mimikko.cn/client/user/LoginWithPayload' # 登录(post)
-is_sign = 'http://api1.mimikko.cn/client/user/GetUserSignedInformation' # 今天是否签到
-history_path = 'http://api1.mimikko.cn/client/dailysignin/log/30/0' # 签到历史
+is_sign = 'https://api1.mimikko.cn/client/user/GetUserSignedInformation' # 今天是否签到
+history_path = 'https://api1.mimikko.cn/client/dailysignin/log/30/0' # 签到历史
 can_resign = 'https://api1.mimikko.cn/client/love/getcanresigntimes' # 补签卡数量
 defeat_set = 'https://api1.mimikko.cn/client/Servant/SetDefaultServant' # 设置默认助手
 resign_path = 'https://api1.mimikko.cn/client/love/resign?servantId=' # 补签(post)
@@ -144,13 +144,19 @@ def mimikko():
         user_password_sha = hashlib.sha256(user_password.encode('utf-8')).hexdigest()
         login_data = loginRequest_post(login_path,app_id,app_Version,'{"password":"' + user_password_sha + '","id":"' + user_id + '"}')
         if login_data:
-            Authorization = login_data['body']['Token']
-            print("登录成功！")
+            if login_data.get('body'):
+                Authorization = login_data['body']['Token']
+                print("登录成功！")
+            else:
+                if Authorization:
+                    print("登录失败，尝试使用保存的Authorization")
+                else:
+                    sys.exit('登录失败！！！')
         else:
             if Authorization:
-                print("登录失败，尝试使用保存的Authorization")
+                print("登录错误，尝试使用保存的Authorization")
             else:
-                sys.exit('登录失败！！！')
+                sys.exit('登录错误！！！')
     else:
         if login and Authorization:
             print("未找到登录ID或密码，尝试使用保存的Authorization")
