@@ -80,7 +80,7 @@ def loginRequest_post(url,app_id,app_Version,params):
     }
 
     try:
-        with requests.post(url, headers=headers_post, params=params_post, verify=False, timeout=300) as resp:
+        with requests.post(url, headers=headers_post, params=params_post, verify=True, timeout=300) as resp:
             res = resp.json()
             return res
 
