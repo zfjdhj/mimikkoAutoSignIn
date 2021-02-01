@@ -277,12 +277,12 @@ try:
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到微信")
             post_info = "?text=" + title_post + "&desp=<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) + "</p>"
-            post_data = requests.get(server_api + SCKEY + '.send' + post_info)
+            post_data = requests.get(server_api + SCKEY + '.send' + post_info + '\n\nlogin_data: ' + login_data)
             print(post_data)
         else:
             print("数据异常，正在推送到微信")
             post_info = "?text=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
-            post_data = requests.get(server_api + SCKEY + '.send' + post_info + '\n\nlogin_data: ' + login_data)
+            post_data = requests.get(server_api + SCKEY + '.send' + post_info)
             print(post_data)
     else:
         print("没有SCKEY")
