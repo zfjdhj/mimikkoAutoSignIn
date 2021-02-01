@@ -5,8 +5,8 @@ name: CI
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
+  #push:
+    #branches: [ master ]
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  '30 19,9 * * *'
@@ -35,4 +35,4 @@ jobs:
         run: |
             python -m pip install --upgrade pip
             pip install requests
-            python mimikko.py -i " ${{ secrets.APP_ID }}" -e " ${{ secrets.ENERGY }}" -l " ${{ secrets.LOGIN }}" -a " ${{ secrets.AUTHORIZATION }}" -u " ${{ secrets.ID }}" -p " ${{ secrets.PASSWORD }}" -r " ${{ secrets.RESIGN }}" -s " ${{ secrets.SCKEY }}"
+            python mimikko.py -e " ${{ secrets.ENERGY }}" -l " ${{ secrets.LOGIN }}" -a " ${{ secrets.AUTHORIZATION }}" -u " ${{ secrets.ID }}" -p " ${{ secrets.PASSWORD }}" -r " ${{ secrets.RESIGN }}" -s " ${{ secrets.SCKEY }}"
