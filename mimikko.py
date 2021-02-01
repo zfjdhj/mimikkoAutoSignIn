@@ -282,7 +282,7 @@ try:
         else:
             print("数据异常，正在推送到微信")
             post_info = "?text=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
-            post_data = requests.get(server_api + SCKEY + '.send' + post_info + '\n\n' + login_data)
+            post_data = requests.get(server_api + SCKEY + '.send' + post_info + '\n\nlogin_data: ' + login_data)
             print(post_data)
     else:
         print("没有SCKEY")
