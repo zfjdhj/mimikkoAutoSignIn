@@ -143,15 +143,9 @@ def mimikko():
     if login and user_id and user_password:
         user_password_sha = hashlib.sha256(user_password.encode('utf-8')).hexdigest()
         login_data = loginRequest_post(login_path,app_id,app_Version,'{"password":"' + user_password_sha + '","id":"' + user_id + '"}')
-        if login_data:
-            if login_data.get('body'):
-                Authorization = login_data['body']['Token']
-                print("登录成功！")
-            else:
-                if Authorization:
-                    print("登录失败，尝试使用保存的Authorization")
-                else:
-                    sys.exit('登录失败！！！')
+        if login_data and login_data.get('body'):
+            Authorization = login_data['body']['Token']
+            print("登录成功！")
         else:
             if Authorization:
                 print("登录错误，尝试使用保存的Authorization")
