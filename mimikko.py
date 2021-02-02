@@ -244,10 +244,10 @@ def mimikko():
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
         energy_reward_post = "能量兑换失败"
-    return login_data, sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
+    return sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
 
 try:
-    login_data, sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
+    sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
     now_date, now_time = timeStamp2time(time.time()+28800)
     #print(time.time())
     # # sign_data
@@ -271,7 +271,7 @@ try:
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到微信")
             post_info = "?text=" + title_post + "&desp=<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) + "</p>"
-            post_data = requests.get(server_api + SCKEY + '.send' + post_info + '\n\nlogin_data: ' + str(login_data))
+            post_data = requests.get(server_api + SCKEY + '.send' + post_info)
             print(post_data)
         else:
             print("数据异常，正在推送到微信")
