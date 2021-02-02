@@ -18,8 +18,8 @@
 > |secret名称|必要条件|说明|
 > |-----|-----|-----|
 > |`LOGIN`|非必要|值非`False`时均为`True`，为`True`时使用ID和密码进行登录，否则使用AUTHORIZATION进行验证|
-> |`ID`|`LOGIN`==`True`|账号|
-> |`PASSWORD`|`LOGIN`==`True`|密码|
+> |`ID`|`LOGIN`==`True`|登录账号(邮箱或手机号)|
+> |`PASSWORD`|`LOGIN`==`True`|登录密码|
 > |`ENERGY`|非必要|详见下个表格|
 > |`AUTHORIZATION`|`LOGIN`==`False`|验证账号用，可由抓包获取|
 > |`RESIGN`|非必要|如需每天尝试补签最近x天，取值1~7|
