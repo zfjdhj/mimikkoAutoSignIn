@@ -207,12 +207,12 @@ def mimikko():
         sign_info = apiRequest_get(is_sign, app_id,app_Version,Authorization, "")
         if sign_data['body']['GetExp']:
             if times_resigned:
-                sign_result_post ='补签成功' + str(times_resigned) + '/' + str(resign) +  '天\n签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+                sign_result_post ='补签成功' + str(times_resigned) + '/' + str(resign) +  '天\n签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n[签到卡片](' + sign_data['body']['PictureUrl'] + ')'
             else:
-                sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n![签到卡片](' + sign_data['body']['PictureUrl'] + ')'
+                sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n[签到卡片](' + sign_data['body']['PictureUrl'] + ')'
             title_post = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
         else:
-            sign_result_post = '今日已签到：' + str(sign_info['body']['ContinuousSignDays']) + '天\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n![签到卡片](' + sign_data['body']['PictureUrl'] + ')'
+            sign_result_post = '今日已签到：' + str(sign_info['body']['ContinuousSignDays']) + '天\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n[签到卡片](' + sign_data['body']['PictureUrl'] + ')'
             title_post = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
     else:
         sign_result_post = '签到失败'
