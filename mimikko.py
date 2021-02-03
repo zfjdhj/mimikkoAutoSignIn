@@ -18,36 +18,50 @@ try:
     for o,a in optlist:
         if o == '-e' and a.strip() != '':
             Energy_code = a.strip()
+            print("Energy_code存在")
         elif o == '-e':
             Energy_code = 'momona'
+            print("Energy_code不存在，默认'momona'")
         if o == '-a' and a.strip() != '':
             Authorization = a.strip()
+            print("Authorization存在")
         elif o == '-a':
             Authorization = False
+            print("Authorization不存在")
         if o == '-u' and a.strip() != '':
             user_id = a.strip()
+            print("user_id存在")
         elif o == '-u':
             user_id = False
+            print("user_id不存在")
         if o == '-p' and a.strip() != '':
             user_password = a.strip()
+            print("user_password存在")
         elif o == '-p':
             user_password = False
+            print("user_password不存在")
         if o == '-s' and a.strip() != '':
             SCKEY = a.strip()
+            print("SCKEY存在")
         elif o == '-s':
             SCKEY = False
+            print("SCKEY不存在")
         if o == '-r':
             if a.strip() in ['1','2','3','4','5','6','7']:
                 resign = a.strip()
+                print("resign开启")
             else:
                 resign = False
+                print("resign关闭")
         if o == '-l':
             if a.strip().upper() == 'FALSE':
                 login = False
+                print("login关闭")
             else:
                 login = True
+                print("login开启")
 except Exception as e:
-    print('传递参数错误：' + e)
+    print('获取参数错误：' + e)
 
 login_path = 'https://api1.mimikko.cn/client/user/LoginWithPayload' # 登录(post)
 is_sign = 'https://api1.mimikko.cn/client/user/GetUserSignedInformation' # 今天是否签到
@@ -141,6 +155,7 @@ def mimikko():
     global Authorization
     #登录
     if login and user_id and user_password:
+        print("使用ID密码登录")
         user_password_sha = hashlib.sha256(user_password.encode('utf-8')).hexdigest()
         login_data = loginRequest_post(login_path,app_id,app_Version,'{"password":"' + user_password_sha + '","id":"' + user_id + '"}')
         if login_data and login_data.get('body'):
@@ -150,14 +165,32 @@ def mimikko():
             if Authorization:
                 print("登录错误，尝试使用保存的Authorization")
             else:
-                sys.exit('登录错误！！！')
-    else:
-        if login and Authorization:
+                if SCKEY:
+                    print("登录错误，正在推送到微信")
+                    post_info = "?text=兽耳助手签到登录错误&desp=<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"
+                    post_data = requests.get(server_api + SCKEY + '.send' + post_info)
+                    print(post_data)
+                sys.exit('登录错误，且未找到Authorization！！！')
+    elif login:
+        if Authorization:
             print("未找到登录ID或密码，尝试使用保存的Authorization")
-        elif login and not Authorization:
-            sys.exit('请在Secret中保存登录ID和密码！！！')
-        elif not Authorization:
-            sys.exit('请在Secret中保存Authorization！！！')
+        else:
+            if SCKEY:
+                print("登录错误，正在推送到微信")
+                post_info = "?text=兽耳助手签到登录错误&desp=<p>登录错误，未找到登录ID、密码或Authorization，请访问GitHub检查</p>"
+                post_data = requests.get(server_api + SCKEY + '.send' + post_info)
+                print(post_data)
+            sys.exit('请在Secret中保存登录ID和密码或Authorization！！！')
+    else:
+        if Authorization:
+            print("使用Authorization验证")
+        else:
+            if SCKEY:
+                print("登录错误，正在推送到微信")
+                post_info = "?text=兽耳助手签到登录错误&desp=<p>登录错误，未找到Authorization，请访问GitHub检查</p>"
+                post_data = requests.get(server_api + SCKEY + '.send' + post_info)
+                print(post_data)
+            sys.exit('请在Secret中保存登录ID和密码或Authorization！！！')
     #设置默认助手
     defeat_data = apiRequest_get(defeat_set + "?code=" + Energy_code,app_id,app_Version,Authorization,"")
     #执行前的好感度
