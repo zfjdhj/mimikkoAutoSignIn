@@ -44,7 +44,7 @@
 > - 注意：本项目不检查code可用性，如出现新助手而本表未更新，可自行抓取code值；由于随意输入错误助手code所可能导致的问题，本项目不负任何责任
   
 > 如图`setting`→`secrets→new repository secret`
-> ![secrets](/pic/secrets.png)
+> ![secrets](/pic/secrets.jpg)
 
 #### 3. 在actions中开启
 > - **请勿滥用GitHub Actions！**  
@@ -54,24 +54,25 @@
 
 #### 4. 修改自动运行时间：
 > - 打开`mimikkoAutoSignIn/.github/workflows/auto_sign_in.yml`
-> - 在`第12行`修改`cron表达式`，默认北京时间每天`3:30`,`17:30`执行(我自己实际总是慢了40分钟我也不知道为啥)
+> - 在`第12行`修改`cron表达式`，默认北京时间每天`3:30`,`17:30`执行
 > - cron表达式怎么改？请去看[GitHub官方文档](https://docs.github.com/cn/actions/reference/workflow-syntax-for-github-actions#onschedule)
 
 #### 5. (可选)使用server酱推送到微信：
 > - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
 > - 在设置中创建action secrets `SCKEY`
-> ![推送的secrets](/pic/Screenshot_2021_0109_222138.png)
+> ![SCKEY](/pic/Screenshot_2021_0109_222138.png)
 </details>
   
   
 ## 用前预知
-使用本项目前，您已知悉以下内容：
+使用本项目前，您应已知悉以下内容：
+- 您保证是因为各种无法解决的原因无法自行签到而使用本项目的(如作者本人航海专业无信号，或没有手机的学生党等)
 - 本项目完全开源，使用时如有任何不放心请自行检阅代码（或提issues也行）
 - 本项目使用的Secrets均保存于GitHub服务器中，且一旦保存，即使是用户自己也无法再次查看
 - 本项目均使用GitHub Actions定时运行，理论上可以下载并本地定时运行，但我没试过
 - 使用本项目请遵守兽耳助手《用户服务协议》，请勿使用本项目进行任何违法行为以及任何有害行为
 - 本项目不对任何不可抗力负责，包括但不限于 罢工，自然和人为灾害，战争，网络攻击，拿服务器CPU烧烤，第三次世界大战，G胖数3，圣杯战争导致的煤气爆炸，没交网费，二哈拆房，生化危机，总是单身，异形入侵，考试挂科，三体来袭 等各种软件服务协议会写的东西
-- [afdian赞助](https://afdian.net/@Schwi)
+- 欢迎[afdian赞助](https://afdian.net/@Schwi)
   
   
 ## 闲着没事上班摸鱼一小时算出来的数据
