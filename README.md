@@ -1,6 +1,8 @@
 # mimikkoAutoSignin
 
-本项目使用GitHub Actions，用于[兽耳助手](https://www.mimikko.cn/)定时`每日签到/补签`/`兑换能量`/`VIP每日抽奖`，并可选`推送到微信`  
+本项目地址：[cyb233/mimikkoAutoSignIn](https://github.com/cyb233/mimikkoAutoSignIn)
+
+[本项目](https://github.com/cyb233/mimikkoAutoSignIn)使用GitHub Actions，用于[兽耳助手](https://www.mimikko.cn/)定时`每日签到/补签`/`兑换能量`/`VIP每日抽奖`，并可选`推送到微信`  
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cyb233/mimikkoAutoSignIn/CI)](https://github.com/cyb233/mimikkoAutoSignIn/actions)
 >[keylol帖子](https://keylol.com/t675496-1-1)
 ## 使用效果：
@@ -10,7 +12,7 @@
 > 熟悉GitHub相关操作的，可以直接看下面，不熟悉的话，可以去看由[@Amcc1860](https://github.com/Amcc1860)编写的[保姆级教程](https://github.com/cyb233/mimikkoAutoSignIn/issues/4)
 <details markdown='1'><summary>点击查看使用说明</summary>
 
-#### 1. 先fork本项目（本项目已fork人数 [![GitHub forks](https://img.shields.io/github/forks/cyb233/mimikkoAutoSignIn?style=social)](https://github.com/cyb233/mimikkoAutoSignIn)）
+#### 1. 先fork[本项目](https://github.com/cyb233/mimikkoAutoSignIn)（本项目已fork人数 [![GitHub forks](https://img.shields.io/github/forks/cyb233/mimikkoAutoSignIn?style=social)](https://github.com/cyb233/mimikkoAutoSignIn)）
 > 打开[本项目](https://github.com/cyb233/mimikkoAutoSignIn)，并点击如图fork按钮
 > ![fork](/pic/fork.png)
 
