@@ -1,4 +1,4 @@
-# mimikkoAutoSignin
+# [兽耳助手自动签到](https://github.com/cyb233/mimikkoAutoSignIn)
 
 本项目地址：[cyb233/mimikkoAutoSignIn](https://github.com/cyb233/mimikkoAutoSignIn)
 
