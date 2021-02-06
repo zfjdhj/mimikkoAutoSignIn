@@ -26,7 +26,8 @@
 > |`AUTHORIZATION`|`LOGIN`==`False`|验证账号用，可由抓包获取|
 > |`RESIGN`|非必要|如需每天尝试补签最近x天，取值1~7|
 > |`SCKEY`|非必要|微信推送，详见步骤5|
-> - AUTHORIZATION值为抓包获取，建议使用登录
+> - 建议使用ID密码登录，无技术要求，但可能会将其他设备挤下线
+> - AUTHORIZATION值为抓包获取，需要会使用抓包软件，但不会影响其他设备
 > - ENERGY参数用于签到及兑换能量，使用的code值为助手代码，下表是已知的code值
 
 > |code|ServantName|
