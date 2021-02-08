@@ -67,7 +67,7 @@ class Logger(object):
 if not os.path.exists(base_path + "/log"):
     os.makedirs(f"{base_path}/log", mode=777)
     os.system(f"chmod 777 {base_path}/log")
-date = time.strftime("%Y-%m-%d", time.localtime(time.time()))
+date = time.strftime("%Y-%m-%d", time.localtime(time.time() + 8 * 3600))
 log = Logger(base_path, base_path + f"/log/{date}.log", level="debug")
 
 # 开始脚本
@@ -100,7 +100,7 @@ def apiRequest(url, app_id, Authorization, params):
         "User-Agent": "Mozilla/5.0(Linux;Android6.0.1;MuMu Build/V417IR;wv)AppleWebKit/537.36(KHTML,"
         "like Gecko)Version/4.0 Chrome/52.0.2743.100MobileSafari / 537.36",
         "AppID": app_id,
-        "Version": "3.1.3",
+        "Version": "3.1.4",
         "Authorization": Authorization,
         "Connection": "Keep-Alive",
         "Host": "api1.mimikko.cn",
@@ -109,7 +109,7 @@ def apiRequest(url, app_id, Authorization, params):
         "Accept": "application/json",
         "Cache-Control": "no-cache",
         "AppID": app_id,
-        "Version": "3.1.3",
+        "Version": "3.1.4",
         "Content-Type": "application/json",
         "Host": "api1.mimikko.cn",
         "Connection": "Keep-Alive",
