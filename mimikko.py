@@ -100,7 +100,7 @@ def apiRequest(url, app_id, Authorization, params):
         "User-Agent": "Mozilla/5.0(Linux;Android6.0.1;MuMu Build/V417IR;wv)AppleWebKit/537.36(KHTML,"
         "like Gecko)Version/4.0 Chrome/52.0.2743.100MobileSafari / 537.36",
         "AppID": app_id,
-        "Version": "3.1.4",
+        "Version": "3.1.5",
         "Authorization": Authorization,
         "Connection": "Keep-Alive",
         "Host": "api1.mimikko.cn",
@@ -109,7 +109,7 @@ def apiRequest(url, app_id, Authorization, params):
         "Accept": "application/json",
         "Cache-Control": "no-cache",
         "AppID": app_id,
-        "Version": "3.1.4",
+        "Version": "3.1.5",
         "Content-Type": "application/json",
         "Host": "api1.mimikko.cn",
         "Connection": "Keep-Alive",
