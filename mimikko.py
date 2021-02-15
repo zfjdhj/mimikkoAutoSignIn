@@ -243,13 +243,13 @@ def mimikko():
                 sign_result_post ='补签成功' + str(times_resigned) + '/' + str(resign) +  '天\n签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
             else:
                 sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
-            title_post = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
+            title_ahead = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
         else:
             sign_result_post = '今日已签到：' + str(sign_info['body']['ContinuousSignDays']) + '天\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
-            title_post = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
+            title_ahead = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
     else:
         sign_result_post = '签到失败'
-        title_post = '兽耳助手签到'
+        title_ahead = '兽耳助手签到'
     #VIP抽奖
     vip_info_data = apiRequest_get(vip_info,app_id,app_Version,Authorization,"")
     if vip_info_data and vip_info_data.get('body'):
@@ -270,12 +270,15 @@ def mimikko():
     if energy_info_data and energy_info_data.get('body'):
         if energy_info_data['body']['Energy'] > 0:
             energy_reward_data = apiRequest_get(energy_reward_path + "?code=" + Energy_code, app_id,app_Version,Authorization,"")
+            title_post = title_ahead + "助手" + servant_name[energy_reward_data['body']['code']] + "好感度" + str(energy_reward_data['body']['Favorability'])
             energy_reward_post = "能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n好感度兑换成功。\n助手：" + servant_name[energy_reward_data['body']['code']] + " LV" + str(energy_reward_data['body']['Level']) +" (" + original_energy_post + "→" + str(energy_reward_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
+            title_post = title_ahead + "助手" + servant_name[energy_reward_data['body']['code']] + "好感度" + str(energy_reward_data['body']['Favorability'])
             energy_reward_post = "能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n好感度兑换失败：当前没有能量。\n助手：" + servant_name[energy_info_data['body']['code']] + " LV" + str(energy_info_data['body']['Level']) + " (" + original_energy_post + "→" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
+        title_post = title_ahead
         energy_reward_post = "能量兑换失败"
     return sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
 
