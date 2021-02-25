@@ -1,0 +1,11 @@
+2021-02-26 00:27:37,825 - mimikko.py[line:126] - ERROR: HTTPSConnectionPool(host='api1.mimikko.cn', port=443): Max retries exceeded with url: /client/love/ExchangeReward?code=ruri (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7efc18c0caf0>: Failed to establish a new connection: [Errno 110] Connection timed out'))
+2021-02-26 00:29:48,897 - mimikko.py[line:126] - ERROR: HTTPSConnectionPool(host='api1.mimikko.cn', port=443): Max retries exceeded with url: /client/user/GetUserSignedInformation (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7efc185835e0>: Failed to establish a new connection: [Errno 110] Connection timed out'))
+2021-02-26 00:32:59,594 - mimikko.py[line:126] - ERROR: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+2021-02-26 00:32:59,594 - mimikko.py[line:156] - INFO: sign_data:
+{'code': '0', 'body': {'date': '2021-02-26T00:25:26+0800', 'signTime': 1614270326244, 'Name': '——兽耳助手', 'Description': '吃元宵、赏花灯、猜灯谜！今年元宵要吃什么馅的呢？', 'PictureUrl': 'https://mimikko.oss-cn-shanghai.aliyuncs.com/file/20210208/20210208174304_o81s.png', 'Reward': 272, 'GetCoin': 7, 'GetExp': 95}}
+2021-02-26 00:32:59,594 - mimikko.py[line:166] - INFO: energy_info_data:
+{'code': '0', 'msg': '操作成功', 'body': {'Favorability': 123033, 'MaxFavorability': 136000, 'Level': 4, 'LevelDescription': '四级', 'Energy': 24, 'MaxEnergy': 100, 'AssistLevels': [{'value': 1, 'maxSensitivity': 10000, 'description': '一级'}, {'value': 2, 'maxSensitivity': 36000, 'description': '二级'}, {'value': 3, 'maxSensitivity': 78000, 'description': '三级'}, {'value': 4, 'maxSensitivity': 136000, 'description': '四级'}], 'NicekNames': [], 'code': 'ruri'}, 'ok': True}
+2021-02-26 00:32:59,595 - mimikko.py[line:175] - INFO: energy_reward_data:
+None
+2021-02-26 00:32:59,595 - mimikko.py[line:182] - INFO: sign_history:
+None
