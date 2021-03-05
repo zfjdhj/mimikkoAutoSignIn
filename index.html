@@ -1,60 +1,242 @@
-<!doctype html> 
-<html> 
-<head> 
+<!doctype html>
+<html>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>兽耳助手自动签到</title>
 </head>
+
 <body>
 
-<h1><a href="https://github.com/cyb233/mimikkoAutoSignIn">兽耳助手自动签到</a></h1>
+    <h1><a href="https://github.com/cyb233/mimikkoAutoSignIn">兽耳助手自动签到</a></h1>
 
-<p>本项目地址：<a href="https://github.com/cyb233/mimikkoAutoSignIn">cyb233/mimikkoAutoSignIn</a></p>
+    <p>本项目地址：<a href="https://github.com/cyb233/mimikkoAutoSignIn">cyb233/mimikkoAutoSignIn</a></p>
 
-<p><a href="https://github.com/cyb233/mimikkoAutoSignIn">本项目</a>使用GitHub Actions，用于<a href="https://www.mimikko.cn/">兽耳助手</a>定时<code>每日签到/补签</code>/<code>兑换能量</code>/<code>VIP每日抽奖</code>，并可选<code>推送到微信</code>  </p>
+    <p><a href="https://github.com/cyb233/mimikkoAutoSignIn">本项目</a>使用GitHub Actions，用于<a
+            href="https://www.mimikko.cn/">兽耳助手</a>定时<code>每日签到/补签</code>/<code>兑换能量</code>/<code>VIP每日抽奖</code>，并可选<code>推送到微信</code>
+    </p>
 
-<p><a href="https://github.com/cyb233/mimikkoAutoSignIn/actions"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/cyb233/mimikkoAutoSignIn/CI"/></a></p>
+    <p><a href="https://github.com/cyb233/mimikkoAutoSignIn/actions"><img alt="GitHub Workflow Status"
+                src="https://img.shields.io/github/workflow/status/cyb233/mimikkoAutoSignIn/CI" /></a></p>
 
-<blockquote><p><a href="https://keylol.com/t675496-1-1">keylol帖子</a></p></blockquote>
+    <blockquote>
+        <p><a href="https://keylol.com/t675496-1-1">keylol帖子</a></p>
+    </blockquote>
 
-<h2>使用效果：</h2>
+    <h2>使用效果：</h2>
 
-<p><img alt="result" width="100%" height=auto src="pic/result.png"/></p>
+    <p><img alt="result" width="100%" height=auto src="pic/result.png" /></p>
 
-<h2>使用说明</h2>
+    <h2>使用说明</h2>
 
-<blockquote><p>熟悉GitHub相关操作的，可以直接看下面，不熟悉的话，可以去看由<a href="https://github.com/Amcc1860">@Amcc1860</a>编写的<a href="https://github.com/cyb233/mimikkoAutoSignIn/issues/4">保姆级教程</a></p></blockquote>
+    <blockquote>
+        <p>熟悉GitHub相关操作的，可以直接看下面，不熟悉的话，可以去看由<a href="https://github.com/Amcc1860">@Amcc1860</a>编写的<a
+                href="https://github.com/cyb233/mimikkoAutoSignIn/issues/4">保姆级教程</a></p>
+    </blockquote>
 
-<h4>1. 先fork<a href="https://github.com/cyb233/mimikkoAutoSignIn">本项目</a>（本项目已fork人数 <a href="https://github.com/cyb233/mimikkoAutoSignIn"><img alt="GitHub forks" src="https://img.shields.io/github/forks/cyb233/mimikkoAutoSignIn?style=social"/></a>）</h4>
+    <h4>1. 先fork<a href="https://github.com/cyb233/mimikkoAutoSignIn">本项目</a>（本项目已fork人数 <a
+            href="https://github.com/cyb233/mimikkoAutoSignIn"><img alt="GitHub forks"
+                src="https://img.shields.io/github/forks/cyb233/mimikkoAutoSignIn?style=social" /></a>）</h4>
 
-<blockquote><p>打开<a href="https://github.com/cyb233/mimikkoAutoSignIn">本项目</a>，并点击如图fork按钮</p><p><img alt="fork" width="100%" height=auto src="pic/fork.png"/></p></blockquote>
+    <blockquote>
+        <p>打开<a href="https://github.com/cyb233/mimikkoAutoSignIn">本项目</a>，并点击如图fork按钮</p>
+        <p><img alt="fork" width="100%" height=auto src="pic/fork.png" /></p>
+    </blockquote>
 
-<h4>2. 在设置中创建action secrets：</h4>
+    <h4>2. 在设置中创建action secrets：</h4>
 
-<blockquote><p>|secret名称|必要条件|说明|</p><p>|-----|-----|-----|</p><p>|<code>LOGIN</code>|非必要|值非<code>False</code>时均为<code>True</code>，为<code>True</code>时使用ID和密码进行登录，否则使用AUTHORIZATION进行验证|</p><p>|<code>ID</code>|<code>LOGIN</code>==<code>True</code>|登录账号(邮箱或手机号)|</p><p>|<code>PASSWORD</code>|<code>LOGIN</code>==<code>True</code>|登录密码|</p><p>|<code>ENERGY</code>|非必要|详见下个表格|</p><p>|<code>AUTHORIZATION</code>|<code>LOGIN</code>==<code>False</code>|验证账号用，可由抓包获取|</p><p>|<code>RESIGN</code>|非必要|如需每天尝试补签最近x天，取值1~7|</p><p>|<code>SCKEY</code>|非必要|微信推送，详见步骤5|</p><ul><li><p>建议使用ID密码登录，无技术要求，但可能会将其他设备挤下线</p></li><li><p>AUTHORIZATION值为抓包获取，需要会使用抓包软件，但不会影响其他设备</p></li><li><p>ENERGY参数用于签到及兑换能量，使用的code值为助手代码，下表是已知的code值</p></li></ul><p>|code|ServantName|</p><p>|-----|-----|</p><p>|不设/不填|缺省值：梦梦奈|</p><p>|<code>nonona</code>|诺诺纳|</p><p>|<code>momona</code>|梦梦奈|</p><p>|<code>ariana</code>|爱莉安娜|</p><p>|<code>miruku</code>|米璐库|</p><p>|<code>nemuri</code>|奈姆利|</p><p>|<code>ruri</code>|琉璃|</p><p>|<code>alpha0</code>|阿尔法零|</p><p>|<code>miruku2</code>|米露可|</p><p>|<code>ulrica</code>|优莉卡|</p><ul><li>注意：本项目不检查code可用性，如出现新助手而本表未更新，可自行抓取code值；由于随意输入错误助手code所可能导致的问题，本项目不负任何责任</li></ul><p>如图<code>setting</code>→<code>secrets→new repository secret</code></p><p><img alt="secrets" src="/pic/secrets.jpg"/></p></blockquote>
+    <blockquote>
+        <table border="1">
+            <tr>
+                <td>secret名称</td>
+                <td>必要条件</td>
+                <td>说明</td>
+            </tr>
+            <tr>
+                <td><code>LOGIN</code></td>
+                <td>非必要</td>
+                <td>值非<code>False</code>时均为<code>True</code>，为<code>True</code>时使用ID和密码进行登录，否则使用AUTHORIZATION进行验证</td>
+            </tr>
+            <tr>
+                <td><code>ID</code></td>
+                <td><code>LOGIN</code>==<code>True</code></td>
+                <td>登录账号(邮箱或手机号)</td>
+            </tr>
+            <tr>
+                <td><code>PASSWORD</code></td>
+                <td><code>LOGIN</code>==<code>True</code></td>
+                <td>登录密码</td>
+            </tr>
+            <tr>
+                <td><code>ENERGY</code></td>
+                <td>非必要</td>
+                <td>详见下个表格</td>
+            </tr>
+            <tr>
+                <td><code>AUTHORIZATION</code></td>
+                <td><code>LOGIN</code>==<code>False</code></td>
+                <td>验证账号用，可由抓包获取</td>
+            </tr>
+            <tr>
+                <td><code>RESIGN</code></td>
+                <td>非必要</td>
+                <td>如需每天尝试补签最近x天，取值1~7</td>
+            </tr>
+            <tr>
+                <td><code>SCKEY</code></td>
+                <td>非必要</td>
+                <td>微信推送，详见步骤5</td>
+            </tr>
+        </table>
+        <ul>
+            <li>
+                <p>建议使用ID密码登录，无技术要求，但可能会将其他设备挤下线</p>
+            </li>
+            <li>
+                <p>AUTHORIZATION值为抓包获取，需要会使用抓包软件，但不会影响其他设备</p>
+            </li>
+            <li>
+                <p>ENERGY参数用于签到及兑换能量，使用的code值为助手代码，下表是已知的code值</p>
+            </li>
+        </ul>
+        <table border="1">
+            <tr>
+                <td>code</td>
+                <td>ServantName</td>
+            </tr>
+            <tr>
+                <td>不设/不填</td>
+                <td>缺省值：梦梦奈</td>
+            </tr>
+            <tr>
+                <td><code>nonona</code></td>
+                <td>诺诺纳</td>
+            </tr>
+            <tr>
+                <td><code>momona</code></td>
+                <td>梦梦奈</td>
+            </tr>
+            <tr>
+                <td><code>ariana</code></td>
+                <td>爱莉安娜</td>
+            </tr>
+            <tr>
+                <td><code>miruku</code></td>
+                <td>米璐库</td>
+            </tr>
+            <tr>
+                <td><code>nemuri</code></td>
+                <td>奈姆利</td>
+            </tr>
+            <tr>
+                <td><code>ruri</code></td>
+                <td>琉璃</td>
+            </tr>
+            <tr>
+                <td><code>alpha0</code></td>
+                <td>阿尔法零</td>
+            </tr>
+            <tr>
+                <td><code>miruku2</code></td>
+                <td>米露可</td>
+            </tr>
+            <tr>
+                <td><code>ulrica</code></td>
+                <td>优莉卡</td>
+            </tr>
+        </table>
+        <ul>
+            <li>注意：本项目不检查code可用性，如出现新助手而本表未更新，可自行抓取code值；由于随意输入错误助手code所可能导致的问题，本项目不负任何责任</li>
+        </ul>
+        <p>如图<code>setting</code>→<code>secrets→new repository secret</code></p>
+        <p><img alt="secrets" src="pic/secrets.jpg" /></p>
+    </blockquote>
 
-<h4>3. 在actions中开启</h4>
+    <h4>3. 在actions中开启</h4>
 
-<blockquote><ul><li><p><strong>请勿滥用GitHub Actions！</strong>  </p></li><li><p>如图点击<code>I understand my workflows, go ahead and enable them</code>，并手动执行一次</p></li></ul><p><img alt="actions" width="100%" height=auto src="pic/actions.jpg"/></p><p><img alt="run" width="100%" height=auto src="https://user-images.githubusercontent.com/35195193/104328725-13405200-5527-11eb-8540-c804a6d1142e.png"/></p></blockquote>
+    <blockquote>
+        <ul>
+            <li>
+                <p><strong>请勿滥用GitHub Actions！</strong> </p>
+            </li>
+            <li>
+                <p>如图点击<code>I understand my workflows, go ahead and enable them</code>，并手动执行一次</p>
+            </li>
+        </ul>
+        <p><img alt="actions" width="100%" height=auto src="pic/actions.jpg" /></p>
+        <p><img alt="run" width="100%" height=auto
+                src="https://user-images.githubusercontent.com/35195193/104328725-13405200-5527-11eb-8540-c804a6d1142e.png" />
+        </p>
+    </blockquote>
 
-<h4>4. 修改自动运行时间：</h4>
+    <h4>4. 修改自动运行时间：</h4>
 
-<blockquote><ul><li><p>打开<code>mimikkoAutoSignIn/.github/workflows/auto_sign_in.yml</code></p></li><li><p>在<code>第12行</code>修改<code>cron表达式</code>，默认北京时间每天<code>3:30</code>,<code>17:30</code>执行</p></li><li><p>cron表达式怎么改？请去看<a href="https://docs.github.com/cn/actions/reference/workflow-syntax-for-github-actions#onschedule">GitHub官方文档</a></p></li></ul></blockquote>
+    <blockquote>
+        <ul>
+            <li>
+                <p>打开<code>mimikkoAutoSignIn/.github/workflows/auto_sign_in.yml</code></p>
+            </li>
+            <li>
+                <p>在<code>第12行</code>修改<code>cron表达式</code>，默认北京时间每天<code>3:30</code>,<code>17:30</code>执行</p>
+            </li>
+            <li>
+                <p>cron表达式怎么改？请去看<a
+                        href="https://docs.github.com/cn/actions/reference/workflow-syntax-for-github-actions#onschedule">GitHub官方文档</a>
+                </p>
+            </li>
+        </ul>
+    </blockquote>
 
-<h4>5. (可选)使用server酱推送到微信：</h4>
+    <h4>5. (可选)使用server酱推送到微信：</h4>
 
-<blockquote><ul><li><p>在server酱官网 sc.ftqq.com 登录并复制<code>SCKEY</code></p></li><li><p>在设置中创建action secrets <code>SCKEY</code></p></li></ul><p><img alt="SCKEY" width="100%" height=auto src="pic/Screenshot_2021_0109_222138.png"/></p></blockquote>
+    <blockquote>
+        <ul>
+            <li>
+                <p>在server酱官网 sc.ftqq.com 登录并复制<code>SCKEY</code></p>
+            </li>
+            <li>
+                <p>在设置中创建action secrets <code>SCKEY</code></p>
+            </li>
+        </ul>
+        <p><img alt="SCKEY" width="100%" height=auto src="pic/Screenshot_2021_0109_222138.png" /></p>
+    </blockquote>
 
-<h2>用前预知</h2>
+    <h2>用前预知</h2>
 
-<p>使用本项目前，您应已知悉以下内容：</p>
+    <p>使用本项目前，您应已知悉以下内容：</p>
 
-<ul><li><p>您保证是因为各种无法解决的原因无法自行签到而使用本项目的(如作者本人航海专业无信号，或没有手机的学生党等)</p></li><li><p>本项目完全开源，使用时如有任何不放心请自行检阅代码（或提issues也行）</p></li><li><p>本项目使用的Secrets均保存于GitHub服务器中，且一旦保存，即使是用户自己也无法再次查看</p></li><li><p>本项目均使用GitHub Actions定时运行，理论上可以下载并本地定时运行，但我没试过</p></li><li><p>使用本项目请遵守兽耳助手《用户服务协议》，请勿使用本项目进行任何违法行为以及任何有害行为</p></li><li><p>本项目不对任何不可抗力负责，包括但不限于 罢工，自然和人为灾害，战争，网络攻击，拿服务器CPU烧烤，第三次世界大战，G胖数3，圣杯战争导致的煤气爆炸，没交网费，二哈拆房，生化危机，总是单身，异形入侵，考试挂科，三体来袭 等各种软件服务协议会写的东西</p></li><li><p>欢迎<a href="https://afdian.net/@Schwi">afdian赞助</a></p></li></ul>
+    <ul>
+        <li>
+            <p>您保证是因为各种无法解决的原因无法自行签到而使用本项目的(如作者本人航海专业无信号，或没有手机的学生党等)</p>
+        </li>
+        <li>
+            <p>本项目完全开源，使用时如有任何不放心请自行检阅代码（或提issues也行）</p>
+        </li>
+        <li>
+            <p>本项目使用的Secrets均保存于GitHub服务器中，且一旦保存，即使是用户自己也无法再次查看</p>
+        </li>
+        <li>
+            <p>本项目均使用GitHub Actions定时运行，理论上可以下载并本地定时运行，但我没试过</p>
+        </li>
+        <li>
+            <p>使用本项目请遵守兽耳助手《用户服务协议》，请勿使用本项目进行任何违法行为以及任何有害行为</p>
+        </li>
+        <li>
+            <p>本项目不对任何不可抗力负责，包括但不限于
+                罢工，自然和人为灾害，战争，网络攻击，拿服务器CPU烧烤，第三次世界大战，G胖数3，圣杯战争导致的煤气爆炸，没交网费，二哈拆房，生化危机，总是单身，异形入侵，考试挂科，三体来袭 等各种软件服务协议会写的东西
+            </p>
+        </li>
+        <li>
+            <p>欢迎<a href="https://afdian.net/@Schwi">afdian赞助</a></p>
+        </li>
+    </ul>
 
-<h2>闲着没事上班摸鱼一小时算出来的数据</h2>
+    <h2>闲着没事上班摸鱼一小时算出来的数据</h2>
 
-<p><img alt="兽耳助手签到所需时长" width="100%" height=auto src="pic/mimikko_sign.png"/></p>
+    <p><img alt="兽耳助手签到所需时长" width="100%" height=auto src="pic/mimikko_sign.png" /></p>
 
 </body>
+
 </html>
