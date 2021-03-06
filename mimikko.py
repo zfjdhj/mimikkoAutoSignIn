@@ -75,9 +75,9 @@ energy_reward_path = 'https://api1.mimikko.cn/client/love/ExchangeReward' # 兑�
 vip_info = 'https://api1.mimikko.cn/client/user/GetUserVipInfo' # 获取会员状态
 vip_roll = 'https://api1.mimikko.cn/client/roll/RollReward' # 会员抽奖(post)
 server_api = 'https://sc.ftqq.com/' # 微信推送
-app_Version = '3.1.3'
+app_Version = '3.1.6'
 app_id = 'wjB7LOP2sYkaMGLC'
-servant_name = {'nonona':'诺诺纳','momona':'梦梦奈','ariana':'爱莉安娜','miruku':'米璐库','nemuri':'奈姆利','ruri':'琉璃','alpha0':'阿尔法零','miruku2':'米露可','ulrica':'优莉卡'}
+servant_name = {'nonona':'诺诺纳','momona':'梦梦奈','ariana':'爱莉安娜','miruku':'米璐库','nemuri':'奈姆利','ruri':'琉璃','alpha0':'阿尔法零','miruku2':'米露可','ulrica':'优莉卡','giwa':'羲和','maya':'摩耶'}
 
 def loginRequest_post(url,app_id,app_Version,params):
     params_post = params
