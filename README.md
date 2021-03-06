@@ -42,6 +42,8 @@
 > |`alpha0`|阿尔法零|
 > |`miruku2`|米露可|
 > |`ulrica`|优莉卡|
+> |`giwa`|羲和|
+> |`maya`|摩耶|
 > - 注意：本项目不检查code可用性，如出现新助手而本表未更新，可自行抓取code值；由于随意输入错误助手code所可能导致的问题，本项目不负任何责任
   
 > 如图`setting`→`secrets→new repository secret`
