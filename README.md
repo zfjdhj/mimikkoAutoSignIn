@@ -2,7 +2,7 @@
 
 本项目地址：[cyb233/mimikkoAutoSignIn](https://github.com/cyb233/mimikkoAutoSignIn)
 
-[本项目](https://github.com/cyb233/mimikkoAutoSignIn)使用GitHub Actions，用于[兽耳助手](https://www.mimikko.cn/)定时`每日签到/补签`/`兑换能量`/`VIP每日抽奖`，并可选`推送到微信`  
+[本项目](https://github.com/cyb233/mimikkoAutoSignIn)使用GitHub Actions，用于[兽耳助手](https://www.mimikko.cn/)定时`每日签到/补签`/`兑换能量`/`VIP每日抽奖`，并可选`推送到微信/钉钉`  
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cyb233/mimikkoAutoSignIn/CI)](https://github.com/cyb233/mimikkoAutoSignIn/actions)
 >[keylol帖子](https://keylol.com/t675496-1-1)
 ## 使用效果：
