@@ -17,6 +17,7 @@
 > ![fork](/pic/fork.png)
 
 #### 2. 在设置中创建action secrets：
+
 > |secret名称|必要条件|说明|  
 > |-----|-----|-----|  
 > |`LOGIN`|非必要|值非`False`时均为`True`，为`True`时使用ID和密码进行登录，否则使用AUTHORIZATION进行验证|  
