@@ -17,33 +17,33 @@
 > ![fork](/pic/fork.png)
 
 #### 2. 在设置中创建action secrets：
-> |secret名称|必要条件|说明|
-> |-----|-----|-----|
-> |`LOGIN`|非必要|值非`False`时均为`True`，为`True`时使用ID和密码进行登录，否则使用AUTHORIZATION进行验证|
-> |`ID`|`LOGIN`==`True`|登录账号(邮箱或手机号)|
-> |`PASSWORD`|`LOGIN`==`True`|登录密码|
-> |`ENERGY`|非必要|详见下个表格|
-> |`AUTHORIZATION`|`LOGIN`==`False`|验证账号用，可由抓包获取|
-> |`RESIGN`|非必要|如需每天尝试补签最近x天，取值1~7|
-> |`SCKEY`|非必要|微信推送，详见步骤5|
+> |secret名称|必要条件|说明|  
+> |-----|-----|-----|  
+> |`LOGIN`|非必要|值非`False`时均为`True`，为`True`时使用ID和密码进行登录，否则使用AUTHORIZATION进行验证|  
+> |`ID`|`LOGIN`==`True`|登录账号(邮箱或手机号)|  
+> |`PASSWORD`|`LOGIN`==`True`|登录密码|  
+> |`ENERGY`|非必要|详见下个表格|  
+> |`AUTHORIZATION`|`LOGIN`==`False`|验证账号用，可由抓包获取|  
+> |`RESIGN`|非必要|如需每天尝试补签最近x天，取值1~7|  
+> |`SCKEY`|非必要|微信推送，详见步骤5|  
 > - 建议使用ID密码登录，无技术要求，但可能会将其他设备挤下线
 > - AUTHORIZATION值为抓包获取，需要会使用抓包软件，但不会影响其他设备
 > - ENERGY参数用于签到及兑换能量，使用的code值为助手代码，下表是已知的code值
 
-> |code|ServantName|
-> |-----|-----|
-> |不设/不填|缺省值：梦梦奈|
-> |`nonona`|诺诺纳|
-> |`momona`|梦梦奈|
-> |`ariana`|爱莉安娜|
-> |`miruku`|米璐库|
-> |`nemuri`|奈姆利|
-> |`ruri`|琉璃|
-> |`alpha0`|阿尔法零|
-> |`miruku2`|米露可|
-> |`ulrica`|优莉卡|
-> |`giwa`|羲和|
-> |`maya`|摩耶|
+> |code|ServantName|  
+> |-----|-----|  
+> |不设/不填|缺省值：梦梦奈|  
+> |`nonona`|诺诺纳|  
+> |`momona`|梦梦奈|  
+> |`ariana`|爱莉安娜|  
+> |`miruku`|米璐库|  
+> |`nemuri`|奈姆利|  
+> |`ruri`|琉璃|  
+> |`alpha0`|阿尔法零|  
+> |`miruku2`|米露可|  
+> |`ulrica`|优莉卡|  
+> |`giwa`|羲和|  
+> |`maya`|摩耶|  
 > - 注意：本项目不检查code可用性，如出现新助手而本表未更新，可自行抓取code值；由于随意输入错误助手code所可能导致的问题，本项目不负任何责任
   
 > 如图`setting`→`secrets→new repository secret`
