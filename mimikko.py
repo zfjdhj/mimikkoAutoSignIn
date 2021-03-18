@@ -355,6 +355,6 @@ try:
             post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
             print(post_data)
     else:
-        print("没有SCKEY")
+        print("没有DDKEY")
 except Exception as e:
     print(e)
