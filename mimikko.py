@@ -10,9 +10,12 @@ import re
 import json
 import getopt
 import hashlib
+import hmac
+import base64
+import urllib.parse
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-optlist, args = getopt.getopt(sys.argv[1:], 'e:l:a:u:p:s:r:')
+optlist, args = getopt.getopt(sys.argv[1:], 'e:l:a:u:p:s:r:d:')
 
 try:
     for o,a in optlist:
@@ -46,6 +49,12 @@ try:
         elif o == '-s':
             SCKEY = False
             print("SCKEY不存在")
+        if o == '-d' and a.strip() != '':
+            DDKEY = a.strip()
+            print("DDKEY存在")
+        elif o == '-s':
+            DDKEY = False
+            print("DDKEY不存在")
         if o == '-r':
             if a.strip() in ['1','2','3','4','5','6','7']:
                 resign = a.strip()
@@ -75,6 +84,7 @@ energy_reward_path = 'https://api1.mimikko.cn/client/love/ExchangeReward' # 兑�
 vip_info = 'https://api1.mimikko.cn/client/user/GetUserVipInfo' # 获取会员状态
 vip_roll = 'https://api1.mimikko.cn/client/roll/RollReward' # 会员抽奖(post)
 server_api = 'https://sc.ftqq.com/' # 微信推送
+ding_api = 'https://oapi.dingtalk.com/robot/send?' # 钉钉推送
 app_Version = '3.1.6'
 app_id = 'wjB7LOP2sYkaMGLC'
 servant_name = {'nonona':'诺诺纳','momona':'梦梦奈','ariana':'爱莉安娜','miruku':'米璐库','nemuri':'奈姆利','ruri':'琉璃','alpha0':'阿尔法零','miruku2':'米露可','ulrica':'优莉卡','giwa':'羲和','maya':'摩耶'}
@@ -150,6 +160,15 @@ def timeStamp2time(timeStamp):
     firstStyleTime = time.strftime('%Y-%m-%d', timeArray)
     secondStyleTime = time.strftime('%Y年%m月%d日 %H:%M:%S', timeArray)
     return firstStyleTime, secondStyleTime
+
+def timeStamp2sign(DDKEY):
+    timestamp = str(round(time.time() * 1000))
+    secret_enc = DDKEY.encode('utf-8')
+    string_to_sign = '{}\n{}'.format(timestamp, DDKEY)
+    string_to_sign_enc = string_to_sign.encode('utf-8')
+    hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
+    sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
+    return timestamp, sign
 
 def mimikko():
     global Authorization
@@ -306,13 +325,34 @@ try:
         # print("有SCKEY")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到微信")
-            post_info = "?text=" + title_post + "&desp=<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) + "</p>"
+            post_text = re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)
+            post_info = "?text=" + title_post + "&desp=<p>" + post_text + "</p>"
             post_data = requests.get(server_api + SCKEY + '.send' + post_info)
             print(post_data)
         else:
             print("数据异常，正在推送到微信")
             post_info = "?text=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
             post_data = requests.get(server_api + SCKEY + '.send' + post_info)
+            print(post_data)
+    else:
+        print("没有SCKEY")
+except Exception as e:
+    print(e)
+try:
+    # print(len(sys.argv))
+    if DDKEY:
+        dtime, dsign = timeStamp2sign(DDKEY)
+        # print("有DDKEY")
+        if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
+            print("运行成功，正在推送到钉钉")
+            post_text = re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)
+            post_info = '{"msgtype":"markdown","markdown":{"title":"title_post","text":""<p>" + post_text + "</p>""}}'
+            post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
+            print(post_data)
+        else:
+            print("数据异常，正在推送到钉钉")
+            post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到数据异常","text":"兽耳助手签到数据异常，请访问GitHub检查"}}'
+            post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
             print(post_data)
     else:
         print("没有SCKEY")
