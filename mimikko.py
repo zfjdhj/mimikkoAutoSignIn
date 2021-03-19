@@ -388,17 +388,17 @@ except Exception as es:
 try:
     # print(len(sys.argv))
     if DDTOKEN and DDSECRET:
-        dtime, dsign = timeStamp2sign(DDSECRET)
-        # print("有DDTOKEN和DDSECRET")
+        ddtime, ddsign = timeStamp2sign(DDSECRET)
+        #print("有DDTOKEN和DDSECRET")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到钉钉")
             post_info = '{"msgtype":"markdown","markdown":{"title":"title_post","text":"post_text"}}'
-            post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, json=post_info)
+            post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + ddtime + '&sign=' + ddsign, json=post_info)
             print('钉钉', post_data)
         else:
             print("数据异常，正在推送到钉钉")
             post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到数据异常","text":"兽耳助手签到数据异常，请访问GitHub检查"}}'
-            post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, json=post_info)
+            post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + ddtime + '&sign=' + ddsign, json=post_info)
             print('钉钉', post_data)
     else:
         print("没有DDTOKEN或DDSECRET")
