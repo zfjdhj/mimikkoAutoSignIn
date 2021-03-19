@@ -363,17 +363,17 @@ try:
             post_info_a = "?text=" + title_post + "&desp=<p>" + post_text + "</p>"
             post_info_b = "?title=" + title_post + "&desp=<p>" + post_text + "</p>"
             post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
-            print(post_data_a)
+            print('server酱', post_data_a)
             post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
-            print(post_data_b)
+            print('server酱Turbo版', post_data_b)
         else:
             print("数据异常，正在推送到微信")
             post_info_a = "?text=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
             post_info_b = "?title=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
             post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
-            print(post_data_a)
+            print('server酱', post_data_a)
             post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
-            print(post_data_b)
+            print('server酱Turbo版', post_data_b)
     else:
         print("没有SCKEY")
 except Exception as es:
@@ -387,12 +387,12 @@ try:
             print("运行成功，正在推送到钉钉")
             post_info = '{"msgtype":"markdown","markdown":{"title":"title_post","text":""<p>" + post_text + "</p>""}}'
             post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
-            print(post_data)
+            print('钉钉', post_data)
         else:
             print("数据异常，正在推送到钉钉")
             post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到数据异常","text":"兽耳助手签到数据异常，请访问GitHub检查"}}'
             post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
-            print(post_data)
+            print('钉钉', post_data)
     else:
         print("没有DDKEY")
 except Exception as ed:
