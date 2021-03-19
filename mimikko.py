@@ -169,10 +169,10 @@ def timeStamp2time(timeStamp):
     secondStyleTime = time.strftime('%Y年%m月%d日 %H:%M:%S', timeArray)
     return firstStyleTime, secondStyleTime
 
-def timeStamp2sign(DDSECRET):
+def timeStamp2sign(DD):
     timestamp = str(round(time.time() * 1000))
-    secret_enc = DDSECRET('utf-8')
-    string_to_sign = '{}\n{}'.format(timestamp, DDSECRET)
+    secret_enc = DD('utf-8')
+    string_to_sign = '{}\n{}'.format(timestamp, DD)
     string_to_sign_enc = string_to_sign.encode('utf-8')
     hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
     sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
@@ -388,17 +388,17 @@ except Exception as es:
 try:
     # print(len(sys.argv))
     if DDTOKEN and DDSECRET:
-        ddtime, ddsign = timeStamp2sign(DDSECRET)
+        dtime, dsign = timeStamp2sign(DDSECRET)
         #print("有DDTOKEN和DDSECRET")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到钉钉")
             post_info = '{"msgtype":"markdown","markdown":{"title":"title_post","text":"post_text"}}'
-            post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + ddtime + '&sign=' + ddsign, json=post_info)
+            post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, json=post_info)
             print('钉钉', post_data)
         else:
             print("数据异常，正在推送到钉钉")
             post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到数据异常","text":"兽耳助手签到数据异常，请访问GitHub检查"}}'
-            post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + ddtime + '&sign=' + ddsign, json=post_info)
+            post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, json=post_info)
             print('钉钉', post_data)
     else:
         print("没有DDTOKEN或DDSECRET")
