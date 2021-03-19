@@ -359,9 +359,10 @@ try:
     print('\n' + '\n' + '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)  
 except Exception as em:
     print('mimikko', em)
+if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
+    post_text = "<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) +"</p>"
 try:
     # print(len(sys.argv))
-    post_text = "<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) +"</p>"
     if SCKEY:
         # print("有SCKEY")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
