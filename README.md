@@ -27,7 +27,8 @@
 > |`AUTHORIZATION`|`LOGIN`==`False`|验证账号用，可由抓包获取|  
 > |`RESIGN`|非必要|如需每天尝试补签最近x天，取值1~7|  
 > |`SCKEY`|非必要|微信推送，server酱密钥，详见步骤5|  
-> |`DDKEY`|非必要|钉钉推送，钉钉机器人密钥，可参考步骤5微信推送及[钉钉API文档](https://developers.dingtalk.com/document/app/custom-robot-access#topic-2026027)，安全设置请选择`加签`|  
+> |`DDTOKEN`|非必要|钉钉推送，钉钉机器人token，安全设置请选择`加签`，可参考步骤5微信推送及[钉钉API文档](https://developers.dingtalk.com/document/app/custom-robot-access#topic-2026027)|  
+> |`DDSECRET`|非必要|钉钉推送，钉钉机器人安全设置`加签`的secret，可参考步骤5微信推送及[钉钉API文档](https://developers.dingtalk.com/document/app/custom-robot-access#topic-2026027)|  
 > - 建议使用ID密码登录，无技术要求，但可能会将其他设备挤下线
 > - AUTHORIZATION值为抓包获取，需要会使用抓包软件，但不会影响其他设备
 > - ENERGY参数用于签到及兑换能量，使用的code值为助手代码，下表是已知的code值
@@ -63,13 +64,13 @@
 > - cron表达式怎么改？请去看[GitHub官方文档](https://docs.github.com/cn/actions/reference/workflow-syntax-for-github-actions#onschedule)
 
 #### 5. (可选)使用server酱推送到微信：
+> ### 注意：
+> [升级说明](http://sc.ftqq.com/9.version)  
+> [因为微信发布公告将在4月底下线模板消息，Server酱开发了以企业微信为主的多通道新版（ Turbo版 sct.ftqq.com ）。旧版将在4月后下线，请尽快完成配置的更新。](http://sc.ftqq.com/9.version)  
+> [点击查看更多详情](http://sc.ftqq.com/9.version)
 > - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
 > - 在设置中创建action secrets `SCKEY`
 > ![SCKEY](/pic/Screenshot_2021_0109_222138.png)
-#### - 注意：
-> [升级说明](http://sc.ftqq.com/9.version)  
-> [因为微信发布公告将在4月底下线模板消息，Server酱开发了以企业微信为主的多通道新版（ Turbo版 sct.ftqq.com ）。旧版将在4月后下线，请尽快完成配置的更新。](http://sc.ftqq.com/9.version)  
-> [点击查看更多详情](http://sc.ftqq.com/9.version)  
 </details>
   
   
