@@ -328,8 +328,10 @@ try:
             print("运行成功，正在推送到微信")
             post_text = re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)
             post_info = "?text=" + title_post + "&desp=<p>" + post_text + "</p>"
-            post_data = requests.get(server_api + SCKEY + '.send' + post_info)
-            print(post_data)
+            post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info)
+            print(post_data_a)
+            post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info)
+            print(post_data_b)
         else:
             print("数据异常，正在推送到微信")
             post_info = "?text=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
