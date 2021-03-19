@@ -189,11 +189,18 @@ def mimikko():
             else:
                 if SCKEY:
                     print("登录错误，正在推送到微信")
-                    post_info = "?text=兽耳助手签到登录错误&desp=<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"
-                    post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info)
+                    post_info_a = "?text=兽耳助手签到登录错误&desp=<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"
+                    post_info_b = "?title=兽耳助手签到登录错误&desp=<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"
+                    post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
                     print(post_data_a)
-                    post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info)
+                    post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
                     print(post_data_b)
+                if DDKEY:
+                    dtime, dsign = timeStamp2sign(DDKEY)
+                    print("登录错误，正在推送到钉钉")
+                    post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到登录错误","text":"<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"}}'
+                    post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
+                    print(post_data)
                 sys.exit('登录错误，且未找到Authorization！！！')
     elif login:
         if Authorization:
@@ -201,11 +208,18 @@ def mimikko():
         else:
             if SCKEY:
                 print("登录错误，正在推送到微信")
-                post_info = "?text=兽耳助手签到登录错误&desp=<p>登录错误，未找到登录ID、密码或Authorization，请访问GitHub检查</p>"
-                post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info)
+                post_info_a = "?text=兽耳助手签到登录错误&desp=<p>登录错误，未找到登录ID、密码或Authorization，请访问GitHub检查</p>"
+                post_info_b = "?title=兽耳助手签到登录错误&desp=<p>登录错误，未找到登录ID、密码或Authorization，请访问GitHub检查</p>"
+                post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
                 print(post_data_a)
-                post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info)
+                post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
                 print(post_data_b)
+            if DDKEY:
+                dtime, dsign = timeStamp2sign(DDKEY)
+                print("登录错误，正在推送到钉钉")
+                post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到登录错误","text":"<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"}}'
+                post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
+                print(post_data)
             sys.exit('请在Secret中保存登录ID和密码或Authorization！！！')
     else:
         if Authorization:
@@ -213,11 +227,18 @@ def mimikko():
         else:
             if SCKEY:
                 print("登录错误，正在推送到微信")
-                post_info = "?text=兽耳助手签到登录错误&desp=<p>登录错误，未找到Authorization，请访问GitHub检查</p>"
-                post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info)
+                post_info_a = "?text=兽耳助手签到登录错误&desp=<p>登录错误，未找到Authorization，请访问GitHub检查</p>"
+                post_info_b = "?title=兽耳助手签到登录错误&desp=<p>登录错误，未找到Authorization，请访问GitHub检查</p>"
+                post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
                 print(post_data_a)
-                post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info)
+                post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
                 print(post_data_b)
+            if DDKEY:
+                dtime, dsign = timeStamp2sign(DDKEY)
+                print("登录错误，正在推送到钉钉")
+                post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到登录错误","text":"<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"}}'
+                post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
+                print(post_data)
             sys.exit('请在Secret中保存登录ID和密码或Authorization！！！')
     #设置默认助手
     print('设置默认助手')
@@ -334,22 +355,24 @@ except Exception as em:
     print('mimikko', em)
 try:
     # print(len(sys.argv))
+    post_text = re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)
     if SCKEY:
         # print("有SCKEY")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到微信")
-            post_text = re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)
-            post_info = "?text=" + title_post + "&desp=<p>" + post_text + "</p>"
-            post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info)
+            post_info_a = "?text=" + title_post + "&desp=<p>" + post_text + "</p>"
+            post_info_b = "?title=" + title_post + "&desp=<p>" + post_text + "</p>"
+            post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
             print(post_data_a)
-            post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info)
+            post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
             print(post_data_b)
         else:
             print("数据异常，正在推送到微信")
-            post_info = "?text=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
-            post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info)
+            post_info_a = "?text=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
+            post_info_b = "?title=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
+            post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
             print(post_data_a)
-            post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info)
+            post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
             print(post_data_b)
     else:
         print("没有SCKEY")
@@ -362,7 +385,6 @@ try:
         # print("有DDKEY")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到钉钉")
-            post_text = re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)
             post_info = '{"msgtype":"markdown","markdown":{"title":"title_post","text":""<p>" + post_text + "</p>""}}'
             post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
             print(post_data)
