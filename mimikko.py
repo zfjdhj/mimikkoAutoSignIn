@@ -171,7 +171,7 @@ def timeStamp2time(timeStamp):
 
 def timeStamp2sign(DDSECRET):
     timestamp = str(round(time.time() * 1000))
-    secret_enc = DDSECRET.('utf-8')
+    secret_enc = DDSECRET('utf-8')
     string_to_sign = '{}\n{}'.format(timestamp, DDSECRET)
     string_to_sign_enc = string_to_sign.encode('utf-8')
     hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
