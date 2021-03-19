@@ -169,7 +169,7 @@ def timeStamp2time(timeStamp):
     secondStyleTime = time.strftime('%Y年%m月%d日 %H:%M:%S', timeArray)
     return firstStyleTime, secondStyleTime
 
-def timeStamp2sign(DD):
+def time2sign(DD):
     timestamp = str(round(time.time() * 1000))
     secret_enc = DD('utf-8')
     string_to_sign = '{}\n{}'.format(timestamp, DD)
@@ -202,7 +202,7 @@ def mimikko():
                     #post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
                     #print(post_data_b)
                 if DDTOKEN and DDSECRET:
-                    dtime, dsign = timeStamp2sign(DDSECRET)
+                    dtime, dsign = time2sign(DDSECRET)
                     print("登录错误，正在推送到钉钉")
                     post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到登录错误","text":"<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"}}'
                     post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, json=post_info)
@@ -221,7 +221,7 @@ def mimikko():
                 #post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
                 #print(post_data_b)
             if DDTOKEN and DDSECRET:
-                dtime, dsign = timeStamp2sign(DDSECRET)
+                dtime, dsign = time2sign(DDSECRET)
                 print("登录错误，正在推送到钉钉")
                 post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到登录错误","text":"<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"}}'
                 post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, json=post_info)
@@ -240,7 +240,7 @@ def mimikko():
                 #post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
                 #print(post_data_b)
             if DDTOKEN and DDSECRET:
-                dtime, dsign = timeStamp2sign(DDSECRET)
+                dtime, dsign = time2sign(DDSECRET)
                 print("登录错误，正在推送到钉钉")
                 post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到登录错误","text":"<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"}}'
                 post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, json=post_info)
@@ -388,7 +388,7 @@ except Exception as es:
 try:
     # print(len(sys.argv))
     if DDTOKEN and DDSECRET:
-        #dtime, dsign = timeStamp2sign(DDSECRET)
+        #dtime, dsign = time2sign(DDSECRET)
         #print("有DDTOKEN和DDSECRET")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到钉钉")
