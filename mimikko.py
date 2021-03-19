@@ -188,8 +188,10 @@ def mimikko():
                 if SCKEY:
                     print("登录错误，正在推送到微信")
                     post_info = "?text=兽耳助手签到登录错误&desp=<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"
-                    post_data = requests.get(server_api + SCKEY + '.send' + post_info)
-                    print(post_data)
+                    post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info)
+                    print(post_data_a)
+                    post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info)
+                    print(post_data_b)
                 sys.exit('登录错误，且未找到Authorization！！！')
     elif login:
         if Authorization:
@@ -198,8 +200,10 @@ def mimikko():
             if SCKEY:
                 print("登录错误，正在推送到微信")
                 post_info = "?text=兽耳助手签到登录错误&desp=<p>登录错误，未找到登录ID、密码或Authorization，请访问GitHub检查</p>"
-                post_data = requests.get(server_api + SCKEY + '.send' + post_info)
-                print(post_data)
+                post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info)
+                print(post_data_a)
+                post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info)
+                print(post_data_b)
             sys.exit('请在Secret中保存登录ID和密码或Authorization！！！')
     else:
         if Authorization:
@@ -208,8 +212,10 @@ def mimikko():
             if SCKEY:
                 print("登录错误，正在推送到微信")
                 post_info = "?text=兽耳助手签到登录错误&desp=<p>登录错误，未找到Authorization，请访问GitHub检查</p>"
-                post_data = requests.get(server_api + SCKEY + '.send' + post_info)
-                print(post_data)
+                post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info)
+                print(post_data_a)
+                post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info)
+                print(post_data_b)
             sys.exit('请在Secret中保存登录ID和密码或Authorization！！！')
     #设置默认助手
     defeat_data = apiRequest_get(defeat_set + "?code=" + Energy_code,app_id,app_Version,Authorization,"")
