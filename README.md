@@ -66,6 +66,10 @@
 > - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
 > - 在设置中创建action secrets `SCKEY`
 > ![SCKEY](/pic/Screenshot_2021_0109_222138.png)
+#### - 注意：
+> [升级说明](http://sc.ftqq.com/9.version)  
+> [因为微信发布公告将在4月底下线模板消息，Server酱开发了以企业微信为主的多通道新版（ Turbo版 sct.ftqq.com ）。旧版将在4月后下线，请尽快完成配置的更新。](http://sc.ftqq.com/9.version)  
+> [点击查看更多详情](http://sc.ftqq.com/9.version)  
 </details>
   
   
