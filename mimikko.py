@@ -196,11 +196,11 @@ def mimikko():
                 if SCKEY:
                     print("登录错误，正在推送到微信")
                     post_info_a = "?text=兽耳助手签到登录错误&desp=<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"
-                    post_info_b = "?title=兽耳助手签到登录错误&desp=<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"
+                    #post_info_b = "?title=兽耳助手签到登录错误&desp=<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"
                     post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
                     print(post_data_a)
-                    post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
-                    print(post_data_b)
+                    #post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
+                    #print(post_data_b)
                 if DDTOKEN and DDSECRET:
                     dtime, dsign = timeStamp2sign(DDSECRET)
                     print("登录错误，正在推送到钉钉")
@@ -215,11 +215,11 @@ def mimikko():
             if SCKEY:
                 print("登录错误，正在推送到微信")
                 post_info_a = "?text=兽耳助手签到登录错误&desp=<p>登录错误，未找到登录ID、密码或Authorization，请访问GitHub检查</p>"
-                post_info_b = "?title=兽耳助手签到登录错误&desp=<p>登录错误，未找到登录ID、密码或Authorization，请访问GitHub检查</p>"
+                #post_info_b = "?title=兽耳助手签到登录错误&desp=<p>登录错误，未找到登录ID、密码或Authorization，请访问GitHub检查</p>"
                 post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
                 print(post_data_a)
-                post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
-                print(post_data_b)
+                #post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
+                #print(post_data_b)
             if DDTOKEN and DDSECRET:
                 dtime, dsign = timeStamp2sign(DDSECRET)
                 print("登录错误，正在推送到钉钉")
@@ -234,11 +234,11 @@ def mimikko():
             if SCKEY:
                 print("登录错误，正在推送到微信")
                 post_info_a = "?text=兽耳助手签到登录错误&desp=<p>登录错误，未找到Authorization，请访问GitHub检查</p>"
-                post_info_b = "?title=兽耳助手签到登录错误&desp=<p>登录错误，未找到Authorization，请访问GitHub检查</p>"
+                #post_info_b = "?title=兽耳助手签到登录错误&desp=<p>登录错误，未找到Authorization，请访问GitHub检查</p>"
                 post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
                 print(post_data_a)
-                post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
-                print(post_data_b)
+                #post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
+                #print(post_data_b)
             if DDTOKEN and DDSECRET:
                 dtime, dsign = timeStamp2sign(DDSECRET)
                 print("登录错误，正在推送到钉钉")
@@ -367,19 +367,19 @@ try:
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到微信")
             post_info_a = "?text=" + title_post + "&desp=<p>" + post_text + "</p>"
-            post_info_b = "?title=" + title_post + "&desp=<p>" + post_text + "</p>"
+            #post_info_b = "?title=" + title_post + "&desp=<p>" + post_text + "</p>"
             post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
             print('server酱', post_data_a)
-            post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
-            print('server酱Turbo版', post_data_b)
+            #post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
+            #print('server酱Turbo版', post_data_b)
         else:
             print("数据异常，正在推送到微信")
             post_info_a = "?text=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
-            post_info_b = "?title=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
+            #post_info_b = "?title=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
             post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info_a)
             print('server酱', post_data_a)
-            post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
-            print('server酱Turbo版', post_data_b)
+            #post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
+            #print('server酱Turbo版', post_data_b)
     else:
         print("没有SCKEY")
 except Exception as es:
