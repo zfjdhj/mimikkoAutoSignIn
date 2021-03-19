@@ -18,6 +18,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 optlist, args = getopt.getopt(sys.argv[1:], 'e:l:a:u:p:s:r:d:')
 
 try:
+    print('正在获取secret参数')
     for o,a in optlist:
         if o == '-e' and a.strip() != '':
             Energy_code = a.strip()
@@ -174,6 +175,7 @@ def timeStamp2sign(DDKEY):
 def mimikko():
     global Authorization
     #登录
+    print('开始登录')
     if login and user_id and user_password:
         print("使用ID密码登录")
         user_password_sha = hashlib.sha256(user_password.encode('utf-8')).hexdigest()
@@ -218,6 +220,7 @@ def mimikko():
                 print(post_data_b)
             sys.exit('请在Secret中保存登录ID和密码或Authorization！！！')
     #设置默认助手
+    print('设置默认助手')
     defeat_data = apiRequest_get(defeat_set + "?code=" + Energy_code,app_id,app_Version,Authorization,"")
     #执行前的好感度
     original_energy_data = apiRequest_get(energy_info_path + "?code=" + Energy_code,app_id,app_Version,Authorization,"")
@@ -261,6 +264,7 @@ def mimikko():
     else:
         times_resigned = False
     #签到
+    print('正在尝试签到')
     sign_data = apiRequest_get(sign_path,app_id,app_Version,Authorization, "")
     if sign_data and sign_data.get('body'):
         sign_info = apiRequest_get(is_sign, app_id,app_Version,Authorization, "")
@@ -277,6 +281,7 @@ def mimikko():
         sign_result_post = '签到失败'
         title_ahead = '兽耳助手签到'
     #VIP抽奖
+    print('正在尝试VIP抽奖')
     vip_info_data = apiRequest_get(vip_info,app_id,app_Version,Authorization,"")
     if vip_info_data and vip_info_data.get('body'):
         if vip_info_data['body']['rollNum'] > 0:
@@ -292,6 +297,7 @@ def mimikko():
         vip_roll_data = "抽奖次数不足"
         vip_roll_post = "VIP抽奖失败"
     #能量兑换好感度
+    print('正在尝试兑换能量')
     energy_info_data = apiRequest_get(energy_info_path + "?code=" + Energy_code,app_id,app_Version,Authorization,"")
     if energy_info_data and energy_info_data.get('body'):
         if energy_info_data['body']['Energy'] > 0:
