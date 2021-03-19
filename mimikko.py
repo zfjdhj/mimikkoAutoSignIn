@@ -15,7 +15,7 @@ import base64
 import urllib.parse
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-optlist, args = getopt.getopt(sys.argv[1:], 'e:l:a:u:p:s:r:d:')
+optlist, args = getopt.getopt(sys.argv[1:], 'e:l:a:u:p:s:r:d:c:')
 
 try:
     print('正在获取secret参数')
@@ -51,11 +51,17 @@ try:
             SCKEY = False
             print("SCKEY不存在")
         if o == '-d' and a.strip() != '':
-            DDKEY = a.strip()
-            print("DDKEY存在")
-        elif o == '-s':
-            DDKEY = False
-            print("DDKEY不存在")
+            DDTOKEN = a.strip()
+            print("DDTOKEN存在")
+        elif o == '-d':
+            DDTOKEN = False
+            print("DDTOKEN不存在")
+        if o == '-c' and a.strip() != '':
+            DDSECRET = a.strip()
+            print("DDSECRET存在")
+        elif o == '-c':
+            DDSECRET = False
+            print("DDSECRET不存在")
         if o == '-r':
             if a.strip() in ['1','2','3','4','5','6','7']:
                 resign = a.strip()
@@ -163,7 +169,7 @@ def timeStamp2time(timeStamp):
     secondStyleTime = time.strftime('%Y年%m月%d日 %H:%M:%S', timeArray)
     return firstStyleTime, secondStyleTime
 
-def timeStamp2sign(DDKEY):
+def timeStamp2sign(DDSECRET):
     timestamp = str(round(time.time() * 1000))
     secret_enc = DDKEY.encode('utf-8')
     string_to_sign = '{}\n{}'.format(timestamp, DDKEY)
@@ -195,11 +201,11 @@ def mimikko():
                     print(post_data_a)
                     post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
                     print(post_data_b)
-                if DDKEY:
-                    dtime, dsign = timeStamp2sign(DDKEY)
+                if DDTOKEN and DDSECRET:
+                    dtime, dsign = timeStamp2sign(DDSECRET)
                     print("登录错误，正在推送到钉钉")
                     post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到登录错误","text":"<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"}}'
-                    post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
+                    post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
                     print(post_data)
                 sys.exit('登录错误，且未找到Authorization！！！')
     elif login:
@@ -214,11 +220,11 @@ def mimikko():
                 print(post_data_a)
                 post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
                 print(post_data_b)
-            if DDKEY:
-                dtime, dsign = timeStamp2sign(DDKEY)
+            if DDTOKEN and DDSECRET:
+                dtime, dsign = timeStamp2sign(DDSECRET)
                 print("登录错误，正在推送到钉钉")
                 post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到登录错误","text":"<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"}}'
-                post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
+                post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
                 print(post_data)
             sys.exit('请在Secret中保存登录ID和密码或Authorization！！！')
     else:
@@ -233,11 +239,11 @@ def mimikko():
                 print(post_data_a)
                 post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info_b)
                 print(post_data_b)
-            if DDKEY:
-                dtime, dsign = timeStamp2sign(DDKEY)
+            if DDTOKEN and DDSECRET:
+                dtime, dsign = timeStamp2sign(DDSECRET)
                 print("登录错误，正在推送到钉钉")
                 post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到登录错误","text":"<p>登录错误，且未找到Authorization，请访问GitHub检查</p>"}}'
-                post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
+                post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
                 print(post_data)
             sys.exit('请在Secret中保存登录ID和密码或Authorization！！！')
     #设置默认助手
@@ -380,20 +386,20 @@ except Exception as es:
     print('sc', es)
 try:
     # print(len(sys.argv))
-    if DDKEY:
-        dtime, dsign = timeStamp2sign(DDKEY)
-        # print("有DDKEY")
+    if DDTOKEN and DDSECRET:
+        dtime, dsign = timeStamp2sign(DDSECRET)
+        # print("有DDTOKEN和DDSECRET")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到钉钉")
             post_info = '{"msgtype":"markdown","markdown":{"title":"title_post","text":""<p>" + post_text + "</p>""}}'
-            post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
+            post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
             print('钉钉', post_data)
         else:
             print("数据异常，正在推送到钉钉")
             post_info = '{"msgtype":"markdown","markdown":{"title":"兽耳助手签到数据异常","text":"兽耳助手签到数据异常，请访问GitHub检查"}}'
-            post_data = requests.post(ding_api + 'access_token=' + DDKEY + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
+            post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + dtime + '&sign=' + dsign, data=post_info)
             print('钉钉', post_data)
     else:
-        print("没有DDKEY")
+        print("没有DDTOKEN或DDSECRET")
 except Exception as ed:
     print('dd', ed)
