@@ -388,7 +388,7 @@ except Exception as es:
 try:
     # print(len(sys.argv))
     if DDTOKEN and DDSECRET:
-        dtime, dsign = timeStamp2sign(DDSECRET)
+        #dtime, dsign = timeStamp2sign(DDSECRET)
         #print("有DDTOKEN和DDSECRET")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到钉钉")
