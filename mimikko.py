@@ -83,7 +83,8 @@ energy_info_path = 'https://api1.mimikko.cn/client/love/GetUserServantInstance' 
 energy_reward_path = 'https://api1.mimikko.cn/client/love/ExchangeReward' # 兑换助手能量
 vip_info = 'https://api1.mimikko.cn/client/user/GetUserVipInfo' # 获取会员状态
 vip_roll = 'https://api1.mimikko.cn/client/roll/RollReward' # 会员抽奖(post)
-server_api = 'https://sc.ftqq.com/' # 微信推送
+sc_api = 'https://sc.ftqq.com/' # 微信推送
+sct_api = 'https://sctapi.ftqq.com/' # 微信推送
 ding_api = 'https://oapi.dingtalk.com/robot/send?' # 钉钉推送
 app_Version = '3.1.6'
 app_id = 'wjB7LOP2sYkaMGLC'
@@ -332,8 +333,10 @@ try:
         else:
             print("数据异常，正在推送到微信")
             post_info = "?text=兽耳助手签到数据异常&desp=<p>兽耳助手签到数据异常，请访问GitHub检查</p>"
-            post_data = requests.get(server_api + SCKEY + '.send' + post_info)
-            print(post_data)
+            post_data_a = requests.get(sc_api + SCKEY + '.send' + post_info)
+            print(post_data_a)
+            post_data_b = requests.get(sct_api + SCKEY + '.send' + post_info)
+            print(post_data_b)
     else:
         print("没有SCKEY")
 except Exception as e:
