@@ -9,9 +9,9 @@
 ![result](/pic/result.png)
 
 ## 使用说明 
-> 熟悉GitHub相关操作的，可以直接看下面，不熟悉的话，可以去看由[@Amcc1860](https://github.com/Amcc1860)编写的[保姆级教程](https://github.com/cyb233/mimikkoAutoSignIn/issues/4)
 <details markdown='1'><summary>点击查看使用说明</summary>
 
+> 除了本人写的以下教程，也可以去看由[@Amcc1860](https://github.com/Amcc1860)编写的[保姆级教程](https://github.com/cyb233/mimikkoAutoSignIn/issues/4)
 #### 1. 先fork[本项目](https://github.com/cyb233/mimikkoAutoSignIn)（本项目已fork人数 [![GitHub forks](https://img.shields.io/github/forks/cyb233/mimikkoAutoSignIn?style=social)](https://github.com/cyb233/mimikkoAutoSignIn)）
 > 打开[本项目](https://github.com/cyb233/mimikkoAutoSignIn)，并点击如图fork按钮
 > ![fork](/pic/fork.png)
