@@ -308,7 +308,7 @@ def mimikko():
         energy_reward_post = "能量兑换失败"
     return sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post
 
-try:
+#try:
     sign_data, vip_info_data, vip_roll_data, energy_info_data, energy_reward_data, sign_info, sign_history, sign_result_post, title_post, vip_roll_post, energy_reward_post = mimikko()
     now_date, now_time = timeStamp2time(time.time()+28800)
     #print(time.time())
@@ -324,8 +324,8 @@ try:
     # # sign_history
     print(sign_history)
     print('\n' + '\n' + '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)  
-except Exception as e:
-    print(e)
+#except Exception as e:
+#    print(e)
 try:
     # print(len(sys.argv))
     if SCKEY:
