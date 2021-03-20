@@ -173,7 +173,7 @@ def time2sign(DD):
     timestamp = str(round(time.time() * 1000))
     secret_enc = DD('utf-8')
     string_to_sign = '{}\n{}'.format(timestamp, DD)
-    string_to_sign_enc = string_to_sign.encode('utf-8')
+    string_to_sign_enc = string_to_sign('utf-8')
     hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
     sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
     return timestamp, sign
