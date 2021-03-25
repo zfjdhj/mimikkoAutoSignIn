@@ -181,7 +181,7 @@ def ddpost(ding_api, DDTOKEN, DDSECRET, title_post, post_text):
     url = ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + timestamp + '&sign=' + sign
     post_info = '{"msgtype":"markdown","markdown":{"title":"' + title_post + '", "text":"' + post_text + '"}}'
     post_data = requests.post(url, headers=headers_post, json=json.loads(post_info, strict=False))
-    return post_data.text
+    return post_data
 # server酱post
 def scpost(sc_api, SCKEY, title_post, post_text):
     headers_post = {
@@ -190,7 +190,7 @@ def scpost(sc_api, SCKEY, title_post, post_text):
     post_info = {'text': title_post, 'desp': post_text}
     url = sc_api + SCKEY + '.send'
     post_data = requests.post(url, headers=headers_post, data=post_info)
-    return post_data.text
+    return post_data
 
 def mimikko():
     global Authorization
