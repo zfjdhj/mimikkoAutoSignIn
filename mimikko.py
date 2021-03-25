@@ -368,7 +368,7 @@ try:
 except Exception as es:
     if SCKEY:
         print("数据异常，正在推送到微信")
-        ost_data_a = scpost(sc_api, SCKEY, "兽耳助手签到数据异常", "兽耳助手签到数据异常，请访问GitHub检查")
+        post_data_a = scpost(sc_api, SCKEY, "兽耳助手签到数据异常", "兽耳助手签到数据异常，请访问GitHub检查")
         print('server酱', post_data_a)
         #post_data_b = scpost(sct_api, SCKEY, "兽耳助手签到数据异常", "兽耳助手签到数据异常，请访问GitHub检查")
         #print('server酱Turbo版', post_data_b)
