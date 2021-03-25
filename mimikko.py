@@ -176,7 +176,7 @@ def ddpost(ding_api, DDTOKEN, DDSECRET, title_post, post_text):
     hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
     sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
     post_info = '{"msgtype":"markdown", "markdown":{"title":"title_post", "text":"post_text"}}'
-    post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + timestamp + '&sign=' + sign, json=post_info)
+    post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + timestamp + '&sign=' + sign, data=post_info)
     return post_data
 # server酱post
 def scpost(sc_api, SCKEY, title_post, post_text):
@@ -360,7 +360,7 @@ try:
             print("运行成功，正在推送到微信")
             post_text = "<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) +"</p>"
             post_data_a = scpost(sc_api, SCKEY, title_post, post_text)
-            print('server酱', post_data_a)
+            print('server酱', post_data_a.text)
             #post_data_b = scpost(sct_api, SCKEY, title_post, post_text)
             #print('server酱Turbo版', post_data_b)
     else:
