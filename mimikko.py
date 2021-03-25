@@ -179,7 +179,8 @@ def ddpost(ding_api, DDTOKEN, DDSECRET, title_post, post_text):
         'Content-Type': 'application/json',
     }
     url = ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + timestamp + '&sign=' + sign
-    post_info = '{"msgtype":"markdown", "markdown":{"title":"title_post", "text":"post_text"}}'
+    post_info = '{"msgtype":"markdown", "markdown":{"title":"' + title_post + '", "text":"' + post_text + '"}}'
+    print(post_info)
     post_data = requests.post(url, headers=headers_post, json=post_info)
     return post_data.text
 # server酱post
@@ -187,7 +188,7 @@ def scpost(sc_api, SCKEY, title_post, post_text):
     headers_post = {
         'Content-Type': 'application/json',
     }
-    post_info = "{'text':" + title_post + "'desp':" + post_text + "}"
+    post_info = '{"text":' + title_post + '"desp":' + post_text + '}'
     url = sc_api + SCKEY + '.send'
     post_data = requests.post(url, headers=headers_post, json=post_info)
     return post_data.text
