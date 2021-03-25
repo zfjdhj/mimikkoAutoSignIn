@@ -383,7 +383,7 @@ try:
             print("运行成功，正在推送到钉钉")
             post_text = "<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) +"</p>"
             post_data = ddpost(ding_api, DDTOKEN, DDSECRET, title_post, post_text)
-            print('钉钉', post_data)
+            print('钉钉', post_data.text)
     else:
         print("运行成功，没有DDTOKEN或DDSECRET")
 except Exception as ed:
