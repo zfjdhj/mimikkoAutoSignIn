@@ -187,9 +187,9 @@ def scpost(sc_api, SCKEY, title_post, post_text):
     headers_post = {
         'Content-Type': 'application/x-www-form-urlencoded',
     }
-    post_info = '{"text":"' + title_post + '","desp":"' + post_text + '"}'
+    post_info = {'text': title_post, 'desp': post_text}
     url = sc_api + SCKEY + '.send'
-    post_data = requests.post(url, headers=headers_post, json=json.loads(post_info, strict=False))
+    post_data = requests.post(url, headers=headers_post, data=post_info)
     return post_data.text
 
 def mimikko():
