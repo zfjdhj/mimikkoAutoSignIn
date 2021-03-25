@@ -175,14 +175,22 @@ def ddpost(ding_api, DDTOKEN, DDSECRET, title_post, post_text):
     string_to_sign_enc = string_to_sign.encode('utf-8')
     hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
     sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
+    headers_post = {
+        'Content-Type': 'application/json',
+    }
+    url = ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + timestamp + '&sign=' + sign
     post_info = '{"msgtype":"markdown", "markdown":{"title":"title_post", "text":"post_text"}}'
-    post_data = requests.post(ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + timestamp + '&sign=' + sign, data=post_info)
-    return post_data
+    post_data = requests.post(url, headers=headers_post, json=post_info)
+    return post_data.text
 # server酱post
 def scpost(sc_api, SCKEY, title_post, post_text):
+    headers_post = {
+        'Content-Type': 'application/json',
+    }
     post_info = "{'text':" + title_post + "'desp':" + post_text + "}"
-    post_data = requests.post(sc_api + SCKEY + '.send', json=post_info)
-    return post_data
+    url = sc_api + SCKEY + '.send'
+    post_data = requests.post(url, headers=headers_post, json=post_info)
+    return post_data.text
 
 def mimikko():
     global Authorization
@@ -360,7 +368,7 @@ try:
             print("运行成功，正在推送到微信")
             post_text = "<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) +"</p>"
             post_data_a = scpost(sc_api, SCKEY, title_post, post_text)
-            print('server酱', post_data_a.text)
+            print('server酱', post_data_a)
             #post_data_b = scpost(sct_api, SCKEY, title_post, post_text)
             #print('server酱Turbo版', post_data_b)
     else:
@@ -383,7 +391,7 @@ try:
             print("运行成功，正在推送到钉钉")
             post_text = "<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) +"</p>"
             post_data = ddpost(ding_api, DDTOKEN, DDSECRET, title_post, post_text)
-            print('钉钉', post_data.text)
+            print('钉钉', post_data)
     else:
         print("运行成功，没有DDTOKEN或DDSECRET")
 except Exception as ed:
