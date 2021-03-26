@@ -21,14 +21,13 @@
 > |secret名称|必要条件|说明|  
 > |-----|-----|-----|  
 > |`LOGIN`|非必要|值非`False`时均为`True`，为`True`时使用ID和密码进行登录，否则使用AUTHORIZATION进行验证|  
-> |`ID`|`LOGIN`==`True`|登录账号(邮箱或手机号)|  
-> |`PASSWORD`|`LOGIN`==`True`|登录密码|  
+> |`ID`,  `PASSWORD`|`LOGIN`==`True`|登录账号(邮箱或手机号)和登录密码|  
 > |`ENERGY`|非必要|详见下个表格|  
 > |`AUTHORIZATION`|`LOGIN`==`False`|验证账号用，可由抓包获取|  
-> |`RESIGN`|非必要|如需每天尝试补签最近x天，取值1~7|  
+> |`RESIGN`|非必要|补签最近x天，可选数字1~7|  
 > |`SCKEY`|非必要|微信推送，server酱密钥，详见步骤5|  
-> |`DDTOKEN`|非必要|钉钉推送，钉钉机器人token，安全设置请选择`加签`，可参考步骤5微信推送及[钉钉API文档](https://developers.dingtalk.com/document/app/custom-robot-access#topic-2026027)|  
-> |`DDSECRET`|非必要|钉钉推送，钉钉机器人安全设置`加签`的secret，可参考步骤5微信推送及[钉钉API文档](https://developers.dingtalk.com/document/app/custom-robot-access#topic-2026027)|  
+> |`DDTOKEN`,  `DDSECRET`|非必要|钉钉推送，钉钉机器人`token`和安全设置`加签`的`secret`，可参考步骤5微信推送及[钉钉API文档](https://developers.dingtalk.com/document/app/custom-robot-access#topic-2026027)|  
+<!-- > |`wxAgentId`,  `wxSecret`,  `wxCompanyId`|非必要|企业微信推送，可参考[server酱Turbo版说明](https://sct.ftqq.com)|   -->
 > - 建议使用ID密码登录，无技术要求，但可能会将其他设备挤下线
 > - AUTHORIZATION值为抓包获取，需要会使用抓包软件，但不会影响其他设备
 > - ENERGY参数用于签到及兑换能量，使用的code值为助手代码，下表是已知的code值
@@ -47,7 +46,7 @@
 > |`ulrica`|优莉卡|  
 > |`giwa`|羲和|  
 > |`maya`|摩耶|  
-> - 注意：本项目不检查code可用性，如出现新助手而本表未更新，可自行抓取code值；由于随意输入错误助手code所可能导致的问题，本项目不负任何责任
+> - 注意：本项目不会完全及时地检查code可用性，如出现新助手而本表未更新，或助手code变更，可自行抓取code值；由于随意输入错误助手code所可能导致的问题，本项目不负任何责任
   
 > 如图`setting`→`secrets`→`new repository secret`
 > ![secrets](/pic/secrets.jpg)
@@ -68,7 +67,7 @@
 > [升级说明](http://sc.ftqq.com/9.version)  
 > [因为微信发布公告将在4月底下线模板消息，Server酱开发了以企业微信为主的多通道新版（ Turbo版 sct.ftqq.com ）。旧版将在4月后下线，请尽快完成配置的更新。](http://sc.ftqq.com/9.version)  
 > [点击查看更多详情](http://sc.ftqq.com/9.version)
-> - 在server酱官网 sc.ftqq.com 登录并复制`SCKEY`
+> - 在server酱官网 [sc.ftqq.com](http://sc.ftqq.com/) 登录并复制`SCKEY`
 > - 在设置中创建action secrets `SCKEY`
 > ![SCKEY](/pic/Screenshot_2021_0109_222138.png)
 </details>
@@ -81,7 +80,7 @@
 - 本项目使用的Secrets均保存于GitHub服务器中，且一旦保存，即使是用户自己也无法再次查看
 - 本项目均使用GitHub Actions定时运行，理论上可以下载并本地定时运行，但我没试过
 - 使用本项目请遵守兽耳助手《用户服务协议》，请勿使用本项目进行任何违法行为以及任何有害行为
-- 本项目不对任何不可抗力负责，包括但不限于 罢工，自然和人为灾害，战争，网络攻击，拿服务器CPU烧烤，第三次世界大战，G胖数3，圣杯战争导致的煤气爆炸，没交网费，二哈拆房，生化危机，总是单身，异形入侵，考试挂科，三体来袭 等各种软件服务协议会写的东西
+- 本项目不对任何不可抗力负责，包括但不限于 官方回收奖励，封号，罢工，自然和人为灾害，战争，网络攻击，拿服务器CPU烧烤，第三次世界大战，G胖数3，圣杯战争导致的煤气爆炸，没交网费，二哈拆房，生化危机，总是单身，异形入侵，考试挂科，三体来袭 等各种软件服务协议会写的东西
 - 欢迎[afdian赞助](https://afdian.net/@Schwi)
   
   

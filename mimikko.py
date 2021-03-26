@@ -18,9 +18,9 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 try:
     login = True
-    Authorization = user_id = user_password = resign = SCKEY = DDTOKEN = DDSECRET = False
+    Authorization = user_id = user_password = resign = SCKEY = DDTOKEN = DDSECRET = wxAgentId = wxSecret = wxCompanyId= False
     Energy_code = 'momona'
-    optlist, args = getopt.getopt(sys.argv[1:], 'e:l:a:u:p:s:r:d:c:')
+    optlist, args = getopt.getopt(sys.argv[1:], 'e:l:a:u:p:s:r:d:c:w:x:i:')
     print('正在获取secret参数')
     for o, a in optlist:
         if o == '-e' and a.strip() != '':
@@ -58,6 +58,21 @@ try:
             print("DDSECRET存在")
         elif o == '-c':
             print("DDSECRET不存在")
+        if o == '-w' and a.strip() != '':
+            wxAgentId = a.strip()
+            print("wxAgentId存在")
+        elif o == '-w':
+            print("wxAgentId不存在")
+        if o == '-x' and a.strip() != '':
+            wxSecret = a.strip()
+            print("wxSecret存在")
+        elif o == '-x':
+            print("wxSecret不存在")
+        if o == '-i' and a.strip() != '':
+            wxCompanyId = a.strip()
+            print("wxCompanyId存在")
+        elif o == '-i':
+            print("wxCompanyId不存在")
         if o == '-r':
             if a.strip() in ['1', '2', '3', '4', '5', '6', '7']:
                 resign = a.strip()
@@ -182,7 +197,35 @@ def scpost(sc_api, SCKEY, title_post, post_text):
     url = sc_api + SCKEY + '.send'
     post_data = requests.post(url, headers=headers_post, data=post_info)
     return post_data
-
+# 企业微信推送
+'''
+def send2wechat(AgentId, Secret, CompanyId, message):
+    """
+    # 此段修改自https://www.jianshu.com/p/99f706f1e943
+    :param AgentId: 应用ID
+    :param Secret: 应用Secret
+    :param CompanyId: 企业ID
+    """
+    # 通行密钥
+    ACCESS_TOKEN = None
+    # 通过企业ID和应用Secret获取本地通行密钥
+        r = requests.post(f'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={CompanyId}&corpsecret={Secret}').json()
+        ACCESS_TOKEN = r["access_token"]
+        # print(ACCESS_TOKEN)
+    # 要发送的信息格式
+    data = {
+        "touser": "@all",
+        "msgtype": "markdown",
+        "agentid": f"{AgentId}",
+        "markown": {"content": f"{message}"}
+    }
+    # 字典转成json，不然会报错
+    data = json.dumps(data)
+    # 发送消息
+    rd = requests.post(f'https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={ACCESS_TOKEN}', data=data)
+    # print(r.json())
+    return rd
+'''
 def mimikko():
     global Authorization
     #登录
@@ -363,8 +406,10 @@ try:
             #post_data_b = scpost(sct_api, SCKEY, title_post, post_text)
             #print('server酱Turbo版', post_data_b)
     else:
-        print("运行成功，没有SCKEY")
+        print("运行成功，且没有SCKEY，未推送")
+    rs1 = False
 except Exception as es:
+    rs1 = True
     if SCKEY:
         print("数据异常，正在推送到微信")
         post_data_a = scpost(sc_api, SCKEY, "兽耳助手签到数据异常", "兽耳助手签到数据异常，请访问GitHub检查")
@@ -384,8 +429,10 @@ try:
             post_data = ddpost(ding_api, DDTOKEN, DDSECRET, title_post, post_text)
             print('钉钉', post_data)
     else:
-        print("运行成功，没有DDTOKEN或DDSECRET")
+        print("运行成功，且没有DDTOKEN或DDSECRET，未推送")
+    rs2 = False
 except Exception as ed:
+    rs2 = True
     if DDTOKEN and DDSECRET:
         print("数据异常，正在推送到钉钉")
         post_data = ddpost(ding_api, DDTOKEN, DDSECRET, "兽耳助手签到数据异常", "兽耳助手签到数据异常，请访问GitHub检查")
@@ -393,3 +440,28 @@ except Exception as ed:
     else:
         print("数据异常，且没有DDTOKEN或DDSECRET，未推送")
     print('dd', ed)
+'''
+try:
+    # print(len(sys.argv))
+    if wxAgentId and wxSecret and wxCompanyId:
+        #print("有DDTOKEN和DDSECRET")
+        if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
+            print("运行成功，正在推送到企业微信")
+            post_text = "<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) +"</p>"
+            post_data = send2wechat(wxAgentId, wxSecret, wxCompanyId, message):
+            print('企业微信', post_data)
+    else:
+        print("运行成功，且没有wxAgentId, wxSecret或wxCompanyId，未推送")
+    rs3 = False
+except Exception as ed:
+    rs3 = True
+    if wxAgentId and wxSecret and wxCompanyId:
+        print("数据异常，正在推送到企业微信")
+        post_data = send2wechat(wxAgentId, wxSecret, wxCompanyId, message):
+        print('企业微信', post_data)
+    else:
+        print("数据异常，且没有wxAgentId, wxSecret或wxCompanyId，未推送")
+    print('wx', ed)
+'''
+if rs1 or rs2:# or rs3:
+    sys.exit('推送异常，请检查')
