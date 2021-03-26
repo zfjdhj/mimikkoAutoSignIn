@@ -35,4 +35,4 @@ jobs:
         run: |
             python -m pip install --upgrade pip
             pip install requests
-            python mimikko.py -e " ${{ secrets.ENERGY }}" -l " ${{ secrets.LOGIN }}" -a " ${{ secrets.AUTHORIZATION }}" -u " ${{ secrets.ID }}" -p " ${{ secrets.PASSWORD }}" -r " ${{ secrets.RESIGN }}" -s " ${{ secrets.SCKEY }}" -d " ${{ secrets.DDTOKEN }}" -c " ${{ secrets.DDSECRET }}"
+            python mimikko.py -e " ${{ secrets.ENERGY }}" -l " ${{ secrets.LOGIN }}" -a " ${{ secrets.AUTHORIZATION }}" -u " ${{ secrets.ID }}" -p " ${{ secrets.PASSWORD }}" -r " ${{ secrets.RESIGN }}" -s " ${{ secrets.SCKEY }}" -d " ${{ secrets.DDTOKEN }}" -c " ${{ secrets.DDSECRET }}" -i " ${{ secrets.wxCompanyId }}" -x " ${{ secrets.wxSecret }}" -w " ${{ secrets.wxAgentId }}"
