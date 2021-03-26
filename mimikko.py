@@ -17,6 +17,9 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 try:
+    login = True
+    Authorization = user_id = user_password = resign = SCKEY = DDTOKEN = DDSECRET = False
+    Energy_code = 'momona'
     optlist, args = getopt.getopt(sys.argv[1:], 'e:l:a:u:p:s:r:d:c:')
     print('正在获取secret参数')
     for o, a in optlist:
@@ -24,62 +27,50 @@ try:
             Energy_code = a.strip()
             print("Energy_code存在")
         elif o == '-e':
-            Energy_code = 'momona'
             print("Energy_code不存在，默认'momona'")
         if o == '-a' and a.strip() != '':
             Authorization = a.strip()
             print("Authorization存在")
         elif o == '-a':
-            Authorization = False
             print("Authorization不存在")
         if o == '-u' and a.strip() != '':
             user_id = a.strip()
             print("user_id存在")
         elif o == '-u':
-            user_id = False
             print("user_id不存在")
         if o == '-p' and a.strip() != '':
             user_password = a.strip()
             print("user_password存在")
         elif o == '-p':
-            user_password = False
             print("user_password不存在")
         if o == '-s' and a.strip() != '':
             SCKEY = a.strip()
             print("SCKEY存在")
         elif o == '-s':
-            SCKEY = False
             print("SCKEY不存在")
         if o == '-d' and a.strip() != '':
             DDTOKEN = a.strip()
             print("DDTOKEN存在")
         elif o == '-d':
-            DDTOKEN = False
             print("DDTOKEN不存在")
         if o == '-c' and a.strip() != '':
             DDSECRET = a.strip()
             print("DDSECRET存在")
         elif o == '-c':
-            DDSECRET = False
             print("DDSECRET不存在")
         if o == '-r':
             if a.strip() in ['1', '2', '3', '4', '5', '6', '7']:
                 resign = a.strip()
                 print("resign开启")
             else:
-                resign = False
                 print("resign关闭")
         if o == '-l':
             if a.strip().upper() == 'FALSE':
                 login = False
                 print("login关闭")
             else:
-                login = True
                 print("login开启")
-    if Authorization and user_id and user_password and login and Energy_code and resign and SCKEY and DDTOKEN and DDSECRET:
-        print('获取参数结束')
-    else:
-        print('获取参数结束')
+    print('获取参数结束')
 except Exception as e:
     print('获取参数错误：', e)
     sys.exit(1)
