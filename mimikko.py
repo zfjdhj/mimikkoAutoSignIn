@@ -49,7 +49,10 @@ try:
         elif o == '-s':
             print("SCKEY不存在")
         if o == '-d' and a.strip() != '':
-            DDTOKEN = a.strip()
+            if a.strip().find('access_token=') == -1:
+                DDTOKEN = a.strip()
+            else:
+                DDTOKEN = a.strip()[a.strip().find('access_token=')+12:]
             print("DDTOKEN存在")
         elif o == '-d':
             print("DDTOKEN不存在")
