@@ -233,7 +233,7 @@ def mimikko():
     if login and user_id and user_password:
         print("使用ID密码登录")
         user_password_sha = hashlib.sha256(user_password.encode('utf-8')).hexdigest()
-        login_data = loginRequest_post(login_path, app_id, app_Version, f'{"password":"{user_password_sha}", "id":"{user_id}"}')
+        login_data = loginRequest_post(login_path, app_id, app_Version, f'{{"password":"{user_password_sha}", "id":"{user_id}"}}')
         if login_data and login_data.get('body'):
             Authorization = login_data['body']['Token']
             print("登录成功！")
