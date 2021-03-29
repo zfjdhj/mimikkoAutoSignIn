@@ -400,7 +400,7 @@ try:
         # print("有SCKEY")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到微信")
-            post_text = "<p>" + re.sub('\\n', '  \n', f'现在是：{now_time}\n{sign_result_post}\n{vip_roll_post}\n{energy_reward_post}') +"</p>"
+            post_text = re.sub('\\n', '  \n', f'现在是：{now_time}\n{sign_result_post}\n{vip_roll_post}\n{energy_reward_post}')
             post_data_a = scpost(sc_api, SCKEY, title_post, post_text)
             print('server酱', post_data_a)
             #post_data_b = scpost(sct_api, SCKEY, title_post, post_text)
@@ -425,7 +425,7 @@ try:
         #print("有DDTOKEN和DDSECRET")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到钉钉")
-            post_text = "<p>" + re.sub('\\n', '  \n', f'现在是：{now_time}\n{sign_result_post}\n{vip_roll_post}\n{energy_reward_post}') +"</p>"
+            post_text = re.sub('\\n', '  \n', f'现在是：{now_time}\n{sign_result_post}\n{vip_roll_post}\n{energy_reward_post}')
             post_data = ddpost(ding_api, DDTOKEN, DDSECRET, title_post, post_text)
             print('钉钉', post_data)
     else:
@@ -447,7 +447,7 @@ try:
         #print("有DDTOKEN和DDSECRET")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到企业微信")
-            post_text = "<p>" + re.sub('\\n', '  \n', f'现在是：{now_time}\n{sign_result_post}\n{vip_roll_post}\n{energy_reward_post}') +"</p>"
+            post_text = re.sub('\\n', '  \n', f'现在是：{now_time}\n{sign_result_post}\n{vip_roll_post}\n{energy_reward_post}')
             post_data = send2wechat(wxAgentId, wxSecret, wxCompanyId, message):
             print('企业微信', post_data)
     else:
