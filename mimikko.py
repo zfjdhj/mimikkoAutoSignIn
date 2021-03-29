@@ -190,7 +190,7 @@ def ddpost(ding_api, DDTOKEN, DDSECRET, title_post, post_text):
     url = f'{ding_api}access_token={DDTOKEN}&timestamp={timestamp}&sign={sign}'
     post_info = f'{{"msgtype":"markdown","markdown":{{"title":"{title_post}", "text":"{post_text}"}}}}'
     post_data = requests.post(url, headers=headers_post, json=json.loads(post_info, strict=False))
-    return post_data["errcode"]
+    return post_data.json()["errcode"]
 # server酱post
 def scpost(sc_api, SCKEY, title_post, post_text):
     headers_post = {
@@ -199,7 +199,7 @@ def scpost(sc_api, SCKEY, title_post, post_text):
     post_info = {'text': title_post, 'desp': post_text}
     url = f'{sc_api}{SCKEY}.send'
     post_data = requests.post(url, headers=headers_post, data=post_info)
-    return post_data["errno"]
+    return post_data.json()["errno"]
 # 企业微信推送
 '''
 def send2wechat(AgentId, Secret, CompanyId, message):
@@ -226,7 +226,7 @@ def send2wechat(AgentId, Secret, CompanyId, message):
     data = json.dumps(data)
     # 发送消息
     rd = requests.post(f'https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={ACCESS_TOKEN}', data=data)
-    # print(r.json())
+    # print(rd.json())
     return rd
 '''
 def mimikko():
