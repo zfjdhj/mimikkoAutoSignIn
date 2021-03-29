@@ -184,8 +184,8 @@ def ddpost(ding_api, DDTOKEN, DDSECRET, title_post, post_text):
     headers_post = {
         'Content-Type': 'application/json',
     }
-    url = ding_api + 'access_token=' + DDTOKEN + '&timestamp=' + timestamp + '&sign=' + sign
-    post_info = '{"msgtype":"markdown","markdown":{"title":"' + title_post + '", "text":"' + post_text + '"}}'
+    url = f'{ding_api}access_token={DDTOKEN}&timestamp={timestamp}&sign={sign}'
+    post_info = f'{{"msgtype":"markdown","markdown":{{"title":"{title_post}", "text":"{post_text}"}}}}'
     post_data = requests.post(url, headers=headers_post, json=json.loads(post_info, strict=False))
     return post_data
 # server酱post
@@ -194,7 +194,7 @@ def scpost(sc_api, SCKEY, title_post, post_text):
         'Content-Type': 'application/x-www-form-urlencoded',
     }
     post_info = {'text': title_post, 'desp': post_text}
-    url = sc_api + SCKEY + '.send'
+    url = f'{sc_api}{SCKEY}.send'
     post_data = requests.post(url, headers=headers_post, data=post_info)
     return post_data
 # 企业微信推送
@@ -233,7 +233,7 @@ def mimikko():
     if login and user_id and user_password:
         print("使用ID密码登录")
         user_password_sha = hashlib.sha256(user_password.encode('utf-8')).hexdigest()
-        login_data = loginRequest_post(login_path, app_id, app_Version, '{"password":"' + user_password_sha + '", "id":"' + user_id + '"}')
+        login_data = loginRequest_post(login_path, app_id, app_Version, f'{"password":"{user_password_sha}", "id":"{user_id}"}')
         if login_data and login_data.get('body'):
             Authorization = login_data['body']['Token']
             print("登录成功！")
@@ -282,9 +282,9 @@ def mimikko():
             sys.exit('请在Secret中保存登录ID和密码或Authorization！！！')
     #设置默认助手
     print('设置默认助手')
-    defeat_data = apiRequest_get(defeat_set + "?code=" + Energy_code, app_id, app_Version, Authorization, "")
+    defeat_data = apiRequest_get(f'{defeat_set}?code={Energy_code}', app_id, app_Version, Authorization, "")
     #执行前的好感度
-    original_energy_data = apiRequest_get(energy_info_path + "?code=" + Energy_code, app_id, app_Version, Authorization, "")
+    original_energy_data = apiRequest_get(f'{energy_info_path}?code={Energy_code}', app_id, app_Version, Authorization, "")
     if original_energy_data and original_energy_data.get('body'):
         original_energy_post = str(original_energy_data['body']['Favorability'])
     else:
@@ -303,10 +303,10 @@ def mimikko():
         print(cansign_before_time)
         for i in ['1', '2', '3', '4', '5', '6', '7']:
             if not i>resign:
-                print('round ' + str(i))
+                print('round ', str(i))
                 resign_time = int(time.time())-86400*int(i)
                 r_date, r_time = timeStamp2time(resign_time)
-                resign_data = apiRequest_post(resign_path, app_id, app_Version, Authorization, '["' + r_date + 'T15:59:59+0800"]')
+                resign_data = apiRequest_post(resign_path, app_id, app_Version, Authorization, f'["{r_date}T15:59:59+0800"]')
                 print(resign_data)
             else:
                 break
@@ -331,13 +331,13 @@ def mimikko():
         sign_info = apiRequest_get(is_sign, app_id, app_Version, Authorization, "")
         if sign_data['body']['GetExp']:
             if times_resigned:
-                sign_result_post ='补签成功' + str(times_resigned) + '/' + str(resign) +  '天\n签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
+                sign_result_post =f'''补签成功{str(times_resigned)}/{str(resign)}天\n签到成功：{str(sign_info['body']['ContinuousSignDays'])}天\n好感度：{str(sign_data['body']['Reward'])}\n硬币：{str(sign_data['body']['GetCoin'])}\n经验值：{str(sign_data['body']['GetExp'])}\n签到卡片：{sign_data['body']['Description']}{sign_data['body']['Name']}\n{sign_data['body']['PictureUrl']}'''
             else:
-                sign_result_post = '签到成功：' + str(sign_info['body']['ContinuousSignDays']) + '天\n好感度：' + str(sign_data['body']['Reward']) + '\n硬币：' + str(sign_data['body']['GetCoin']) + '\n经验值：' + str(sign_data['body']['GetExp']) + '\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
-            title_ahead = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
+                sign_result_post = f'''签到成功：{str(sign_info['body']['ContinuousSignDays'])}天\n好感度：{str(sign_data['body']['Reward'])}\n硬币：{str(sign_data['body']['GetCoin'])}\n经验值：{str(sign_data['body']['GetExp'])}\n签到卡片：{sign_data['body']['Description']}{sign_data['body']['Name']}\n{sign_data['body']['PictureUrl']}'''
+            title_ahead = f'''兽耳助手签到{str(sign_info['body']['ContinuousSignDays'])}'''
         else:
-            sign_result_post = '今日已签到：' + str(sign_info['body']['ContinuousSignDays']) + '天\n签到卡片：' + sign_data['body']['Description'] + sign_data['body']['Name'] + '\n' + sign_data['body']['PictureUrl']
-            title_ahead = '兽耳助手签到' + str(sign_info['body']['ContinuousSignDays'])
+            sign_result_post = f'''今日已签到：{str(sign_info['body']['ContinuousSignDays'])}天\n签到卡片：{sign_data['body']['Description']}{sign_data['body']['Name']}\n{sign_data['body']['PictureUrl']}'''
+            title_ahead = f'''兽耳助手签到{str(sign_info['body']['ContinuousSignDays'])}'''
     else:
         sign_result_post = '签到失败'
         title_ahead = '兽耳助手签到'
@@ -347,7 +347,7 @@ def mimikko():
     if vip_info_data and vip_info_data.get('body'):
         if vip_info_data['body']['rollNum'] > 0:
             vip_roll_data = apiRequest_post(vip_roll, app_id, app_Version, Authorization, "")
-            vip_roll_post = "VIP抽奖成功：" + vip_roll_data['body']['Value']['description']
+            vip_roll_post = f'''VIP抽奖成功：{vip_roll_data['body']['Value']['description']}'''
         else:
             vip_roll_data = "抽奖次数不足"
             if vip_info_data['body']['isValid']:
@@ -359,16 +359,16 @@ def mimikko():
         vip_roll_post = "VIP抽奖失败"
     #能量兑换好感度
     print('正在尝试兑换能量')
-    energy_info_data = apiRequest_get(energy_info_path + "?code=" + Energy_code, app_id, app_Version, Authorization, "")
+    energy_info_data = apiRequest_get(f'{energy_info_path}?code={Energy_code}', app_id, app_Version, Authorization, "")
     if energy_info_data and energy_info_data.get('body'):
         if energy_info_data['body']['Energy'] > 0:
-            energy_reward_data = apiRequest_get(energy_reward_path + "?code=" + Energy_code, app_id, app_Version, Authorization, "")
-            title_post = title_ahead + servant_name[energy_reward_data['body']['code']] + "好感度" + str(energy_reward_data['body']['Favorability'])
-            energy_reward_post = "能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n好感度兑换成功\n助手：" + servant_name[energy_reward_data['body']['code']] + " LV" + str(energy_reward_data['body']['Level']) +" (" + original_energy_post + "→" + str(energy_reward_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
+            energy_reward_data = apiRequest_get(f'{energy_reward_path}?code={Energy_code}', app_id, app_Version, Authorization, "")
+            title_post = f'''{title_ahead}{servant_name[energy_reward_data['body']['code']]}好感度{str(energy_reward_data['body']['Favorability'])}'''
+            energy_reward_post = f'''能量值：{str(energy_info_data['body']['Energy'])}/{str(energy_info_data['body']['MaxEnergy'])}\n好感度兑换成功\n助手：{servant_name[energy_reward_data['body']['code']]} LV{str(energy_reward_data['body']['Level'])} ({original_energy_post}→{str(energy_reward_data['body']['Favorability'])}/{str(energy_info_data['body']['MaxFavorability'])})'''
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
-            title_post = title_ahead + servant_name[energy_info_data['body']['code']] + "好感度" + str(energy_info_data['body']['Favorability'])
-            energy_reward_post = "能量值：" + str(energy_info_data['body']['Energy']) + "/" +str(energy_info_data['body']['MaxEnergy']) + "\n好感度兑换失败：当前没有能量\n助手：" + servant_name[energy_info_data['body']['code']] + " LV" + str(energy_info_data['body']['Level']) + " (" + original_energy_post + "→" + str(energy_info_data['body']['Favorability']) + "/" + str(energy_info_data['body']['MaxFavorability']) + ")"
+            title_post = f'''{title_ahead}{servant_name[energy_info_data['body']['code']]}好感度{str(energy_info_data['body']['Favorability'])}'''
+            energy_reward_post = f'''能量值：{str(energy_info_data['body']['Energy'])}/{str(energy_info_data['body']['MaxEnergy'])}\n好感度兑换失败：当前没有能量\n助手：{servant_name[energy_info_data['body']['code']]} LV{str(energy_info_data['body']['Level'])} ({original_energy_post}→{str(energy_info_data['body']['Favorability'])}/{str(energy_info_data['body']['MaxFavorability'])})'''
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
         title_post = title_ahead
@@ -390,7 +390,7 @@ try:
     # # sign_info
     # # sign_history
     print(sign_history)
-    print('\n' + '\n' + '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post)  
+    print(f'\n\n现在是：{now_time}\n{sign_result_post}\n{vip_roll_post}\n{energy_reward_post}')  
 except Exception as em:
     print('mimikko', em)
 
@@ -400,7 +400,7 @@ try:
         # print("有SCKEY")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到微信")
-            post_text = "<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) +"</p>"
+            post_text = "<p>" + re.sub('\\n', '  \n', f'现在是：{now_time}\n{sign_result_post}\n{vip_roll_post}\n{energy_reward_post}') +"</p>"
             post_data_a = scpost(sc_api, SCKEY, title_post, post_text)
             print('server酱', post_data_a)
             #post_data_b = scpost(sct_api, SCKEY, title_post, post_text)
@@ -425,7 +425,7 @@ try:
         #print("有DDTOKEN和DDSECRET")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到钉钉")
-            post_text = "<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) +"</p>"
+            post_text = "<p>" + re.sub('\\n', '  \n', f'现在是：{now_time}\n{sign_result_post}\n{vip_roll_post}\n{energy_reward_post}') +"</p>"
             post_data = ddpost(ding_api, DDTOKEN, DDSECRET, title_post, post_text)
             print('钉钉', post_data)
     else:
@@ -447,7 +447,7 @@ try:
         #print("有DDTOKEN和DDSECRET")
         if title_post and now_time and sign_result_post and vip_roll_post and energy_reward_post:
             print("运行成功，正在推送到企业微信")
-            post_text = "<p>" + re.sub('\\n', '  \n', '现在是：' + now_time + '\n' + sign_result_post + '\n' + vip_roll_post + '\n' + energy_reward_post) +"</p>"
+            post_text = "<p>" + re.sub('\\n', '  \n', f'现在是：{now_time}\n{sign_result_post}\n{vip_roll_post}\n{energy_reward_post}') +"</p>"
             post_data = send2wechat(wxAgentId, wxSecret, wxCompanyId, message):
             print('企业微信', post_data)
     else:
