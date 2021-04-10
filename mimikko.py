@@ -63,12 +63,17 @@ class Logger(object):
         self.logger.addHandler(fh_all)
 
 
-# log信息
+# log信息配置
 if not os.path.exists(base_path + "/log"):
     os.makedirs(f"{base_path}/log", mode=777)
     os.system(f"chmod 777 {base_path}/log")
 date = time.strftime("%Y-%m-%d", time.localtime(time.time() + 8 * 3600))
 log = Logger(base_path, base_path + f"/log/{date}.log", level="debug")
+
+# 默认参数配置
+default_code = "momona"
+default_app_version = "3.1.7"
+
 
 # 开始脚本
 if len(sys.argv) == 3:
@@ -82,8 +87,11 @@ else:
 with open(base_path + "/config.json", "r") as f:
     config = json.loads(f.read(), encoding="utf8")
 if config["code"] == "":
-    config["code"] = "momona"
+    config["code"] = default_code
     log.logger.warning("config-code为空，自动设置签到助手为梦梦奈")
+if config["app_version"] == "":
+    config["app_version"] = default_app_version
+    log.logger.warning("config-app_version为空，自动设置App版本为 3.1.7")
 
 apiPath = "http://api1.mimikko.cn/client/user/GetUserSignedInformation"
 apiPath2 = "http://api1.mimikko.cn/client/dailysignin/log/30/0"
@@ -100,7 +108,7 @@ def apiRequest(url, app_id, Authorization, params):
         "User-Agent": "Mozilla/5.0(Linux;Android6.0.1;MuMu Build/V417IR;wv)AppleWebKit/537.36(KHTML,"
         "like Gecko)Version/4.0 Chrome/52.0.2743.100MobileSafari / 537.36",
         "AppID": app_id,
-        "Version": "3.1.5",
+        "Version": config["app_version"],
         "Authorization": Authorization,
         "Connection": "Keep-Alive",
         "Host": "api1.mimikko.cn",
@@ -109,7 +117,7 @@ def apiRequest(url, app_id, Authorization, params):
         "Accept": "application/json",
         "Cache-Control": "no-cache",
         "AppID": app_id,
-        "Version": "3.1.5",
+        "Version": config["app_version"],
         "Content-Type": "application/json",
         "Host": "api1.mimikko.cn",
         "Connection": "Keep-Alive",

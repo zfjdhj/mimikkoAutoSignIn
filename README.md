@@ -15,7 +15,8 @@
 
     ``` json
     {
-        "code":"ruri"
+        "code": "ruri",
+        "app_version": "3.1.7"
     }
     ```
 
