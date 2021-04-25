@@ -73,6 +73,7 @@ log = Logger(base_path, base_path + f"/log/{date}.log", level="debug")
 # 默认参数配置
 default_code = "momona"
 default_app_version = "3.1.7"
+default_max_favorability = 135950
 
 
 # 开始脚本
@@ -86,18 +87,28 @@ else:
     Authorization = ""
 with open(base_path + "/config.json", "r") as f:
     config = json.loads(f.read(), encoding="utf8")
-if config["code"] == "":
+if config.get("code") and config["code"] == "":
     config["code"] = default_code
-    log.logger.warning("config-code为空，自动设置签到助手为梦梦奈")
-if config["app_version"] == "":
+    log.logger.warning(f"config-code为空，自动设置签到助手为{default_code}")
+if config.get("app_version") and config["app_version"] == "":
     config["app_version"] = default_app_version
-    log.logger.warning("config-app_version为空，自动设置App版本为 3.1.7")
+    log.logger.warning(f"config-app_version为空，自动设置App版本为 {default_app_version}")
+if config.get("max_favorability") and not config["max_favorability"]:
+    config["max_favorability"] = default_max_favorability
+    log.logger.warning(f"config-max_favorability为空，自动设置切换助手阈值为{default_max_favorability}")
 
 apiPath = "http://api1.mimikko.cn/client/user/GetUserSignedInformation"
 apiPath2 = "http://api1.mimikko.cn/client/dailysignin/log/30/0"
 sign_path = "https://api1.mimikko.cn/client/RewardRuleInfo/SignAndSignInformationV3"
 energy_info_path = "https://api1.mimikko.cn/client/love/GetUserServantInstance"
 energy_reward_path = "https://api1.mimikko.cn/client/love/ExchangeReward"
+
+
+## 写入json文件
+def write2json(path, data):
+    with open(path, "w", encoding="utf8") as f:
+        json.dump(data, f, ensure_ascii=False)
+        print("config写入文件完成...")
 
 
 def apiRequest(url, app_id, Authorization, params):
@@ -143,12 +154,25 @@ def mimikko(app_id, Authorization):
                 energy_reward_data = apiRequest(energy_reward_path, app_id, Authorization, {"code": config["code"]})
             else:
                 energy_reward_data = "您的能量值不足，无法兑换"
+            if energy_info_data["body"]["Favorability"] > config["max_favorability"]:
+                if config["code"] in config["servant_list"]:
+                    if config["servant_list"].index(config["code"]) + 1 < len(config["servant_list"]):
+                        config["code"] = config["servant_list"][config["servant_list"].index(config["code"]) + 1]
+                        log.logger.info(f"当前助手成长值已达临界值,切换为下一助手{config['code']}")
+                        log.logger.warning("同时其他客户端助手也可能会改变")
+                    else:
+                        log.logger.error("切换助手失败")
+                else:
+                    config["code"] = config["servant_list"][0]
+                    log.logger.info(f"当前助手成长值已达临界值,切换为下一助手{config['code']}")
+                    log.logger.warning("同时其他客户端助手也可能会改变")
         else:
             energy_reward_data = "您的能量值不足，无法兑换"
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
     sign_info = apiRequest(apiPath, app_id, Authorization, "")
     sign_history = apiRequest(apiPath2, app_id, Authorization, "")
+    write2json(base_path + "/config.json", config)
     return sign_data, energy_info_data, energy_reward_data, sign_info, sign_history
 
 
