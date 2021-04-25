@@ -102,6 +102,7 @@ apiPath2 = "http://api1.mimikko.cn/client/dailysignin/log/30/0"
 sign_path = "https://api1.mimikko.cn/client/RewardRuleInfo/SignAndSignInformationV3"
 energy_info_path = "https://api1.mimikko.cn/client/love/GetUserServantInstance"
 energy_reward_path = "https://api1.mimikko.cn/client/love/ExchangeReward"
+defeat_set = "https://api1.mimikko.cn/client/Servant/SetDefaultServant"
 
 
 ## 写入json文件
@@ -111,7 +112,7 @@ def write2json(path, data):
         print("config写入文件完成...")
 
 
-def apiRequest(url, app_id, Authorization, params):
+def apiRequest(url, app_id, Authorization, params, method="GET"):
     params_get = params
     headers_get = {
         "Cache-Control": "Cache-Control:public,no-cache",
@@ -137,9 +138,13 @@ def apiRequest(url, app_id, Authorization, params):
     }
 
     try:
-        with requests.get(url, headers=headers_get, params=params_get, verify=False, timeout=300) as resp:
-            res = resp.json()
-            return res
+        if method == "GET":
+            with requests.get(url, headers=headers_get, params=params_get, verify=False, timeout=300) as resp:
+                res = resp.json()
+                return res
+        elif method == "POST":
+            # 暂未用到，以后再写
+            pass
 
     except Exception as ex:
         log.logger.error(ex)
@@ -170,6 +175,7 @@ def mimikko(app_id, Authorization):
             energy_reward_data = "您的能量值不足，无法兑换"
     else:
         energy_reward_data = "您的能量值不足，无法兑换"
+    set_servant = apiRequest(defeat_set, app_id, Authorization, {"code": config["code"]})
     sign_info = apiRequest(apiPath, app_id, Authorization, "")
     sign_history = apiRequest(apiPath2, app_id, Authorization, "")
     write2json(base_path + "/config.json", config)
